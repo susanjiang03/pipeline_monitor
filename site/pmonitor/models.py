@@ -18,7 +18,7 @@ class Job(models.Model):
     A job (a pipeline) is a parent object that holds a series of tasks.
     """
     user = models.ForeignKey(User)
-    created_date = models.DateTimeField(default=datetime.now())
+    created_date = models.DateTimeField(default=datetime.now)
     entry_task = models.ForeignKey(Task, null=True, blank=True)
     description = models.CharField(max_length=1024, blank=True)
     name = models.CharField(max_length=256, blank=True)
