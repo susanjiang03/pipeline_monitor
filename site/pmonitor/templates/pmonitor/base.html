@@ -8,7 +8,6 @@
   {% load bootstrap3 %}
   {# Load CSS and JavaScript #}
   {% bootstrap_css %}
-  {% bootstrap_javascript %}
   {% endblock %}
 
   {% block style %}{% endblock %}
@@ -23,5 +22,6 @@
   </ul>
 {% endblock %}
 </body>
+{% block bootstrap-js %}{% bootstrap_javascript %}{% endblock %}
 {% block late-scripts %}{% endblock %}
 </html>
