@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}Need a title, yo!{% endblock %}</title>
+  {% block bootstrap-loads %}
+  {# Load the tag library #}
+  {% load bootstrap3 %}
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  {% endblock %}
+
   {% block style %}{% endblock %}
   {% block scripts %}{% endblock %}
 </head>
