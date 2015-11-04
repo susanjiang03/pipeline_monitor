@@ -21,4 +21,7 @@ import pmonitor.urls
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include(pmonitor.urls, namespace='pmonitor')),
+
+    #add news aggregator urls
+    url(r'^news/', include('news.urls')),
 ]

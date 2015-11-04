@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'pmonitor',
     'bootstrap3',
     'django_extensions',
-    'news_aggr'
+    'news'
 )
 
 MIDDLEWARE_CLASSES = (
