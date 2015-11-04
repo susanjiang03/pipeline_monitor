@@ -2,6 +2,10 @@
 This script looks through rssurls.txt, get the rss feed links
 then it loops through each rss feed link and stores contents in a
 database. Current content is title, link and description
+TODO, download rss feeds instead?
+for error handling, if the link is bad, feed.bozo = 1
+
+strip the description of all html garbage
 '''
 
 import feedparser
@@ -9,8 +13,9 @@ import feedparser
 #provide loop to store url links in a list
 
 #need to pass link as an argument
-rss = feedparser.parse('http://rss.nytimes.com/services/xml/rss/nyt/Education.xml')
+#rss = feedparser.parse('http://rss.nytimes.com/services/xml/rss/nyt/Education.xml')
 
+'''
 #write the titles in a file
 titles = open('titles.txt', 'w')
 links = open('links.txt', 'w')
@@ -29,4 +34,18 @@ for post in rss.entries:
 titles.close()
 links.close()
 descriptions.close()
+'''
+
+#create list for urls
+with open('rssurls.txt') as f:
+    urls = f.readlines()
+
+#urls in order, Business, Tech, Sports, Environment, US
+#check whether the links are good or not
+#need to parse through the 3 main items 
+
+
+
+
+
 
