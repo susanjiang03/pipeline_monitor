@@ -38,9 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pmonitor',
+    'news',
     'bootstrap3',
     'django_extensions',
-    'news'
 )
 
 MIDDLEWARE_CLASSES = (
