@@ -1,0 +1,112 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
+{% block body %}
+
+<div class="row" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<h1>RSS FEEDS</h1>
+		</div>		
+	</div>
+
+	<div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+		<div class="col-md-12 nav_bar">
+			<ul class="nav nav-pills">
+				<li class="active">
+					<a href="#">Home</a>
+				</li>
+				<li>
+					<a href="#">Popular</a>
+				</li>
+				<li>
+					<a href="#">About</a>
+				</li>
+				<li>
+					<a href="#">Team</a>
+				</li>              
+            </ul>
+		</div>
+	</div>
+
+	<div class="col-md-8">
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">TRENDING STORIES IN THE US</h1></div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading">This is a header</div>
+				
+				<p class="panel-body">This is a panel</p>
+				<div class="panel-footer">This is a footer</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading">This is a header</div>
+				
+				<p class="panel-body">This is a panel</p>
+				<div class="panel-footer">This is a footer</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading">This is a header</div>
+				
+				<p class="panel-body">This is a panel</p>
+				<div class="panel-footer">This is a footer</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading">This is a header</div>
+				
+				<p class="panel-body">This is a panel</p>
+				<div class="panel-footer">This is a footer</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4" style="margin-bottom: 15px;border-left: solid 1px lightgray;">
+		<ul>
+			<h2>Top Stories in other states</h2>		
+			<h3>New York</h3>
+			<li>Normal Unordered List</li>
+			<li>Can Also Work
+			<ul>
+			  <li>With Nested Children</li>
+			</ul>
+			</li>
+			<li>Adds Bullets to Page</li>
+		</ul>
+
+		<ul>
+			<h3>New Jersey</h3>
+			<li>Normal Unordered List</li>
+			<li>Can Also Work
+			<ul>
+			  <li>With Nested Children</li>
+			</ul>
+			</li>
+			<li>Adds Bullets to Page</li>
+		</ul>
+		<ul>
+			<h3>California</h3>
+			<li>Normal Unordered List</li>
+			<li>Can Also Work
+			<ul>
+			  <li>With Nested Children</li>
+			</ul>
+			</li>
+			<li>Adds Bullets to Page</li>
+		</ul>				
+	</div>
+</div>
+
+{% endblock %}
+
+{% bootstrap_javascript %}

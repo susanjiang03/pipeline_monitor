@@ -1,0 +1,10 @@
+.nav_bar{
+	width:100%;
+	background-color: lightgray;
+}
+.nav-pills > li > a:hover{
+	background-color: #5b94de;
+}
+.nav-pills > li > a:visited{
+	background-color: #5b94de;
+}
