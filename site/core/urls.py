@@ -16,12 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 import pmonitor.urls
-import news.urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include(pmonitor.urls, namespace='pmonitor')),
 
     #add news aggregator urls
-    url(r'^news/', include(news.urls, namespace='news')),    
+    url(r'^news/', include('news.urls')),
 ]

@@ -8,3 +8,9 @@
 .nav-pills > li > a:visited{
 	background-color: #5b94de;
 }
+a{
+	color:white;
+}
+a:hover{
+	color:black;
+}

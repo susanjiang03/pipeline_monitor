@@ -37,39 +37,21 @@
 				<div class="panel-heading"><h1 style="text-align: center;">TRENDING STORIES IN THE US</h1></div>
 			</div>
 		</div>
+	{% for rss in trending %}
+		<div class="col-md-6">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading" style="height:55px">
+				<a href={{rss.link}}>
+				{{rss.title}}
+				</a>
+				</div>
+				
+				<p class="panel-body" style="height: 100px">{{rss.description}}</p>
+				<div class="panel-footer">This is a footer</div>
+			</div>
+		</div>
+	{% endfor %}
 
-		<div class="col-md-6">
-			<div class="panel panel-primary" id="panels">
-				<div class="panel-heading">This is a header</div>
-				
-				<p class="panel-body">This is a panel</p>
-				<div class="panel-footer">This is a footer</div>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="panel panel-primary" id="panels">
-				<div class="panel-heading">This is a header</div>
-				
-				<p class="panel-body">This is a panel</p>
-				<div class="panel-footer">This is a footer</div>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="panel panel-primary" id="panels">
-				<div class="panel-heading">This is a header</div>
-				
-				<p class="panel-body">This is a panel</p>
-				<div class="panel-footer">This is a footer</div>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="panel panel-primary" id="panels">
-				<div class="panel-heading">This is a header</div>
-				
-				<p class="panel-body">This is a panel</p>
-				<div class="panel-footer">This is a footer</div>
-			</div>
-		</div>
 	</div>
 	<div class="col-md-4" style="margin-bottom: 15px;border-left: solid 1px lightgray;">
 		<ul>
