@@ -1,5 +1,0 @@
-http://rss.nytimes.com/services/xml/rss/nyt/Business.xml
-http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml
-http://rss.nytimes.com/services/xml/rss/nyt/Sports.xml
-http://rss.nytimes.com/services/xml/rss/nyt/Environment.xml
-http://rss.nytimes.com/services/xml/rss/nyt/US.xml
