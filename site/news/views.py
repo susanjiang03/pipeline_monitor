@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from news.models import RSS
+#from news.models import RSS
 import feedparser
 
+'''
 def index(request):
     template = 'index.html'
     with open('news/rssurls.txt') as f:
@@ -16,3 +17,7 @@ def index(request):
     trending = RSS.objects.all().order_by('today_visited')[:10]
 
     return render(request, template, {'trending': trending})
+'''
+    
+def index(request):
+    return render(request, 'index.html', {}) 
