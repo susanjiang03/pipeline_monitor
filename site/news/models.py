@@ -1,5 +1,4 @@
 from django.db import models
-from django.template.defaultfilters import slugify
 '''
 class RSS(models.Model):
     title = models.CharField(max_length=200)
@@ -20,14 +19,6 @@ class Article(models.Model):
     title = models.CharField(max_length=200)
     url = models.URLField()
     description = models.CharField(max_length=200)
-    #2 slug fields for urls
-    news_slug = models.SlugField(unique=True)
-    cat_slug = models.SlugField(unique=True)
-
-    def save(self, *args, **kwargs):
-        self.news_slug = slugify(self.newspaper)
-        self.cat_slug = slugify(self.category)
-        super(Article, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title
