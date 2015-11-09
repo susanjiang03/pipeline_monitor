@@ -1,0 +1,5 @@
+http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml
+http://rss.nytimes.com/services/xml/rss/nyt/Sports.xml
+http://www.miamiherald.com/news/business/?widgetName=rssfeed&widgetContentId=712015&getXmlFeed=true
+http://www.miamiherald.com/news/business/technology/?widgetName=rssfeed&widgetContentId=712015&getXmlFeed=true
+

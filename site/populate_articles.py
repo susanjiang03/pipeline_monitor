@@ -4,35 +4,62 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 import django
 django.setup()
 
-from news.models import Newspaper, Category, Article 
+from news.models import Article 
+import feedparser
+import re
+
+#Todo, update this script so that it populates the articles based on an RSS feed
 
 def populate():
-    #try adding one of each
-    nytimes = add_newspaper('New York Times')
-    tech = add_category('technology')
     
-    blah = add_article(news=nytimes,
-        cat=tech,
-        title="test title",
-        url="http://www.google.com",
-        desc="what is going on??")
+    #open file containing rss links
+    with open('rssurls.txt') as f:
+        urls = f.readlines()
 
-    for a in Article.objects.all():
-        print a
+    #find a way to differentiate the newspaper and category
+    #two if checks
 
+    #create dictionary here to match the patterns
+    #nytimes - New York times to insert into title
+    newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times', 'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times', 'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
 
-def add_newspaper(name):
-    news = Newspaper.objects.get_or_create(name=name)[0]
-    news.save()
-    return news
+    #insert list of keywords that belong to a category
+    for url in urls:
 
-def add_category(name):
-    category = Category.objects.get_or_create(name=name)[0]
-    category.save()
-    return category
+        #now we have feeds
+        rss = feedparser.parse(url) 
 
+        #match up the newspaper title
+        for key in newspapers:
+            if key in url:
+                newspaper = newspapers[key] 
+
+        #this loop creates all the articles and populates them in the db
+        for post in rss.entries:
+            #newspaper | category | title | url | description
+            title = post.title.encode('utf-8')
+            link = post.link
+
+            #descr comes out cluttered with html crap
+            descr = post.description.encode('utf-8')
+            #clean it with regex
+            clean_descr = re.sub(r'<[^>]*>', '', descr) 
+
+            newspaper = ''
+            #match up the newspaper title
+            for key in newspapers:
+                if key in url:
+                    newspaper = newspapers[key] 
+   
+            article = add_article(newspaper, "nada", title, link, clean_descr)
+            
+
+#add article, pass newspaper, category, title, url, description
 def add_article(news, cat, title, url, desc):
-    article = Article.objects.get_or_create(newspaper=news, category=cat, title=title, url=url, description=desc)[0]
+    #the 3 main fields are the only unique ones
+    article = Article.objects.get_or_create(title=title, url=url, description=desc)[0]
+    article.newspaper = news
+    article.category = cat
     article.save()
     return article
 
@@ -41,3 +68,4 @@ def add_article(news, cat, title, url, desc):
 if __name__ == '__main__':
     print "Starting article population script..."
     populate()
+
