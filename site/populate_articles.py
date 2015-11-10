@@ -10,10 +10,13 @@ import re
 import sys
 from datetime import datetime
 
+import warnings
+warnings.filterwarnings("ignore")
+
 #Todo, update this script so that it populates the articles based on an RSS feed
 
 def populate():
-    
+    max_disp_len = 50    
     #open file containing rss links
     with open('rssurls.txt') as f:
         urls = f.readlines()
@@ -40,6 +43,8 @@ def populate():
                 newspaper = newspapers[key] 
 
         #this loop creates all the articles and populates them in the db
+        create_count = 0
+        exist_count = 0
         for post in rss.entries:
             #newspaper | category | title | url | description
             title = post.title.encode('utf-8')
@@ -76,26 +81,35 @@ def populate():
                 sys.stderr.write(ve + '\n')
                 sys.stderr.flush()
 
-            Article.objects.get_or_create(
+            
+            obj, created = Article.objects.get_or_create(
                 newspaper=newspaper,
                 category=category,
                 title=title, 
                 url=link, 
                 description=clean_descr,
                 publish_date=publish_date
-            )[0]
+            )
 
-#             add_article(newspaper, category, title, link, clean_descr)
+            if created:
+                create_count += 1
+                sys.stdout.write('Article created: %s\n' % clean_descr[:max_disp_len])
+            else:
+                exist_count += 1
+                sys.stdout.write('Article exists!  %s\n' % clean_descr[:max_disp_len])
+            sys.stdout.flush()
 
-
-#add article, pass newspaper, category, title, url, description
-# def add_article(news, cat, title, url, desc):
-#     #the 3 main fields are the only unique ones
-#     article = Article.objects.get_or_create(title=title, url=url, description=desc)[0]
-#     article.newspaper = news
-#     article.category = cat
-#     article.save()
-#     return article
+        total_count = len(rss.entries)
+        if not total_count:
+            total_count = 1
+        create_pct = create_count * 100.0 / total_count
+        exist_pct = exist_count * 100.0 / total_count
+        sys.stdout.write('-- %s | %s  ---------------------------------------\n' % (newspaper, url))
+        sys.stdout.write(
+            '%d Total Feeds | %d (%3.2f%%) Created | %d (%3.2f%%) Existed\n' 
+            % (len(rss.entries), create_count, create_pct, exist_count, exist_pct)
+        )
+        sys.stdout.flush()
 
 
 #execute here
