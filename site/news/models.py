@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 '''
 class RSS(models.Model):
     title = models.CharField(max_length=200)
@@ -19,6 +20,7 @@ class Article(models.Model):
     title = models.CharField(max_length=200)
     url = models.URLField()
     description = models.CharField(max_length=200)
+    publish_date = models.DateTimeField(default=datetime.now)
 
     def __unicode__(self):
         return self.title
