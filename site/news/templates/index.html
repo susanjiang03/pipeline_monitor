@@ -46,7 +46,7 @@
 				<p class="panel-body" style="margin-top: -20px;">
 					<ol style="overflow: hidden;margin-left: -15px">
 					{% for each in category.title %}
-						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="">{{each}}</a></li>
+					<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
 					{% endfor %}
 					</ol>
 				</p>
@@ -64,7 +64,7 @@
 		<ul>
 			<a class="blackblue" href="" style="text-decoration: underline"><h3>{{paper.newspaper}}</h3></a>
 			{% for each in paper.title %}
-			<li><a class="blackblue" href="">{{each}}</a></li>
+			<li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
 			{% endfor %}
 		{% endfor %}		
 		
