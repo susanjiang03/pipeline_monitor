@@ -2,15 +2,26 @@
 	width:100%;
 	background-color: lightgray;
 }
+.nav-pills > li > a{
+	color:white;
+}
 .nav-pills > li > a:hover{
 	background-color: #5b94de;
+	color:black;
 }
 .nav-pills > li > a:visited{
 	background-color: #5b94de;
 }
-a{
+.panel-heading > a{
 	color:white;
 }
-a:hover{
+.panel-heading > a:hover{
 	color:black;
+	text-decoration: none;
+}
+.blackblue{
+	color:black;
+}
+.blackblue:hover{
+	color:blue;
 }

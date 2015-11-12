@@ -19,7 +19,7 @@
 					<a href="#">Home</a>
 				</li>
 				<li>
-					<a href="#">Popular</a>
+					<a href="#">Category</a>
 				</li>
 				<li>
 					<a href="#">About</a>
@@ -34,19 +34,22 @@
 	<div class="col-md-8">
 		<div class="col-md-12">
 			<div class="panel panel-primary" id="panels">
-				<div class="panel-heading"><h1 style="text-align: center;">TRENDING STORIES IN THE US</h1></div>
+				<div class="panel-heading"><h1 style="text-align: center;">Latest Newspaper in each Category</h1></div>
 			</div>
 		</div>
-	{% for rss in trending %}
+	{% for category in dictcategory %}
 		<div class="col-md-6">
 			<div class="panel panel-primary" id="panels">
 				<div class="panel-heading" style="height:55px">
-				<a href={{rss.link}}>
-				{{rss.title}}
-				</a>
+					<a href="">{{category.category}}</a>
 				</div>
-				
-				<p class="panel-body" style="height: 100px">{{rss.description}}</p>
+				<p class="panel-body" style="margin-top: -20px;">
+					<ol style="overflow: hidden;margin-left: -15px">
+					{% for each in category.title %}
+						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="">{{each}}</a></li>
+					{% endfor %}
+					</ol>
+				</p>
 				<div class="panel-footer">This is a footer</div>
 			</div>
 		</div>
@@ -55,37 +58,16 @@
 	</div>
 	<div class="col-md-4" style="margin-bottom: 15px;border-left: solid 1px lightgray;">
 		<ul>
-			<h2>Top Stories in other states</h2>		
-			<h3>New York</h3>
-			<li>Normal Unordered List</li>
-			<li>Can Also Work
-			<ul>
-			  <li>With Nested Children</li>
-			</ul>
-			</li>
-			<li>Adds Bullets to Page</li>
+			<h2>Top Stories in Newspaper</h2>		
 		</ul>
-
+		{% for paper in dictpaper %}
 		<ul>
-			<h3>New Jersey</h3>
-			<li>Normal Unordered List</li>
-			<li>Can Also Work
-			<ul>
-			  <li>With Nested Children</li>
-			</ul>
-			</li>
-			<li>Adds Bullets to Page</li>
-		</ul>
-		<ul>
-			<h3>California</h3>
-			<li>Normal Unordered List</li>
-			<li>Can Also Work
-			<ul>
-			  <li>With Nested Children</li>
-			</ul>
-			</li>
-			<li>Adds Bullets to Page</li>
-		</ul>				
+			<a class="blackblue" href="" style="text-decoration: underline"><h3>{{paper.newspaper}}</h3></a>
+			{% for each in paper.title %}
+			<li><a class="blackblue" href="">{{each}}</a></li>
+			{% endfor %}
+		{% endfor %}		
+		
 	</div>
 </div>
 

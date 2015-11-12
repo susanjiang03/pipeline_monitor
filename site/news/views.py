@@ -1,23 +1,26 @@
 from django.shortcuts import render
-#from news.models import RSS
+from news.models import Article
 import feedparser
-
-'''
-def index(request):
-    template = 'index.html'
-    with open('news/rssurls.txt') as f:
-        for line in f:
-            rss = feedparser.parse(line)
-            for post in rss.entries:
-                if not RSS.objects.filter(link = post.link):
-                    post_description = post.description.encode('utf-8')
-                    q_description = post.description[:post.description.find('<br clear=')]
-                    q = RSS(title = post.title.encode('utf-8'), link = post.link, description = q_description, today_visited = 0, total_visited = 0,)
-                    q.save()
-    trending = RSS.objects.all().order_by('today_visited')[:10]
-
-    return render(request, template, {'trending': trending})
-'''
     
 def index(request):
-    return render(request, 'index.html', {}) 
+    template = 'index.html'    
+    query = Article.objects.values_list('category').distinct()
+    dictcategory = []
+    n = 5 #Number of Titles to display on Category blocks
+    for category in query:
+        category = category[0].encode('utf-8')
+        dictcategory.append({
+            "category" : category,
+            "title" : Article.objects.filter(category = category)[:n]
+            })
+    query = Article.objects.values_list('newspaper').distinct()
+    dictpaper = []
+    m = 5 #Number of Titles to display on Paper blocks
+    for newspaper in query:
+        newspaper = newspaper[0].encode('utf-8')
+        dictpaper.append({
+            "newspaper" : newspaper,
+            "title" : Article.objects.filter(newspaper = newspaper)[:m]
+            })
+
+    return render(request, template, {'dictcategory' : dictcategory, 'dictpaper' : dictpaper})
