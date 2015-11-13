@@ -25,7 +25,7 @@ def populate():
     #two if checks
 
     #create dictionary here to match the patterns
-    newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times', 'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times', 'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
+    newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times', 'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times', 'denverpost':'Denver Post'}
 
     #only need a simple list here
     categories = ['world', 'business', 'technology', 'fashion', 'sports']
@@ -50,16 +50,21 @@ def populate():
             title = post.title.encode('utf-8')
             link = post.link
 
-            #descr comes out cluttered with html crap
-            descr = post.description.encode('utf-8')
-            #clean it with regex
-            clean_descr = re.sub(r'<[^>]*>', '', descr) 
+            #it doesn't always have a descr so...
+            descr = ''
+            clean_descr = ''
+            try:
+                #descr comes out cluttered with html crap
+                descr = post.description.encode('utf-8')
+                #clean it with regex
+                clean_descr = re.sub(r'<[^>]*>', '', descr) 
+            except:
+                pass
 
             #match up the newspaper title
             for key in newspapers:
                 if key in url:
                     newspaper = newspapers[key] 
-
 
             #find the category
             category = ''
@@ -78,7 +83,7 @@ def populate():
                 publish_date = datetime.strptime(post.published, '%a, %d %b %Y %H:%M:%S %Z')
             except ValueError as ve:
                 publish_date = datetime.now()
-                sys.stderr.write(ve + '\n')
+                sys.stderr.write(str(ve) + '\n')
                 sys.stderr.flush()
 
             
