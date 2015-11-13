@@ -1,0 +1,9 @@
+# use glob syntax.
+syntax: glob
+
+*.pyc
+.git*
+*.sqlite3
+migration*/
+
+.DS_Store

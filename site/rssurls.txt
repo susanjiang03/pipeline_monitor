@@ -1,0 +1,7 @@
+http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml
+http://rss.nytimes.com/services/xml/rss/nyt/Business.xml
+http://rss.nytimes.com/services/xml/rss/nyt/FashionandStyle.xml
+http://rss.nytimes.com/services/xml/rss/nyt/World.xml
+http://rss.nytimes.com/services/xml/rss/nyt/NYRegion.xml
+http://rss.nytimes.com/services/xml/rss/nyt/Sports.xml
+

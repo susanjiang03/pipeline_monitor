@@ -1,0 +1,76 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
+{% block body %}
+
+<div class="row" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<h1>RSS FEEDS</h1>
+		</div>		
+	</div>
+
+	<div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+		<div class="col-md-12 nav_bar">
+			<ul class="nav nav-pills">
+				<li class="active">
+					<a href="#">Home</a>
+				</li>
+				<li>
+					<a href="#">Category</a>
+				</li>
+				<li>
+					<a href="#">About</a>
+				</li>
+				<li>
+					<a href="#">Team</a>
+				</li>              
+            </ul>
+		</div>
+	</div>
+
+	<div class="col-md-8">
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">Latest Newspaper in each Category</h1></div>
+			</div>
+		</div>
+	{% for category in dictcategory %}
+		<div class="col-md-6">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading" style="height:55px">
+					<a href="">{{category.category}}</a>
+				</div>
+				<p class="panel-body" style="margin-top: -20px;">
+					<ol style="overflow: hidden;margin-left: -15px">
+					{% for each in category.title %}
+					<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
+					{% endfor %}
+					</ol>
+				</p>
+				<div class="panel-footer">This is a footer</div>
+			</div>
+		</div>
+	{% endfor %}
+
+	</div>
+	<div class="col-md-4" style="margin-bottom: 15px;border-left: solid 1px lightgray;">
+		<ul>
+			<h2>Top Stories in Newspaper</h2>		
+		</ul>
+		{% for paper in dictpaper %}
+		<ul>
+			<a class="blackblue" href="/news/newspaper/{{paper.newspaperlink}}" style="text-decoration: underline"><h3>{{paper.newspaper}}</h3></a>
+			{% for each in paper.title %}
+			<li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
+			{% endfor %}
+		{% endfor %}		
+		
+	</div>
+</div>
+
+{% endblock %}
+
+{% bootstrap_javascript %}
