@@ -1,0 +1,71 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style_newspaper.css' %}" />
+{% block body %}
+
+<div class="row" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <h1>RSS FEEDS</h1>
+        </div>
+    </div>
+    
+    <div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+        <div class="col-md-12 nav_bar">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">Category</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Team</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="col-md-12">
+            <div class="panel panel-primary" id="panels">
+                
+             
+                <div class="panel-heading"><h1>{{paper}}</h1></div>
+            </div>
+        </div>
+        {% for category in dictcategory %}
+        
+        <div class="col-md-6">
+            <div class="panel panel-primary" id="panels" >
+                <div class="panel-heading">
+                   <a href="">{{category.category}}</a>
+                </div>
+                <div class="panel-body">
+                <p  style="margin-top: -20px;">
+                <ul style="margin-left: -15px">
+                    {% for each in category.title %}
+                    <li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
+                    {% endfor %}
+                </ul>
+                </p>
+                </div>
+                
+                <div class="panel-footer">Number of feeds: {{category.size}}</div>
+                
+            </div>
+            
+        </div>
+         {% endfor %}
+    </div>
+    </div>
+
+
+{% endblock %}
+
+{% bootstrap_javascript %}
