@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from news.models import Article
 import feedparser
-    
+
+newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times', 'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times', 'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
+
 def index(request):
-    template = 'index.html'    
+    template = 'index.html'
     query = Article.objects.values_list('category').distinct()
     dictcategory = []
     n = 5 #Number of Titles to display on Category blocks
@@ -19,6 +21,7 @@ def index(request):
     m = 5 #Number of Titles to display on Paper blocks
     for newspaper in query:
         newspaper = newspaper[0].encode('utf-8')
+        link = [key for key, value in newspapers.iteritems() if value ==newspaper][0]
         dictpaper.append({
             "newspaper" : newspaper,
             "title" : Article.objects.filter(newspaper = newspaper)[:m]
@@ -58,3 +61,22 @@ def userfeeds(request):
             })
 
     return render(request, template, {'dictuserfeeds': dictuserfeeds})    
+
+def newspaper(request,newspaperlink):
+    template='newspaper.html'
+    paper=newspapers[newspaperlink]
+    query = Article.objects.filter(newspaper=paper).values_list('category').distinct()
+    
+    dictcategory = []
+    
+    for category in query:
+        category = category[0].encode('utf-8')
+        dictcategory.append({ "size": len( Article.objects.filter(newspaper=paper,category = category)),
+                            "category" : category,
+                            "title" : Article.objects.filter(newspaper=paper,category = category)
+                            })
+    
+    
+    return render(request, template, {'dictcategory' : dictcategory,'paper':paper})
+
+
