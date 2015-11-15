@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Need a title, yo!{% endblock %}</title>
+  {% block bootstrap-loads %}
+  {# Load the tag library #}
+  {% load bootstrap3 %}
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% endblock %}
+
+  {% block style %}{% endblock %}
+  {% block scripts %}{% endblock %}
+</head>
+<body>
+{% block body %}
+  <h1>Hi, I'm empty!</h1>
+  <p>You should override the body block.</p>
+  <ul>
+    <li><a href="{% url 'pmonitor:index' %}">Checkout index...</a></li>
+  </ul>
+{% endblock %}
+</body>
+{% block bootstrap-js %}{% bootstrap_javascript %}{% endblock %}
+{% block late-scripts %}{% endblock %}
+</html>

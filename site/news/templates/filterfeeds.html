@@ -1,0 +1,66 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
+
+{% block body %}
+
+<div class="row" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<h1>RSS FEEDS</h1>
+		</div>		
+	</div>
+
+	<div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+		<div class="col-md-12 nav_bar">
+			<ul class="nav nav-pills">
+				<li class="active">
+					<a href="/news">Home</a>
+				</li>
+				<li>
+					<a href="filterfeeds">Create own Feed</a>
+				</li>
+				<li>
+					<a href="#">Category</a>
+				</li>
+				<li>
+					<a href="#">About</a>
+				</li>
+				<li>
+					<a href="#">Team</a>
+				</li>              
+            </ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">Filter Feeds</h1></div>
+			</div>
+		</div>
+		<form action="userfeeds" method="post">
+			{% csrf_token %}
+			{% for newspaper in dictcheckbox %}
+				<div class="col-md-4">
+					<div class="panel panel-primary" id="panels">
+						<div class="panel-heading" style="height:40px">
+							<a href="">{{newspaper.title}}</a>
+						</div>
+						<p class="panel-body" style="height:150px">
+							{% for each in newspaper.category %}
+								<input type="checkbox" name="{{newspaper.title}}, {{each}}" value="{{newspaper.title}}, {{each}}">{{each}}<br>
+							{% endfor %}
+						</p>
+					</div>
+				</div>
+			{% endfor %}
+			<input type="submit" value="Start" class="btn btn-primary">
+		</form>		
+	</div>
+</div>
+{% endblock %}
+
+{% bootstrap_javascript %}
