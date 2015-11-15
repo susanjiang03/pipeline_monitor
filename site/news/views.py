@@ -23,6 +23,7 @@ def index(request):
         newspaper = newspaper[0].encode('utf-8')
         link = [key for key, value in newspapers.iteritems() if value ==newspaper][0]
         dictpaper.append({
+            "newspaperlink": link,
             "newspaper" : newspaper,
             "title" : Article.objects.filter(newspaper = newspaper)[:m]
             })
@@ -78,5 +79,4 @@ def newspaper(request,newspaperlink):
     
     
     return render(request, template, {'dictcategory' : dictcategory,'paper':paper})
-
 

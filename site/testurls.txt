@@ -1,0 +1,6 @@
+http://rss.nytimes.com/services/xml/rss/nyt/World.xml
+http://www.latimes.com/local/rss2.0.xml
+http://www.miamiherald.com/news/business/technology/?widgetName=rssfeed&widgetContentId=712015&getXmlFeed=true
+http://www.seattletimes.com/business/feed/
+http://feeds.denverpost.com/dp-news-topstories?format=xml
+http://feeds.denverpost.com/dp-sports?format=xml
