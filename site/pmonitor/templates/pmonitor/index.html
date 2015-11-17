@@ -13,10 +13,14 @@
 {% endblock %}
 
 {% block body %}
-<h1>Welcome to Pipeline Monitor</h1>
-{% bootstrap_messages %}
-<hr>
-<div class="container main"><div id="chart"></div></div>
+<div class="container-fluid header">
+  <h1>Welcome to Pipeline Monitor</h1>
+  {% bootstrap_messages %}
+  <hr>
+</div>
+<div class="container main">
+  <div id="chart"></div>
+</div>
 {% endblock %}
 
 {% block bootstrap-js %}{% bootstrap_javascript jquery=1 %}{% endblock %}
