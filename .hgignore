@@ -4,6 +4,7 @@ syntax: glob
 *.pyc
 .git*
 *.sqlite3
+.idea/
 migration*/
 
 .DS_Store
