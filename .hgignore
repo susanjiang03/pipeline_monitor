@@ -6,5 +6,7 @@ syntax: glob
 *.sqlite3
 .idea/
 migration*/
+htmlcov/*
+.coverage
 
 .DS_Store
