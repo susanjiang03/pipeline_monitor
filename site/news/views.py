@@ -76,24 +76,24 @@ def userfeeds(request):
 
     dictuserinput = []
     for url in request.POST.getlist('userRSS[]'):
-        rss = feedparser.parse(url)
-        titlelink = []
-        for post in rss.entries[:n]:
-            rssurl = url
-            if len(post.title.encode('utf-8')) > 60:
-                title = post.title[:60]+'...'.encode('utf-8')
-            else:
-                title = post.title.encode('utf-8')        
+        if url != "":
+            rss = feedparser.parse(url)
+            titlelink = []
+            for post in rss.entries[:n]:
+                if len(post.title.encode('utf-8')) > 60:
+                    title = post.title[:60]+'...'.encode('utf-8')
+                else:
+                    title = post.title.encode('utf-8')        
 
-            link = post.link
-            titlelink.append({
-                "title" : title,
-                "url" : link                
+                link = post.link
+                titlelink.append({
+                    "title" : title,
+                    "url" : link                
+                    })
+            dictuserinput.append({
+                "rssurl" : url,
+                "titlelink" : titlelink
                 })
-        dictuserinput.append({
-            "rssurl" : rssurl,
-            "titlelink" : titlelink
-            })
 
     return render(request, template, {'dictuserfeeds': dictuserfeeds, 'dictuserinput': dictuserinput})    
 
