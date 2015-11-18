@@ -1,0 +1,82 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
+
+{% block body %}
+
+<div class="row" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<h1>RSS FEEDS</h1>
+		</div>		
+	</div>
+
+	<div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+		<div class="col-md-12 nav_bar">
+			<ul class="nav nav-pills">
+				<li class="active">
+					<a href="/news">Home</a>
+				</li>
+				<li>
+					<a href="filterfeeds">Create own Feed</a>
+				</li>
+				<li>
+					<a href="#">Category</a>
+				</li>
+				<li>
+					<a href="#">About</a>
+				</li>
+				<li>
+					<a href="#">Team</a>
+				</li>              
+            </ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">Filter Feeds</h1></div>
+			</div>
+		</div>
+		<form name="myForm" action="userfeeds" method="post">
+			{% csrf_token %}
+			{% for newspaper in dictcheckbox %}
+				<div class="col-md-4">
+					<div class="panel panel-primary" id="panels">
+						<div class="panel-heading" style="height:40px">
+							<a href="">{{newspaper.title}}</a>
+						</div>
+						<p class="panel-body" style="height:150px">
+							{% for each in newspaper.category %}
+								<input type="checkbox" name="newspapercategory[]" value="{{newspaper.title}}, {{each}}">{{each}}<br>
+							{% endfor %}
+						</p>
+					</div>
+				</div>
+			{% endfor %}
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading">Add your own RSS Feeds</div>
+					<p class="panel-body" style="margin-top:-30px;margin-left: 100px;">
+						<div id="UserRssInput" style="margin-left: 10px;">
+							<input type="text" id="userRSS" name="userRSS[]">
+						</div>						
+					</p>
+				<div class="panel-footer">
+					<input type="button" id="addInputField" class="btn btn-primary" value="Add RSS">			
+					<input type="submit" value="Filter" class="btn btn-primary">
+					</form>		
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+{% endblock %}
+
+{% bootstrap_javascript %}
+<script type="text/javascript" src="{% static 'javascript/script.js' %}"></script>
