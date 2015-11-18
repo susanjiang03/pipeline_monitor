@@ -23,11 +23,6 @@ def index(request):
             "feeds" : feeds
             })
 
-    for each in Article.objects.filter(category=category)[:n]:
-            if len(each.title) > 60:
-                each.title = each.title[:60]+'...'.encode('utf-8')
-            else:
-                each.title = each.title.encode('utf-8')        
 
     query = Article.objects.values_list('newspaper').distinct()
     dictpaper = []

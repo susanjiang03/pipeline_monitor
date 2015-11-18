@@ -41,12 +41,12 @@ class AritcleModeltest(TestCase):
         article_1.save()
 
         #test 5 fields
+        self.assertEqual(article_1, Article.objects.all()[0])
         self.assertEqual(article_1.newspaper, 'Python Daily')
         self.assertEqual(article_1.category, 'Programming')
         self.assertEqual(article_1.title, 'Python in 10 minutes')
         self.assertEqual(article_1.url, "http://realpython.com")
         self.assertEqual(article_1.description, "Learn the Python programming language in 10 minutes")
         
-
 
 

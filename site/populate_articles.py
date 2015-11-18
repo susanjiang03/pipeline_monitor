@@ -18,7 +18,20 @@ warnings.filterwarnings("ignore")
 def populate():
     max_disp_len = 50    
     #open file containing rss links
-    with open('rssurls.txt') as f:
+    #prompt whether you want to open all urls or only test ones
+    #prompt with 0 or 1
+    urls_to_open = raw_input("Choose 0 for 5 urls, 1 for all urls\n")
+    
+    #check here
+    if urls_to_open == '0':
+        file_to_open = 'testurls.txt'
+    else:
+        file_to_open = 'rssurls.txt'
+
+    print file_to_open
+
+    #set urls to small or large batch
+    with open(file_to_open) as f:
         urls = f.readlines()
 
     #find a way to differentiate the newspaper and category
@@ -45,7 +58,9 @@ def populate():
         #this loop creates all the articles and populates them in the db
         create_count = 0
         exist_count = 0
-        for post in rss.entries:
+
+        #trim down entries, grab only first 10
+        for post in rss.entries[:10]:
             #newspaper | category | title | url | description
             title = post.title.encode('utf-8')
             link = post.link
