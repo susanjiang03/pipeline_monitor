@@ -132,26 +132,10 @@ def images(request,urlid):
     template='images.html'
     article=Article.objects.filter(id=int(urlid))[0]
     imgurls=Image.objects.filter(article_id=int(urlid))
-    
-    #if not populated yet:
-    if(len(imgurls)==0):
-        try:
-            page = BeautifulSoup(urllib.urlopen(article.url))
-        except:
-            pass
-        links=page.find_all('img',src=True)
-        for l in links:
-            imgurl=l['src']
-            obj, created = Image.objects.get_or_create(
-               article_id=article.id,
-               image_url=imgurl
-               )
-        imgurls=Image.objects.filter(article_id=int(urlid))
-     
-    Message=str(len(imgurls)) +" image(s) was/were extracted."
-    #still no image
-    if len(imgurls)==0:
-       Message+="\nThere is no image in this site or there is an error during the population."
+    num=len(imgurls)
+    Message=str(num) +" image(s) was/were extracted."
+    if num==0:
+       Message="\nThere is no image in this site or there is an error during the population."
     
     return render(request, template,{'imgurls':imgurls,'article':article,'Message':Message})
 
@@ -159,30 +143,10 @@ def images(request,urlid):
 def allimages(request):
     template='allimages.html'
     imgurls=Image.objects.all()
-    
-    #still has bug, need to work on. and the clickable button in 'allimages.html'
-    '''
-    #if not populated yet
-    if(len(imgurls)==0):
-       articles=Article.objects.all()
-       for each in articles:
-          try:
-            page = BeautifulSoup(urllib.urlopen(each.url))
-          except:
-            continue
-          links=page.find_all('img',src=True)
-          for l in links:
-              imgurl=l['src']
-              obj, created = Image.objects.get_or_create(
-                article_id=each.id,
-                 image_url=imgurl
-              )
-    imgurls=Image.objects.all()
-    '''
-
-    Message=str(len(imgurls)) +" image(s) was/were extracted."
-    #still no image
-    if len(imgurls)==0:
+    num=len(imgurls)
+    Message=str(num) +" image(s) was/were extracted."
+    #if no image
+    if num==0:
         Message+="\nThere is no image in all sites or there are errors during the population."
 
     return render(request, template,{'imgurls':imgurls,'Message':Message})

@@ -20,7 +20,7 @@ a:hover{
 }
 
 .col-md-8{
-    width:100%
+    width:100%;
 }
 
 .panel-heading{
@@ -46,6 +46,8 @@ a:hover{
     height: 25%;
     font-weight:bold;
 }
+
+
 
 .blackblue{
     color:black;
