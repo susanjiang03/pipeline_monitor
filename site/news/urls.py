@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^filterfeeds$', views.filterfeeds, name='filterfeeds'),
     url(r'^userfeeds$', views.userfeeds, name='userfeeds'),
     url(r'^images/(?P<urlid>[0-9]+)$', views.images, name='images'),
+    url(r'^allimages$', views.allimages, name='allimages'),
     )

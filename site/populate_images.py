@@ -43,7 +43,6 @@ def populate_images():
 
 
         links=page.find_all('img',src=True)
-        #the result string split by whitespace, store in a array
         images_count=len(links)
         
         for l in links:

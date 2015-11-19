@@ -1,11 +1,12 @@
 '''
 views file to render pages
 '''
-
+import urllib
+from bs4 import BeautifulSoup
+import bs4
 from django.shortcuts import render
-from news.models import Article
+from news.models import Article,Image
 import feedparser
-
 newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times',
               'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times',
               'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
@@ -124,4 +125,62 @@ def newspaper(request, newspaperlink):
 
 
     return render(request, template, {'dictcategory' : dictcategory, 'paper':paper})
+
+
+#view image
+def images(request,urlid):
+    template='images.html'
+    article=Article.objects.filter(id=int(urlid))[0]
+    imgurls=Image.objects.filter(article_id=int(urlid))
+    
+    #if not populated yet:
+    if(len(imgurls)==0):
+        try:
+            page = BeautifulSoup(urllib.urlopen(article.url))
+        except:
+            pass
+        links=page.find_all('img',src=True)
+        for l in links:
+            imgurl=l['src']
+            obj, created = Image.objects.get_or_create(
+               article_id=article.id,
+               image_url=imgurl
+               )
+        imgurls=Image.objects.filter(article_id=int(urlid))
+     
+    Message=str(len(imgurls)) +" image(s) was/were extracted."
+    #still no image
+    if len(imgurls)==0:
+       Message+="\nThere is no image in this site or there is an error during the population."
+    
+    return render(request, template,{'imgurls':imgurls,'article':article,'Message':Message})
+
+#view all image
+def allimages(request):
+    template='allimages.html'
+    imgurls=Image.objects.all()
+    
+    #if not populated yet
+    if(len(imgurls)==0):
+       articles=Article.objects.all()
+       for each in articls:
+          try:
+            page = BeautifulSoup(urllib.urlopen(each.url))
+          except:
+            continue
+          links=page.find_all('img',src=True)
+          for l in links:
+              imgurl=l['src']
+              obj, created = Image.objects.get_or_create(
+                article_id=article.id,
+                 image_url=imgurl
+              )
+    imgurls=Image.objects.all()
+
+    Message=str(len(imgurls)) +" image(s) was/were extracted."
+    #still no image
+    if len(imgurls)==0:
+        Message+="\nThere is no image in all sites or there are errors during the population."
+
+    return render(request, template,{'imgurls':imgurls,'Message':Message})
 
