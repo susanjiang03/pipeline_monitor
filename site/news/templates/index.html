@@ -50,7 +50,7 @@
                 <ol style="overflow: hidden;margin-left: -15px">
                     {% for each in category.feeds %}
                     <li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
-                    <a href="/news/images/{{each.id}}"> Extra Images </a>
+                    <a href="/news/images/{{each.id}}"> Extract Images </a>
                     {% endfor %}
                 </ol>
                 </p>
@@ -69,7 +69,7 @@
             <a class="blackblue" href="/news/newspaper/{{paper.newspaperlink}}" style="text-decoration: underline"><h3>{{paper.newspaper}}</h3></a>
             {% for each in paper.title %}
             <li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
-               <a href="/news/images/{{each.id}}"> Extra Images </a>
+               <a href="/news/images/{{each.id}}"> Extract Images </a>
             {% endfor %}
         </ul>
         {% endfor %}		
