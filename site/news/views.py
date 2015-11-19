@@ -160,10 +160,12 @@ def allimages(request):
     template='allimages.html'
     imgurls=Image.objects.all()
     
+    #still has bug, need to work on. and the clickable button in 'allimages.html'
+    '''
     #if not populated yet
     if(len(imgurls)==0):
        articles=Article.objects.all()
-       for each in articls:
+       for each in articles:
           try:
             page = BeautifulSoup(urllib.urlopen(each.url))
           except:
@@ -172,10 +174,11 @@ def allimages(request):
           for l in links:
               imgurl=l['src']
               obj, created = Image.objects.get_or_create(
-                article_id=article.id,
+                article_id=each.id,
                  image_url=imgurl
               )
     imgurls=Image.objects.all()
+    '''
 
     Message=str(len(imgurls)) +" image(s) was/were extracted."
     #still no image
