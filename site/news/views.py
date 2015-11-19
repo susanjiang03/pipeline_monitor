@@ -1,9 +1,18 @@
+'''
+views file to render pages
+'''
+
 from django.shortcuts import render
 from news.models import Article
 import feedparser
 
-newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times', 'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times', 'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
+newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times',
+              'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times',
+              'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
 
+'''
+index page
+'''
 def index(request):
     template = 'index.html'
     query = Article.objects.values_list('category').distinct()
@@ -12,11 +21,13 @@ def index(request):
     for category in query:
         category = category[0].encode('utf-8')
         feeds = Article.objects.filter(category=category)[:n]
+
+        #if title is too long .. it
         for each in feeds:
-            if len(each.title) > 60:
-                each.title = each.title[:60]+'...'.encode('utf-8')
+            if len(each.title) > 55:
+                each.title = each.title[:55]+'...'.encode('utf-8')
             else:
-                each.title = each.title.encode('utf-8')        
+                each.title = each.title.encode('utf-8')
 
         dictcategory.append({
             "category" : category,
@@ -76,41 +87,41 @@ def userfeeds(request):
 
     dictuserinput = []
     for url in request.POST.getlist('userRSS[]'):
-        rss = feedparser.parse(url)
-        titlelink = []
-        for post in rss.entries[:n]:
-            rssurl = url
-            if len(post.title.encode('utf-8')) > 60:
-                title = post.title[:60]+'...'.encode('utf-8')
-            else:
-                title = post.title.encode('utf-8')        
+        if url != "":
+            rss = feedparser.parse(url)
+            titlelink = []
+            for post in rss.entries[:n]:
+                if len(post.title.encode('utf-8')) > 60:
+                    title = post.title[:60]+'...'.encode('utf-8')
+                else:
+                    title = post.title.encode('utf-8')
 
-            link = post.link
-            titlelink.append({
-                "title" : title,
-                "url" : link                
+                link = post.link
+                titlelink.append({
+                    "title" : title,
+                    "url" : link
+                    })
+            dictuserinput.append({
+                "rssurl" : url,
+                "titlelink" : titlelink
                 })
-        dictuserinput.append({
-            "rssurl" : rssurl,
-            "titlelink" : titlelink
-            })
 
-    return render(request, template, {'dictuserfeeds': dictuserfeeds, 'dictuserinput': dictuserinput})    
+    return render(request, template, {'dictuserfeeds': dictuserfeeds, 'dictuserinput': dictuserinput})
 
-def newspaper(request,newspaperlink):
+def newspaper(request, newspaperlink):
     template='newspaper.html'
-    paper=newspapers[newspaperlink]
+    paper = newspapers[newspaperlink]
     query = Article.objects.filter(newspaper=paper).values_list('category').distinct()
-    
+ 
     dictcategory = []
-    
+
     for category in query:
         category = category[0].encode('utf-8')
         dictcategory.append({ "size": len( Article.objects.filter(newspaper=paper,category = category)),
                             "category" : category,
                             "title" : Article.objects.filter(newspaper=paper,category = category)
                             })
-    
-    
-    return render(request, template, {'dictcategory' : dictcategory,'paper':paper})
+
+
+    return render(request, template, {'dictcategory' : dictcategory, 'paper':paper})
 

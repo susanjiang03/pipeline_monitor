@@ -18,13 +18,10 @@ class MainPageTest(TestCase):
 
     #test that we have the 6 newspaper categories
     def test_main_page_has_six_categories(self):
-        categories = ['World', 'Local', 'Technology', 'Business', 'Sports', 'Fashion'] 
+        categories = ['World', 'Local', 'Technology', 'Business', 'Sports', 'Fashion']
         expected_html = render_to_string('index.html').encode('utf-8')
 
         #currently fails because it checks the template, not the populated page
-
-    #test that we have 6 newpapers on the side
-
 
 class AritcleModeltest(TestCase):
 
@@ -47,6 +44,21 @@ class AritcleModeltest(TestCase):
         self.assertEqual(article_1.title, 'Python in 10 minutes')
         self.assertEqual(article_1.url, "http://realpython.com")
         self.assertEqual(article_1.description, "Learn the Python programming language in 10 minutes")
-        
+
+    def create_article(self, blah='hello, I like water'):
+        return Article.objects.create(title=blah, url=blah, description=blah, 
+                                      category=blah, newspaper=blah)
+
+    def test_article_creation(self):
+        a = self.create_article()
+        self.assertTrue(isinstance(a, Article))
+ 
+        self.assertEqual(a.__unicode__(), a.title)
+
+
+
+
+
+
 
 
