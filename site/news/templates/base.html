@@ -4,11 +4,13 @@
 {% bootstrap_css %}
 {% load staticfiles %}
 
+<!--two blocks should be inserted pages that will inherit from this base page-->
+<!--the external js and css files in the headblock-->
+<!--content in the bodyblock-->
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
 
-		<!--insert title-->
+		<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
 
 	</head>
 
@@ -28,13 +30,13 @@
 			<div class="col-md-12 nav_bar">
 				<ul class="nav nav-pills">
 					<li class="active">
-						<a href="#">Home</a>
+						<a href={% url 'index' %}>Home</a>
 					</li>
 					<li>
-						<a href="filterfeeds">Create own Feed</a>
+						<a href={% url 'filterfeeds' %}>Create own Feed</a>
 					</li>
 					<li>
-						<a href="allimages">All Images</a>
+						<a href={% url 'allimages' %}>All Images</a>
 					</li>
 					<li>
 						<a href="#">About</a>
