@@ -50,7 +50,7 @@ def populate_images():
                 #  f.write(imgurl+'\n')
                 
                 #save in db     |article_id  | article_url | image_url |
-            obj, created = Image.objects.get_or_create(
+            created = Image.objects.get_or_create(
                     article_id=each.id,
                     image_url=imgurl
                 )
