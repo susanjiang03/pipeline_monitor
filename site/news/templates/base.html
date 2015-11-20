@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% load staticfiles %}
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
+
+		<!--insert title-->
+
+	</head>
+
+	<body>
+
+	<div class="row" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+
+		<!--headers	-->
+		<div class="col-md-12">
+			<div class="col-md-12">
+				<h1>RSS FEEDS</h1>
+			</div>
+		</div>
+		
+		<!--nav bar-->
+		<div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+			<div class="col-md-12 nav_bar">
+				<ul class="nav nav-pills">
+					<li class="active">
+						<a href="#">Home</a>
+					</li>
+					<li>
+						<a href="filterfeeds">Create own Feed</a>
+					</li>
+					<li>
+						<a href="allimages">All Images</a>
+					</li>
+					<li>
+						<a href="#">About</a>
+					</li>
+					<li>
+						<a href="#">Team</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+
+		<!--enter content here-->
+		{% block body_block %}
+
+		{% endblock %}	
+
+	
+	<!--close first div-->
+	</div>
+
+	</body>
+
+</html>
+
+
+{% bootstrap_javascript %}
