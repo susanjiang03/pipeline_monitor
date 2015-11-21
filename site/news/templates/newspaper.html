@@ -8,15 +8,16 @@
 	</style>
 
 	<!--populates categories based on selected newspaper-->
-    <div class="col-md-8">
+    <div class="col-md-12">
+
         <div class="col-md-12">
             <div class="panel panel-primary" id="panels">
-                <div class="panel-heading"><h1>{{paper}}</h1></div>
+                <div class="panel-heading"><h1 style="text-align: center;">{{paper}}</h1></div>
             </div>
         </div>
+
         {% for category in dictcategory %}
-        
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="panel panel-primary" id="panels" >
                 <div class="panel-heading">
                    <a href="">{{category.category}}</a>
