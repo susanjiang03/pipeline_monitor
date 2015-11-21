@@ -1,56 +1,25 @@
-{% load bootstrap3 %}
-{% bootstrap_css %}
-{% load staticfiles %}
+{% extends 'base.html' %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/images.css' %}" />
-{% block body %}
-
-<div class="row" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
-	<div class="col-md-12">
-		<div class="col-md-12">
-			<h1>RSS FEEDS</h1>
-		</div>		
-	</div>
-
-	<div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
-		<div class="col-md-12 nav_bar">
-			<ul class="nav nav-pills">
-				<li class="active">
-					<a href="/news/">Home</a>
-				</li>
-				<li>
-					<a href="/news/filterfeeds">Create own Feed</a>
-				</li>
-				<li>
-					<a href="/news/allimages">All Images</a>
-				</li>
-				<li>
-					<a href="#">About</a>
-				</li>
-				<li>
-					<a href="#">Team</a>
-				</li>              
-            </ul>
-		</div>
-	</div>
+{% block body_block %}
 
 	<div class="col-md-8">
 		<div class="col-md-12">
 			<div class="panel panel-primary" id="panels">
-				<div class="panel-heading"><h1 style="text-align: center;">Images in this page</h1></div>
+				<div class="panel-heading">
+					<h1 style="text-align: center;">Images in this page</h1>
+				</div>
 
                 <div class="articlelinkdiv">&nbsp;&nbsp;{{article.newspaper}}&nbsp;&nbsp; | &nbsp;&nbsp;{{article.category}}&nbsp;&nbsp; |&nbsp;&nbsp;<a href="{{article.url}}"> {{article.title}}</a></div>
                 <div class="messagediv"> {{Message}}</div>
 			</div>
 		</div>
+
         {% for each in imgurls %}
-    <div class="imgdiv">
-        <img src="{{each.image_url}}">
-    </div>
-   	{% endfor %}
+		<div class="imgdiv">
+			<img src="{{each.image_url}}">
+		</div>
+		{% endfor %}
 		
 	</div>
-</div>
 
 {% endblock %}
-{% bootstrap_javascript %}
