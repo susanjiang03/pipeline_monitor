@@ -80,13 +80,40 @@ def process_register(request):
 
 def reset_password(request):
     template = 'reset_password.html'
-
     return render(request, template)
 
-def new_password(request):
-    template = 'reset_password.html'
+def change_password(request):
+    email = request.POST['email']
+    old_password = request.POST['old_password']
+    new_password = request.POST['new_password']
+    confirm_password = request.POST['confirm_password']
 
-    return render(request, template)
+    # Validation
+    required_fields = [email, old_password, new_password, confirm_password]
+    trimmed = [i.strip() for i in required_fields]
+    if "" in trimmed:
+        return render(request, 'reset_password.html', {'email': email, 'message': 'Missing Required Fields'})
+
+    # Password matching
+    if new_password != confirm_password:
+        return render(request, 'reset_password.html', {'email': email, 'message': 'New Password is different from Confirm Password'})
+
+    # Email validation
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        return render(request, 'reset_password.html', {'email': email, 'message': 'Invalid Email'})
+
+    user = authenticate(username=email, password=old_password)
+
+    if user is not None:
+        login(request, user)
+        u = User.objects.get(username=email)
+        u.set_password(new_password)
+        u.save()
+        logout(request)
+        return redirect(user_login)
+    else:
+        return render(request, 'reset_password.html', {'email': email, 'message': 'Incorrect Password to Email or Email does not exist'})
+
 '''
 index page
 '''
