@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% load staticfiles %}
+
+<!--two blocks should be inserted pages that will inherit from this base page-->
+<!--the external js and css files in the headblock-->
+<!--content in the bodyblock-->
+<html>
+	<head>
+
+		<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
+
+	</head>
+
+	<body>
+
+	<div class="row" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+
+		<!--headers	-->
+		<div class="col-md-12">
+			<div class="col-md-12">
+				<h1>RSS FEEDS</h1>
+			</div>
+		</div>
+		
+		<!--nav bar-->
+		<div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+			<div class="col-md-12 nav_bar">
+				<ul class="nav nav-pills">
+					<li class="active">
+						<a href={% url 'index' %}>Home</a>
+					</li>
+					<li>
+						<a href={% url 'filterfeeds' %}>Create own Feed</a>
+					</li>
+					<li>
+						<a href={% url 'allimages' %}>All Images</a>
+					</li>
+					<li>
+						<a href="#">About</a>
+					</li>
+					<li>
+						<a href="#">Team</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+
+		<!--enter content here-->
+		{% block body_block %}
+
+		{% endblock %}	
+
+	
+	<!--close first div-->
+	</div>
+
+	</body>
+
+	<!--JS here-->
+	<script type="text/javascript" src="{% static 'javascript/script.js' %}"></script>
+
+</html>
+
+
+{% bootstrap_javascript %}

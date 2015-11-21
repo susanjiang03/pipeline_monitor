@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+	<!--populates category boxes - 6-->
+	<div class="col-md-8">
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">Newspaper Categories</h1></div>
+			</div>
+		</div>
+
+		{% for category in dictcategory %}
+		<div class="col-md-6">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading" style="height:40px">
+					<a href="">{{category.category}}</a>
+				</div>
+
+				<p class="panel-body" style="margin-top: -20px;">
+
+				<ol style="overflow: hidden;margin-left: -15px">
+					{% for each in category.feeds %}
+					<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+					<a href="/news/images/{{each.id}}"> Get Images </a>
+					{% endfor %}
+				</ol>
+				</p>
+				<div class="panel-footer">This is a footer</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+	<!--populate right side bar - stories from other papers-->
+	<div class="col-md-4" style="margin-bottom: 15px;border-left: solid 1px lightgray;">
+		<ul>
+			<h2>Stories in Other Newspapers</h2>		
+		</ul>
+		{% for paper in dictpaper %}
+		<ul>
+			<a class="blackblue" href="/news/newspaper/{{paper.newspaperlink}}" style="text-decoration: underline"><h3>{{paper.newspaper}}</h3></a>
+			{% for each in paper.title %}
+			<li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
+			   <a href="/news/images/{{each.id}}"> Get Images </a>
+			{% endfor %}
+		</ul>
+		{% endfor %}		
+	</div>
+
+{% endblock %}
