@@ -1,11 +1,13 @@
 """
 pmonitor/models.py unittests.
 """
+from datetime import datetime
+
 from django.test import TestCase
+from django.contrib.auth.models import User
+
 from pmonitor.models import Task, Job
 from django_nose.tools import assert_queryset_equal
-from django.contrib.auth.models import User
-from datetime import datetime, timedelta
 
 __author__ = 'jhohman'
 
@@ -93,6 +95,36 @@ class TestTasks(TestCase):
 
         for tasks in zip(task_sibling2.siblings.all(), queryset1):
             self.assertEqual(tasks[0], tasks[1])
+
+    def test_get_next_task(self):
+        task1 = Task.objects.create(task_id='task001')
+        task2 = Task.objects.create(task_id='task002')
+        task3 = Task.objects.create(task_id='task003')
+
+        task1.child = task2
+        task1.save()
+        task2.child = task3
+        task2.save()
+
+        self.assertEqual(task2, task1.get_next_task())
+        self.assertEqual(task3, task2.get_next_task())
+        with self.assertRaises(Task.DoesNotExist):
+            task3.get_next_task()
+
+    def test_get_previous_task(self):
+        task1 = Task.objects.create(task_id='task001')
+        task2 = Task.objects.create(task_id='task002')
+        task3 = Task.objects.create(task_id='task003')
+
+        task1.child = task2
+        task1.save()
+        task2.child = task3
+        task2.save()
+
+        self.assertEqual(task2, task3.get_previous_task())
+        self.assertEqual(task1, task2.get_previous_task())
+        with self.assertRaises(Task.DoesNotExist):
+            task1.get_previous_task()
 
 
 class TestJobs(TestCase):

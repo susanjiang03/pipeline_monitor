@@ -32,8 +32,8 @@ class Task(models.Model):
         Subclassed save method to propagate Task relationships.
 
         :param update: flag to prevent infinite recursion on propagation.
-        :type update: bool.
-        :returns: None.
+        :type update: bool
+        :returns: None
         """
         super(Task, self).save(*args, **kwargs)
         if update:
@@ -43,6 +43,32 @@ class Task(models.Model):
             if self.child:
                 self.child.parent = self
                 self.child.save(update=False)
+
+    def get_previous_task(self):
+        """
+        Method to traverse the task hierarchy.
+        Gets parent task.
+
+        :returns: Task
+        :type return: Task
+        :raises: DoesNotExist
+        """
+        if self.parent:
+            return self.parent
+        raise self.DoesNotExist()
+
+    def get_next_task(self):
+        """
+        Method to traverse the task hierarchy.
+        Gets child task.
+
+        :returns: Task
+        :type return: Task
+        :raises: DoesNotExist
+        """
+        if self.child:
+            return self.child
+        raise self.DoesNotExist()
 
 
 class Job(models.Model):
