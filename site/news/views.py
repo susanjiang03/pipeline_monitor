@@ -5,7 +5,7 @@ from django.shortcuts import render
 from news.models import Article, Image
 import feedparser
 from django.contrib.auth.models import User
-
+import re
 newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times',
               'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times',
               'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
@@ -27,9 +27,32 @@ def register(request):
     return render(request, template)
 
 def process_register(request):
-    template = 'register.html'
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    email = request.POST['email']
+    password = request.POST['password']
+    confirm_password = request.POST['confirm_password']
 
-    return render(request, template)
+    # Validation
+    required_fields = [email, first_name, last_name, password, confirm_password]
+    trimmed = [i.strip() for i in required_fields]
+    if "" in trimmed:
+        return render(request, 'register.html', {'first_name': first_name, 'last_name': last_name, 'email': email, 'message': 'Missing Required Fields'})
+
+    # Password matching
+    if password != confirm_password:
+        return render(request, 'register.html', {'first_name': first_name, 'last_name': last_name, 'email': email, 'message': 'Non-matching Passwords'})
+
+    # Email validation
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        return render(request, 'register.html', {'first_name': first_name, 'last_name': last_name, 'email': email, 'message': 'Invalid Email'})
+
+    user = User.objects.create_user(email, email, password)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.save()
+
+    return render(request, 'login.html')
 
 def reset_password(request):
     template = 'reset_password.html'
@@ -39,7 +62,7 @@ def reset_password(request):
 def new_password(request):
     template = 'reset_password.html'
 
-    return render(request, template)    
+    return render(request, template)
 '''
 index page
 '''

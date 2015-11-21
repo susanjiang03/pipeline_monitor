@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^allimages$', views.allimages, name='allimages'),
     url(r'^login/$', views.login, name='login'),
     url(r'^register$', views.register, name='register'),
-    url(r'^reset_password$', views.reset_password, name='reset_password'),    
+    url(r'^process_register$', views.process_register, name='process_register'),        
+    url(r'^reset_password$', views.reset_password, name='reset_password'),
     )
