@@ -1,12 +1,24 @@
+"""
+Pipeline models.
+"""
+
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 
 __author__ = 'jhohman'
 
+
 class Task(models.Model):
-    parent = models.ForeignKey("self", related_name='parent_of', null=True, blank=True)
-    child = models.ForeignKey("self", related_name='child_of', null=True, blank=True)
+    """
+    Task model.
+    """
+    parent = models.ForeignKey(
+        "self", related_name='parent_of', null=True, blank=True
+    )
+    child = models.ForeignKey(
+        "self", related_name='child_of', null=True, blank=True
+    )
     siblings = models.ManyToManyField("self", blank=True)
     task_id = models.CharField(blank=True, max_length=64)
     task_name = models.CharField(blank=True, max_length=256)
@@ -15,9 +27,15 @@ class Task(models.Model):
     def __str__(self):
         return '<Task %s>' % self.task_id
 
-    def save(self, *args, **kwargs):
-        import ipdb;ipdb.set_trace()
+    def save(self, update=True, *args, **kwargs):
         super(Task, self).save(*args, **kwargs)
+        if update:
+            if self.parent:
+                self.parent.child = self
+                self.parent.save(update=False)
+            if self.child:
+                self.child.parent = self
+                self.child.save(update=False)
 
 
 class Job(models.Model):
