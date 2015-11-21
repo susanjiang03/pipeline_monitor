@@ -28,6 +28,13 @@ class Task(models.Model):
         return '<Task %s>' % self.task_id
 
     def save(self, update=True, *args, **kwargs):
+        """
+        Subclassed save method to propagate Task relationships.
+
+        :param update: flag to prevent infinite recursion on propagation.
+        :type update: bool.
+        :returns: None.
+        """
         super(Task, self).save(*args, **kwargs)
         if update:
             if self.parent:
