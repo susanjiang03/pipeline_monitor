@@ -4,10 +4,42 @@ views file to render pages
 from django.shortcuts import render
 from news.models import Article, Image
 import feedparser
+from django.contrib.auth.models import User
+
 newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times',
               'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times',
               'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
 
+#User Management Views
+def login(request):
+    template = 'login.html'
+
+    return render(request, template)
+
+def process_login(request): 
+    template = 'login.html'
+
+    return render(request, template)
+
+def register(request):
+    template = 'register.html'
+
+    return render(request, template)
+
+def process_register(request):
+    template = 'register.html'
+
+    return render(request, template)
+
+def reset_password(request):
+    template = 'reset_password.html'
+
+    return render(request, template)
+
+def new_password(request):
+    template = 'reset_password.html'
+
+    return render(request, template)    
 '''
 index page
 '''
@@ -47,7 +79,7 @@ def index(request):
     return render(request, template, {'dictcategory' : dictcategory, 'dictpaper' : dictpaper})
 
 def filterfeeds(request):
-    template = 'filterfeeds.html' 
+    template = 'filterfeeds.html'
     query = Article.objects.values_list('newspaper').distinct()
     dictcheckbox = []
     for newspaper in query:
@@ -147,4 +179,3 @@ def allimages(request):
         Message += "\nThere is no image in all sites or there are errors during the population."
 
     return render(request, template, {'imgurls':imgurls, 'Message':Message})
-
