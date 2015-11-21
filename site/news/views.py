@@ -1,29 +1,53 @@
 '''
 views file to render pages
 '''
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from news.models import Article, Image
 import feedparser
 from django.contrib.auth.models import User
+from django.contrib.auth import login, logout, authenticate
 import re
 newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times',
               'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times',
               'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
 
 #User Management Views
-def login(request):
+def user_login(request):
     template = 'login.html'
-
     return render(request, template)
 
 def process_login(request): 
-    template = 'login.html'
+    email = request.POST['email']
+    password = request.POST['password']
 
-    return render(request, template)
+    # Validation
+    required_fields = [email, password]
+    trimmed = [i.strip() for i in required_fields]
+    if "" in trimmed:
+        return render(request, 'login.html', {'email': email, 'message': 'Missing Required Fields'})
+
+    # Email validation
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        return render(request, 'login.html', {'email': email, 'message': 'Invalid Email'})
+
+    user = authenticate(username=email, password=password)
+
+    if user is not None:
+        login(request, user)
+        previous_page = request.GET['next']
+        if previous_page == '/news/register':
+            return redirect(index)
+        else:
+            return redirect(previous_page)
+
+    return render(request, 'index.html')
+
+def user_logout(request):
+    logout(request)
+    return redirect(request.GET['next'])
 
 def register(request):
     template = 'register.html'
-
     return render(request, template)
 
 def process_register(request):
