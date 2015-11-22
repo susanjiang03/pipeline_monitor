@@ -2,7 +2,7 @@
 views file to render pages
 '''
 from django.shortcuts import render, redirect
-from news.models import Article, Image
+from news.models import Article, Image, Bookmark
 import feedparser
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
@@ -255,3 +255,18 @@ def allimages(request):
         Message += "\nThere is no image in all sites or there are errors during the population."
 
     return render(request, template, {'imgurls':imgurls, 'Message':Message})
+
+def bookmark(request):
+    template = 'bookmark.html'
+    query = Article.objects.values_list('newspaper').distinct()
+    dictcheckbox = []
+    for newspaper in query:
+        newspaper = newspaper[0].encode('utf-8')
+        category = Article.objects.filter(newspaper=newspaper).values_list('category').distinct()
+ 
+        dictcheckbox.append({
+            "title" : newspaper,
+            "category" : [x[0].encode('utf-8') for x in category]
+        })
+
+    return render(request, template, {'dictcheckbox': dictcheckbox})

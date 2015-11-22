@@ -45,6 +45,11 @@
 					<li>
 						<a href="{% url 'filterfeeds' %}">Create own Feed</a>
 					</li>
+					{% if user.is_authenticated %}
+					<li>
+						<a href="{% url 'bookmark' %}">Bookmarked Feeds</a>
+					</li>
+					{% endif %}
 					<li>
 						<a href="{% url 'allimages' %}">All Images</a>
 					</li>

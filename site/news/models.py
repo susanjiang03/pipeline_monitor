@@ -21,4 +21,7 @@ class Image(models.Model):
     article_id=models.IntegerField()
     image_url=models.URLField()
 
-
+class Bookmark(models.Model):
+    # user_id | article_id
+    user_id=models.IntegerField()
+    article_id=models.IntegerField()
