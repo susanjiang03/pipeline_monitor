@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'pmonitor',
     'news',
     'bootstrap3',
@@ -73,7 +74,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
-
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--verbosity=2',
+    '--nocapture',
+    '--exe'
+]
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

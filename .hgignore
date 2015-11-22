@@ -7,6 +7,8 @@ syntax: glob
 .idea/
 migration*/
 htmlcov/*
+docs/source/
+docs/build/
 .coverage
 
 .DS_Store
