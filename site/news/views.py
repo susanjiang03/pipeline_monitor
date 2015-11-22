@@ -37,6 +37,8 @@ def process_login(request):
         previous_page = request.GET['next']
         if previous_page == '/news/register':
             return redirect(index)
+        elif previous_page == "":
+            return redirect(index)
         else:
             return redirect(previous_page)
 
@@ -76,7 +78,7 @@ def process_register(request):
     user.last_name = last_name
     user.save()
 
-    return render(request, 'login.html')
+    return redirect(user_login)
 
 def reset_password(request):
     template = 'reset_password.html'
