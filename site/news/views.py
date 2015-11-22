@@ -1,45 +1,119 @@
 '''
 views file to render pages
 '''
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from news.models import Article, Image
 import feedparser
 from django.contrib.auth.models import User
-
+from django.contrib.auth import login, logout, authenticate
+import re
 newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times',
               'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times',
               'chron':'Houston Chronicles', 'denverpost':'Denver Post'}
 
 #User Management Views
-def login(request):
+def user_login(request):
     template = 'login.html'
-
     return render(request, template)
 
 def process_login(request): 
-    template = 'login.html'
+    email = request.POST['email']
+    password = request.POST['password']
 
-    return render(request, template)
+    # Validation
+    required_fields = [email, password]
+    trimmed = [i.strip() for i in required_fields]
+    if "" in trimmed:
+        return render(request, 'login.html', {'email': email, 'message': 'Missing Required Fields'})
+
+    # Email validation
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        return render(request, 'login.html', {'email': email, 'message': 'Invalid Email'})
+
+    user = authenticate(username=email, password=password)
+
+    if user is not None:
+        login(request, user)
+        previous_page = request.GET['next']
+        if previous_page == '/news/register':
+            return redirect(index)
+        else:
+            return redirect(previous_page)
+
+    return render(request, 'index.html')
+
+def user_logout(request):
+    logout(request)
+    return redirect(request.GET['next'])
 
 def register(request):
     template = 'register.html'
-
     return render(request, template)
 
 def process_register(request):
-    template = 'register.html'
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    email = request.POST['email']
+    password = request.POST['password']
+    confirm_password = request.POST['confirm_password']
 
-    return render(request, template)
+    # Validation
+    required_fields = [email, first_name, last_name, password, confirm_password]
+    trimmed = [i.strip() for i in required_fields]
+    if "" in trimmed:
+        return render(request, 'register.html', {'first_name': first_name, 'last_name': last_name, 'email': email, 'message': 'Missing Required Fields'})
+
+    # Password matching
+    if password != confirm_password:
+        return render(request, 'register.html', {'first_name': first_name, 'last_name': last_name, 'email': email, 'message': 'Non-matching Passwords'})
+
+    # Email validation
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        return render(request, 'register.html', {'first_name': first_name, 'last_name': last_name, 'email': email, 'message': 'Invalid Email'})
+
+    user = User.objects.create_user(email, email, password)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.save()
+
+    return render(request, 'login.html')
 
 def reset_password(request):
     template = 'reset_password.html'
-
     return render(request, template)
 
-def new_password(request):
-    template = 'reset_password.html'
+def change_password(request):
+    email = request.POST['email']
+    old_password = request.POST['old_password']
+    new_password = request.POST['new_password']
+    confirm_password = request.POST['confirm_password']
 
-    return render(request, template)    
+    # Validation
+    required_fields = [email, old_password, new_password, confirm_password]
+    trimmed = [i.strip() for i in required_fields]
+    if "" in trimmed:
+        return render(request, 'reset_password.html', {'email': email, 'message': 'Missing Required Fields'})
+
+    # Password matching
+    if new_password != confirm_password:
+        return render(request, 'reset_password.html', {'email': email, 'message': 'New Password is different from Confirm Password'})
+
+    # Email validation
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        return render(request, 'reset_password.html', {'email': email, 'message': 'Invalid Email'})
+
+    user = authenticate(username=email, password=old_password)
+
+    if user is not None:
+        login(request, user)
+        u = User.objects.get(username=email)
+        u.set_password(new_password)
+        u.save()
+        logout(request)
+        return redirect(user_login)
+    else:
+        return render(request, 'reset_password.html', {'email': email, 'message': 'Incorrect Password to Email or Email does not exist'})
+
 '''
 index page
 '''
