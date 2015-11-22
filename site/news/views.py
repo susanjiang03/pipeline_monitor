@@ -128,13 +128,6 @@ def index(request):
         category = category[0].encode('utf-8')
         feeds = Article.objects.filter(category=category)[:n]
 
-        #if title is too long .. it
-        for each in feeds:
-            if len(each.title) > 60:
-                each.title = each.title[:60]+'...'.encode('utf-8')
-            else:
-                each.title = each.title.encode('utf-8')
-
         dictcategory.append({
             "category" : category,
             "feeds" : feeds
