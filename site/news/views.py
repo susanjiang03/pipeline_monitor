@@ -145,7 +145,12 @@ def index(request):
             "title" : Article.objects.filter(newspaper=newspaper)[:m]
             })
 
-    return render(request, template, {'dictcategory' : dictcategory, 'dictpaper' : dictpaper})
+    bookmarkfilter = Bookmark.objects.filter(user_id=request.user.id)
+    bookmark = []
+    for each in bookmarkfilter:
+        bookmark.append(each.article_id)
+
+    return render(request, template, {'dictcategory' : dictcategory, 'dictpaper' : dictpaper, 'bookmark': bookmark})
 
 def filterfeeds(request):
     template = 'filterfeeds.html'
@@ -221,8 +226,12 @@ def newspaper(request, newspaperlink):
                             "title" : Article.objects.filter(newspaper=paper, category=category)
         })
 
+    bookmarkfilter = Bookmark.objects.filter(user_id=request.user.id)
+    bookmark = []
+    for each in bookmarkfilter:
+        bookmark.append(each.article_id)
 
-    return render(request, template, {'dictcategory' : dictcategory, 'paper':paper})
+    return render(request, template, {'dictcategory' : dictcategory, 'paper':paper, 'bookmark': bookmark})
 
 
 #view image
@@ -249,17 +258,20 @@ def allimages(request):
 
     return render(request, template, {'imgurls':imgurls, 'Message':Message})
 
+def add_to_bookmark(request, article_id):
+    user_id = request.user.id
+    bookmark = Bookmark(user_id=user_id, article_id=article_id)
+    bookmark.save()
+
+    return redirect(request.GET['next'])
+
+def remove_from_bookmark(request, article_id):
+    user_id = request.user.id
+    Bookmark.objects.filter(user_id=user_id,article_id=article_id).delete()
+
+    return redirect(request.GET['next'])
+
 def bookmark(request):
     template = 'bookmark.html'
-    query = Article.objects.values_list('newspaper').distinct()
-    dictcheckbox = []
-    for newspaper in query:
-        newspaper = newspaper[0].encode('utf-8')
-        category = Article.objects.filter(newspaper=newspaper).values_list('category').distinct()
- 
-        dictcheckbox.append({
-            "title" : newspaper,
-            "category" : [x[0].encode('utf-8') for x in category]
-        })
 
-    return render(request, template, {'dictcheckbox': dictcheckbox})
+    return render(request, template, {})

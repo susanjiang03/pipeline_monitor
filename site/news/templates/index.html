@@ -22,13 +22,19 @@
 				<ol style="overflow: hidden;margin-left: -15px">
 					{% for each in category.feeds %}
 
-					<!--title with description below-->
-					<li style="font-size:15px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+						<!--title with description below-->
+						<li style="font-size:15px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
 
-					-- {{each.description}} </br> 
+						-- {{each.description}} </br> 
 
-					<a href="/news/images/{{each.id}}"> Get Images </a>
-
+						<a href="/news/images/{{each.id}}"> Get Images </a>
+						{% if user.is_authenticated %}
+							{% if each.id in bookmark %}
+                                <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+							{% else %}
+								<a href="{% url 'add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
+							{% endif %}
+						{% endif %}			
 					{% endfor %}
 				</ol>
 				</p>
@@ -49,6 +55,13 @@
 			{% for each in paper.title %}
 			<li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
 			<a href="/news/images/{{each.id}}"> Get Images </a>
+				{% if user.is_authenticated %}
+					{% if each.id in bookmark %}
+                        <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+					{% else %}
+						<a href="{% url 'add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
+					{% endif %}
+				{% endif %}			
 			{% endfor %}
 		</ul>
 		{% endfor %}		
