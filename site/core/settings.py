@@ -74,12 +74,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-NOSE_ARGS = [
-    '--verbosity=2',
-    '--nocapture',
-    '--exe'
-]
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+# NOSE_ARGS = [
+    # '--verbosity=2',
+    # '--nocapture',
+    # '--exe'
+# ]
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
