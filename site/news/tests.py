@@ -69,7 +69,6 @@ class AritcleModeltest(TestCase):
         self.assertEqual(article_2.url, "http://flask.com")
         self.assertEqual(article_2.description, "Best tutorial to learning react on the web")
 
-
 class NewspaperViewTest(TestCase):
 
     #bad test because, the create of the article newspaper does
@@ -92,6 +91,25 @@ class NewspaperViewTest(TestCase):
         self.assertContains(response, "Technology")
         self.assertNotContains(response, "Los Angeles Times")
         self.assertNotContains(response, "Westside gang")
+
+
+class FilterFeedsTest(TestCase):
+
+    def test_uses_filterfeeds_template(self):
+        response = self.client.get('/news/filterfeeds')
+        self.assertTemplateUsed(response, 'filterfeeds.html')
+
+    def test_displays_a_newspaper_block(self):
+        an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Technology")
+        response = self.client.get('/news/filterfeeds')
+        
+        self.assertContains(response, "New York Times")
+
+    def test_displays_a_category(self):
+        an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Technology")
+        response = self.client.get('/news/filterfeeds')
+        
+        self.assertContains(response, "Technology")
 
 
 
