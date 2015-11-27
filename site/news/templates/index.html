@@ -29,7 +29,7 @@
 
 						-- {{each.description}} </br> 
 
-						<a href="/news/images/{{each.id}}"> Get Images </a>
+						<a href="/news/images/{{each.id}}"> See Images </a>
 						{% if user.is_authenticated %}
 							{% if each.id in bookmark %}
                                 <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
@@ -56,7 +56,7 @@
 			<a class="blackblue" href="/news/newspaper/{{paper.newspaperlink}}" style="text-decoration: underline"><h3>{{paper.newspaper}}</h3></a>
 			{% for each in paper.title %}
 			<li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
-			<a href="/news/images/{{each.id}}"> Get Images </a>
+			<a href="/news/images/{{each.id}}"> See Images </a>
 				{% if user.is_authenticated %}
 					{% if each.id in bookmark %}
                         <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>

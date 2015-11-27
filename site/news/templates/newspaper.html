@@ -27,19 +27,20 @@
                 <div class="panel-body" style="height: 300px; overflow: scroll;">
                 <p  style="margin-top: -20px;">
 
-                <ul style="margin-left: -15px;">
-                    {% for each in category.title %}
-                    <li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
-                     <a href="/news/images/{{each.id}}"> Extra Images </a>
-                        {% if user.is_authenticated %}
-                            {% if each.id in bookmark %}
-                                <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
-                            {% else %}
-                                <a href="{% url 'add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </ul>
+					<ul style="margin-left: -15px;">
+						{% for each in category.title %}
+						<li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
+						-- {{each.description}} </br>
+						<a href="/news/images/{{each.id}}"> See Images </a>
+							{% if user.is_authenticated %}
+								{% if each.id in bookmark %}
+									<a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+								{% else %}
+									<a href="{% url 'add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</ul>
                 </p>
                 </div>
                 

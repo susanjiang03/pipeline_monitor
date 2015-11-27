@@ -111,6 +111,33 @@ class FilterFeedsTest(TestCase):
         
         self.assertContains(response, "Technology")
 
+#can't test for content
+#that's an integration as it requires click selection of content
+class UserFeedsTest(TestCase):
+    
+    def test_uses_userfeeds_template(self):
+        response = self.client.get('/news/userfeeds')
+        self.assertTemplateUsed(response, 'userfeeds.html')
+
+class ArticleImagesTest(TestCase):
+
+    def test_uses_images_template(self):
+        #have to create article, as images belong to an article id
+        an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Technology")
+
+        response = self.client.get('/news/images/' + str(an_article.id))
+        self.assertTemplateUsed(response, 'images.html')
+
+    def test_has_article_attributes(self):
+
+        an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Technology")
+
+        response = self.client.get('/news/images/' + str(an_article.id))
+
+        #test that newspaper, category and title display on page
+        self.assertContains(response, an_article.newspaper)
+        self.assertContains(response, an_article.category)
+        self.assertContains(response, an_article.title)
 
 
 
