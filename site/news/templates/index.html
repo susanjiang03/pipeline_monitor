@@ -31,6 +31,7 @@
 
 						<a href="/news/images/{{each.id}}"> See Images </a>
 						{% if user.is_authenticated %}
+							|
 							{% if each.id in bookmark %}
                                 <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
 							{% else %}
@@ -58,6 +59,7 @@
 			<li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
 			<a href="/news/images/{{each.id}}"> See Images </a>
 				{% if user.is_authenticated %}
+					|
 					{% if each.id in bookmark %}
                         <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
 					{% else %}

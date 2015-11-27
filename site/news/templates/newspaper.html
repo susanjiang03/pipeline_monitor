@@ -33,6 +33,7 @@
 						-- {{each.description}} </br>
 						<a href="/news/images/{{each.id}}"> See Images </a>
 							{% if user.is_authenticated %}
+								|
 								{% if each.id in bookmark %}
 									<a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
 								{% else %}

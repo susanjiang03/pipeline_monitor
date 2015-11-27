@@ -14,14 +14,19 @@ class NewVisitorTest(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_title_is_pipeline_monitor(self):
+    def test_title_is_news_aggregator(self):
         self.browser.get(self.live_server_url + '/news/')
-        self.assertEqual('News Aggregator', self.browser.title)
+        self.assertEqual('News Aggregator | Main', self.browser.title)
         
     #user story #1 - following the link
     #Timothy has been recently informed that there is a pipeline monitor web app and that he should check it out
-
     #he goes to the home page and it says 'Pipeline Monitor'
+    def test_title_is_pipeline_Monitor(self):
+        self.browser.get(self.live_server_url + '/pipeline/')
+        self.assertEqual('Pipeline Monitor | Main', self.browser.title)
+
+
+
 
     #he then asks himself, what exactly is the the pipeline monitoring?
     #he sees a link that directs him to the news aggregator app that this pipeline monitors
