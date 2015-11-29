@@ -274,4 +274,22 @@ def remove_from_bookmark(request, article_id):
 def bookmark(request):
     template = 'bookmark.html'
 
-    return render(request, template, {})
+    bookmarkdict = {}
+    bookmark_query =  Bookmark.objects.filter(user_id=request.user.id)
+    for each in bookmark_query:
+        article_query = Article.objects.get(id=each.article_id)
+
+        if len(article_query.title) > 60:
+            article_query.title = article_query.title[:60]+'...'.encode('utf-8')
+        else:
+            article_query.title = article_query.title.encode('utf-8')
+
+        if article_query.category in bookmarkdict:
+            bookmarkdict[article_query.category].update({article_query})
+        else:
+            bookmarkdict[article_query.category] = {article_query}
+
+    for key in bookmarkdict:
+        bookmarkdict[key] = list(bookmarkdict[key])
+
+    return render(request, template, {'bookmarkdict': bookmarkdict})
