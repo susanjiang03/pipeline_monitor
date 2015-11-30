@@ -231,7 +231,7 @@ def newspaper(request, newspaperlink):
     for each in bookmarkfilter:
         bookmark.append(each.article_id)
 
-    return render(request, template, {'dictcategory' : dictcategory, 'paper':paper, 'bookmark': bookmark})
+    return render(request, template, {'dictcategory' : dictcategory, 'paper':paper, 'bookmark': bookmark,'newspaperlink':newspaperlink})
 
 
 #view image
@@ -293,3 +293,19 @@ def bookmark(request):
         bookmarkdict[key] = list(bookmarkdict[key])
 
     return render(request, template, {'bookmarkdict': bookmarkdict})
+
+
+#category
+def category(request,thiscategory):
+    template='category.html'
+    dictcate=Article.objects.filter(category=thiscategory)
+    return render(request,template,{'category':dictcate,'catename':thiscategory,'size':len(dictcate)})
+
+def newspaper_category(request,newspaperlink,thiscategory):
+    template='newspaper_category.html'
+    paper = newspapers[newspaperlink]
+    dictcate=Article.objects.filter(category=thiscategory,newspaper=paper)
+    return render(request,template,{'category':dictcate,'catename':thiscategory,'paper':paper,'size':len(dictcate)})
+
+
+

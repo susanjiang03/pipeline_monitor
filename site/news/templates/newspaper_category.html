@@ -4,6 +4,12 @@
 
 	<!--if you need to adjust css, do it through the style tag here-->
 	<style>
+        .col-md-6{
+            display: inline-block;
+            width: 60%;
+            left: 20%;
+            
+        }
 
 	</style>
 
@@ -16,30 +22,29 @@
             </div>
         </div>
 
-        {% for category in dictcategory %}
+
         <div class="col-md-6">
             <div class="panel panel-primary" id="panels" >
                 <div class="panel-heading">
-                   <a href="/news/newspaper/{{newspaperlink}}/{{category.category}}/">{{category.category}}</a>
+                    <h3 style="text-align: center;">{{catename}}</h3>
                 </div>
                 <div class="panel-body" style="height: 300px; overflow: scroll;">
                 <p  style="margin-top: -20px;">
-
                 <ul style="margin-left: -15px;">
-                    {% for each in category.title %}
-                    <li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
-                     <a href="/news/images/{{each.id}}"> Get Images </a>
-                    {% endfor %}
+                    {% for each in category %}
+                
+                     <li><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+                      {% endfor %}
                 </ul>
                 </p>
+                
                 </div>
                 
-                <div class="panel-footer">Number of feeds: {{category.size}}</div>
+                <div class="panel-footer">Number of feeds: {{size}}</div>
                 
             </div>
             
         </div>
-        {% endfor %}
     </div>
 
 {% endblock %}
