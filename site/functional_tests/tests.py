@@ -27,6 +27,17 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertEqual('Pipeline Monitor | Main', self.browser.title)
     '''
 
+    #news app can go see the pipeline
+    def test_pipeline_app_link(self):
+        self.browser.get(self.live_server_url + '/news/')
+        link = self.browser.find_element_by_link_text('See pipeline')
+        #click on it
+        link.send_keys(Keys.RETURN)
+
+        pipe_url = self.live_server_url + '/pipeline/' 
+        self.assertEqual(pipe_url, self.browser.current_url)
+        self.assertEqual('Pipeline Monitor | Main', self.browser.title)
+
     #he then asks himself, what exactly is the the pipeline monitoring?
     #he sees a link that directs him to the news aggregator app that this pipeline monitors
     #the news homepage is titled 'News Aggregator' 

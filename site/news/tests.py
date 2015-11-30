@@ -30,6 +30,10 @@ class NewsPageTest(TestCase):
         self.assertContains(response, 'Technology')
         self.assertContains(response, 'New York Times')
 
+    def test_Can_redirect_to_pipeline(self):
+        response = self.client.get('/news/')
+        self.assertContains(response, 'See pipeline')
+
 #article model
 class AritcleModeltest(TestCase):
 
