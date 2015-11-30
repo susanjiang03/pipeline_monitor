@@ -301,11 +301,5 @@ def category(request,thiscategory):
     dictcate=Article.objects.filter(category=thiscategory)
     return render(request,template,{'category':dictcate,'catename':thiscategory,'size':len(dictcate)})
 
-def newspaper_category(request,newspaperlink,thiscategory):
-    template='newspaper_category.html'
-    paper = newspapers[newspaperlink]
-    dictcate=Article.objects.filter(category=thiscategory,newspaper=paper)
-    return render(request,template,{'category':dictcate,'catename':thiscategory,'paper':paper,'size':len(dictcate)})
-
 
 
