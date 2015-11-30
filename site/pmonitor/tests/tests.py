@@ -3,15 +3,46 @@ pmonitor/models.py unittests.
 """
 from datetime import datetime
 
+from django.core.urlresolvers import resolve
+from django.test import TestCase
+from django.http import HttpRequest
+from django.template.loader import render_to_string
+
 from django.test import TestCase
 from django.contrib.auth.models import User
 
+#models
 from pmonitor.models import Task, Job
 from django_nose.tools import assert_queryset_equal
+
+#views
+from pmonitor.views import index
 
 __author__ = 'jhohman'
 
 
+#Testing Views *************************************************
+class PipelinePageTest(TestCase):
+
+    #/pipeline goes to index view
+    def test_pipeline_url_resolves_to_index_view(self):
+        found = resolve('/pipeline/')
+        self.assertEqual(found.func, index)
+
+    #checks that index view has the index html template
+    def test_pipeline_page_returns_correct_html(self):
+        request = HttpRequest()
+        response = index(request)
+        expected_html = render_to_string('pmonitor/index.html')
+        self.assertEqual(response.content.decode(), expected_html)
+
+    #check that there is a link there
+    def test_link_to_news_app(self):
+        response = self.client.get('/pipeline/')
+        self.assertContains(response, 'News')
+
+
+#Testing Models ************************************************
 class TestTasks(TestCase):
     """
     Tests the Task model.
@@ -164,3 +195,4 @@ class TestJobs(TestCase):
             entry_task=task
         )
         self.assertEqual(task, job.entry_task)
+
