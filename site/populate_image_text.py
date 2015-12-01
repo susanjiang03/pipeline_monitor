@@ -22,7 +22,7 @@ def populate_image_text():
     total_create=0
     total_exist=0
     total_count=0
-    
+    max_length=3000
     #get the array of article
     Articlelinks=Article.objects.distinct()
     
@@ -45,7 +45,9 @@ def populate_image_text():
             top_image_url= article.top_image.src
             images_count=1
             cleaned_text=article.cleaned_text
-        
+            if len(cleaned_text)>max_length:
+                cleaned_text=cleaned_text[0:max_length-1]
+            
                 #save in db     |article_id  | image_url |
             obj, created = Image.objects.get_or_create(
                     article_id=each.id,

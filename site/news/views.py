@@ -302,5 +302,34 @@ def category(request,thiscategory):
     dictcate=Article.objects.filter(category=thiscategory)
     return render(request,template,{'category':dictcate,'catename':thiscategory,'size':len(dictcate)})
 
+#for each category in newspaper, display top image and main text
+def newspaper_category(request,newspaperlink,thiscategory):
+    template='newspaper_category.html'
+    paper = newspapers[newspaperlink]
+    #get a array of articles in this category of this newspaper
+    articles=Article.objects.filter(category=thiscategory,newspaper=paper)
+    article_main=[]
+    max_length=3000
+    for each in articles:
+        article=Image.objects.filter(article_id=each.id)
+        #if no image or text populated in image table
+        if len(article)==0:
+           top_image=""
+           main_text=""
+        else:
+           thisarticle=article[0]
+           top_image=thisarticle.image_url.encode('utf-8')
+           main_text=thisarticle.main_text.encode('utf-8')
+           if len(main_text)>max_length:
+               main_text=main_text[0:max_length-1]+"...MORE"
+
+        article_main.append({
+            "title":each.title.encode('utf-8'),
+            "url":each.url.encode('utf-8'),
+            "image":top_image,
+            "text":main_text,
+            })
+    return render(request,template,{'paper':paper,'catename':thiscategory,'size':len(articles),'article_main':article_main})
+
 
 
