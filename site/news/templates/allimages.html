@@ -3,6 +3,21 @@
 {% block title %} Images | All {% endblock %}
 
 {% block body_block %}
+<style>
+    
+    img{
+        width:40%;
+        height:30%;
+        float:left;
+        left:20%;
+    }
+
+.imgdiv{
+    margin-left:5%;
+}
+
+
+    </style>
 
 	<div class="col-md-12">
 		<div class="col-md-12">
@@ -15,7 +30,7 @@
 			</div>
 		</div>
 
-		{% for each in imgurls %}
+        {% for each in imgurls %}
 		<div class="imgdiv">
 			<img src="{{each.image_url}}">
 		</div>
