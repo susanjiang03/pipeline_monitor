@@ -1,7 +1,10 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from news.models import Article 
 import unittest
+import time #sleep for timed delays
 
 #User Story
 class NewVisitorTest(StaticLiveServerTestCase):
@@ -14,7 +17,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-    '''
     def test_title_is_news_aggregator(self):
         self.browser.get(self.live_server_url + '/news/')
         self.assertEqual('News Aggregator | Main', self.browser.title)
@@ -25,7 +27,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
     def test_title_is_pipeline_monitor(self):
         self.browser.get(self.live_server_url + '/pipeline/')
         self.assertEqual('Pipeline Monitor | Main', self.browser.title)
-    '''
 
     #news app can go see the pipeline
     def test_pipeline_app_link(self):
@@ -51,9 +52,18 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertEqual(news_url, self.browser.current_url)
         self.assertEqual('News Aggregator | Main', self.browser.title)
 
-    #he sees a plethora of articles each of different category, he clicks on a the first link in the Local category and is directed to the chose article
-
+    #he sees an article, he clicks on it 
+    def test_following_article_link_correctly(self):
+        an_article = Article.objects.create(newspaper="Miami Herald", title="Nissan test car drives itself safely", url="http://www.miamiherald.com/news/business/technology/article42456270.html", description="I don't know", category="Technology")
     
+        self.browser.get(self.live_server_url + '/news/')
+        article_link = self.browser.find_element_by_link_text('Nissan test car drives itself safely')
+        article_link.send_keys(Keys.RETURN)
+        
+        article_paper = an_article.newspaper.encode('utf-8').lower().replace(" ", "")
+        # print self.browser.current_url
+        self.assertIn(article_paper, self.browser.current_url.encode('utf-8'))
+        self.assertIn(an_article.category.lower(), self.browser.current_url)
     
 
     #user story #2 - user clicks the 'see images' link and goes to a page with article relevant images
