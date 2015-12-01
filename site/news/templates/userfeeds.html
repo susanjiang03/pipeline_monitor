@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %} User Created Feed {% endblock %}
+
+{% block body_block %}
+
+	<div class="col-md-12">
+
+		<!--header-->
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">Filter Feeds</h1></div>
+			</div>
+		</div>
+		
+		<!--categories that are already in the database-->
+		{% for newspaper in dictuserfeeds %}
+		<div class="col-md-4">
+			<div class="panel panel-primary" id="panels">
+
+				<div class="panel-heading" style="height:40px">
+					<a class="blackblue" href="#">{{newspaper.newspaper}} - {{newspaper.category}}</a>
+				</div>
+
+				<p class="panel-body" style="margin-top: -20px;">
+					<ol style="overflow: hidden;margin-left: -15px">
+					{% for each in newspaper.feeds %}
+						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+						{% if user.is_authenticated %}
+							{% if each.id in bookmark %}
+                                <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+							{% else %}
+								<a href="{% url 'add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
+							{% endif %}
+						{% endif %}									
+					{% endfor %}
+					</ol>
+				</p>
+
+			</div>
+		</div>
+		{% endfor %}
+
+		<!--from userinput-->
+		{% for url in dictuserinput %}
+		<div class="col-md-4">
+			<div class="panel panel-primary" id="panels">
+
+				<div class="panel-heading" style="height:40px">
+					<a class="blackblue" href="#">{{url.rssurl}}</a>
+				</div>
+
+				<p class="panel-body" style="margin-top: -20px;">
+					<ol style="overflow: hidden;margin-left: -15px">
+					{% for each in url.titlelink %}
+						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+					{% endfor %}
+					</ol>
+				</p>
+			</div>
+		</div>
+		{% endfor %}			
+
+	</div>
+
+{% endblock %}
+

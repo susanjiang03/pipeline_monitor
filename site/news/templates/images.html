@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Images | Article {% endblock %}
+
+{% block body_block %}
+
+	<div class="col-md-8">
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading">
+					<h1 style="text-align: center;">Images in this page</h1>
+				</div>
+
+                <div class="articlelinkdiv">&nbsp;&nbsp;{{article.newspaper}}&nbsp;&nbsp; | &nbsp;&nbsp;{{article.category}}&nbsp;&nbsp; |&nbsp;&nbsp;<a href="{{article.url}}"> {{article.title}}</a></div>
+                <div class="messagediv"> {{Message}}</div>
+			</div>
+		</div>
+
+        {% for each in imgurls %}
+		<div class="imgdiv">
+			<img src="{{each.image_url}}">
+		</div>
+		{% endfor %}
+		
+	</div>
+
+{% endblock %}

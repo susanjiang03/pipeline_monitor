@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Images | All {% endblock %}
+
+{% block body_block %}
+
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading">
+					<h1 style="text-align: center;">All Images</h1>
+
+                </div>
+                <div class="messagediv"> {{Message}}</div>
+			</div>
+		</div>
+
+		{% for each in imgurls %}
+		<div class="imgdiv">
+			<img src="{{each.image_url}}">
+		</div>
+		{% endfor %}
+		
+	</div>
+
+{% endblock %}
