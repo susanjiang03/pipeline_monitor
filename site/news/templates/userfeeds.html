@@ -25,14 +25,7 @@
 				<p class="panel-body" style="margin-top: -20px;">
 					<ol style="overflow: hidden;margin-left: -15px">
 					{% for each in newspaper.feeds %}
-						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
-						{% if user.is_authenticated %}
-							{% if each.id in bookmark %}
-                                <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
-							{% else %}
-								<a href="{% url 'add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
-							{% endif %}
-						{% endif %}									
+						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>							
 					{% endfor %}
 					</ol>
 				</p>
