@@ -15,19 +15,15 @@ from datetime import datetime
 import warnings
 warnings.filterwarnings("ignore")
 
-import urllib
-from bs4 import BeautifulSoup
-import bs4
+from goose import Goose
 
-def populate_images():
+def populate_top_image():
     
     total_create=0
     total_exist=0
     total_count=0
-    #define badwords
-    badwords=['logo','icon','singlepixel','placeholder']
     
-    #get the array of
+    #get the array of article
     Articlelinks=Article.objects.distinct()
     
     #change start and end here, to extra images for articles in a range
@@ -36,41 +32,31 @@ def populate_images():
         create_count=0
         exist_count=0
         total_create=0
+        images_count=0
         
-        
-        #parse page using bs
-        try:
-            page = BeautifulSoup(urllib.urlopen(each.url))
-        except:
-            continue
-        
-        #get imgtags contains src
-        links=page.find_all('img',src=True)
-        #filter img src containing bad word:
-        for word in badwords:
-            links=[l for l in links if word not in l['src'].lower()]
-        
-        images_count=len(links)
-        
-        for l in links:
-            imgurl=l['src']
-                #  f.write(imgurl+'\n')
-                
-                #save in db     |article_id  | image_url |
-            obj, created = Image.objects.get_or_create(
+        #parse page using goose
+        g = Goose()
+        article = g.extract(url=each.url)
+        if article.top_image is not None:
+
+           top_image_url= article.top_image.src
+           images_count=1
+            #save in db     |article_id  | image_url |
+           obj, created = Image.objects.get_or_create(
                     article_id=each.id,
-                    image_url=imgurl
-                )
+                    image_url=top_image_url
+             )
                     
-            if created:
+           if created:
                 create_count += 1
                 total_create += 1
-                sys.stdout.write('Image created: %s\n' % imgurl)
-            else:
+                sys.stdout.write('Image created: %s\n' % top_image_url)
+           else:
                 total_exist += 1
                 exist_count += 1
-                sys.stdout.write('Image exists!  %s\n' % imgurl)
-            sys.stdout.flush()
+                sys.stdout.write('Image exists!  %s\n' % top_image_url)
+
+        sys.stdout.flush()
         
         total_create+=create_count
         total_exist+=exist_count
@@ -108,8 +94,6 @@ if __name__ == '__main__':
     num=len(Articlelinks)
     #specify the range
     print "Total number of articles is  %d." %num
-    print "Warning:  Populatiing images for each article takes average 2 seconds."
-    
     start=int(raw_input("Please enter the start index (range(0,%d))of articles to populate images:" %(num-1)))
     end=int(raw_input("Please enter the end index (range(%d,%d))of articles to populate images:"%(start,(num-1))))
     
