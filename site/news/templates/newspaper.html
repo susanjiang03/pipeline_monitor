@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %} Newspaper | {{paper}} {% endblock %}
+
+{% block body_block %}
+
+	<!--if you need to adjust css, do it through the style tag here-->
+	<style>
+
+	</style>
+
+	<!--populates categories based on selected newspaper-->
+    <div class="col-md-12">
+
+        <div class="col-md-12">
+            <div class="panel panel-primary" id="panels">
+                <div class="panel-heading"><h1 style="text-align: center;">{{paper}}</h1></div>
+            </div>
+        </div>
+
+        {% for category in dictcategory %}
+        <div class="col-md-6">
+            <div class="panel panel-primary" id="panels" >
+                <div class="panel-heading">
+                   <a href="">{{category.category}}</a>
+                </div>
+                <div class="panel-body" style="height: 300px; overflow: scroll;">
+                <p  style="margin-top: -20px;">
+
+					<ul style="margin-left: -15px;">
+						{% for each in category.title %}
+						<li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
+						-- {{each.description}} </br>
+						<a href="/news/images/{{each.id}}"> See Images </a>
+							{% if user.is_authenticated %}
+								|
+								{% if each.id in bookmark %}
+									<a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+								{% else %}
+									<a href="{% url 'add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</ul>
+                </p>
+                </div>
+                
+                <div class="panel-footer">Number of feeds: {{category.size}}</div>
+                
+            </div>
+            
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

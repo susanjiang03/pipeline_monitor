@@ -1,0 +1,33 @@
+{% extends 'pmonitor/base.html' %}
+{# 
+  You MUST include the following tag at the top of your template 
+  if you intend to use the bootstrap tags.
+#}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block title %}Pipeline Monitor{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'pmonitor/css/pmonitor.css' %}">
+{% endblock %}
+
+{% block body %}
+{% include "includes/bs3_navbar.html" %}
+<div class="container-fluid header">
+  {% bootstrap_messages %}
+</div>
+<div class="container main">
+  <div id="chart"></div>
+</div>
+{% endblock %}
+
+{% block bootstrap-js %}
+{% bootstrap_javascript jquery=1 %}
+{% endblock %}
+
+
+{% block late-scripts %}
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'pmonitor/js/d3_node_chart.js' %}"></script>
+{% endblock %}
