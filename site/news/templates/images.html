@@ -3,6 +3,28 @@
 {% block title %} Images | Article {% endblock %}
 
 {% block body_block %}
+<!--if you need to adjust css, do it through the style tag here-->
+<style>
+    img{
+        width:40%;
+        height:30%;
+        float:left;
+        left:20%;
+    }
+
+.imgdiv{
+    left:20%;
+}
+
+   .maintext{
+       right: 50%;
+       overflow: scroll;
+       float:right;
+       width:50%;
+       height:30% ;
+    }
+
+</style>
 
 	<div class="col-md-8">
 		<div class="col-md-12">
@@ -15,12 +37,17 @@
                 <div class="messagediv"> {{Message}}</div>
 			</div>
 		</div>
-
+       
+        <div>
         {% for each in imgurls %}
 		<div class="imgdiv">
 			<img src="{{each.image_url}}">
 		</div>
+        <div class='maintext'>
+            <p> {{each.main_text}}</p>
+        <div>
 		{% endfor %}
+        </div>
 		
 	</div>
 

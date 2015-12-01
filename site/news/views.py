@@ -1,6 +1,7 @@
 '''
 views file to render pages
 '''
+
 from django.shortcuts import render, redirect
 from news.models import Article, Image, Bookmark
 import feedparser
