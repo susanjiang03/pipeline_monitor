@@ -144,7 +144,7 @@ def index(request):
             "newspaper" : newspaper,
             "title" : Article.objects.filter(newspaper=newspaper).order_by('-publish_date')[:m]
             })
-
+        
     bookmarkfilter = Bookmark.objects.filter(user_id=request.user.id)
     bookmark = []
     for each in bookmarkfilter:

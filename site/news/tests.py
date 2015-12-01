@@ -2,6 +2,7 @@ from django.core.urlresolvers import resolve
 from django.test import TestCase
 from django.http import HttpRequest
 from django.template.loader import render_to_string
+from django.contrib.auth.models import AnonymousUser, User
 
 from news.views import index, filterfeeds, userfeeds, newspaper
 from news.models import Article
@@ -17,6 +18,7 @@ class NewsPageTest(TestCase):
     #checks that index view has the index html template
     def test_news_page_returns_correct_html(self):
         request = HttpRequest()
+        request.user = AnonymousUser()
         response = index(request)
         expected_html = render_to_string('index.html')
         self.assertEqual(response.content.decode(), expected_html)
