@@ -10,16 +10,16 @@ def index(request):
     template = 'pmonitor/index.html'
     extra_context = dict(
         site_title='Pipeline Monitor',
-        right_menu=dict(
-            menu_title='Menu',
-            menu_items=[
-                dict(label='Admin Site', url='admin/')
-            ]
-        ),
-        # main_nav=[
-        #     dict(label='Nav1', url='#', active=True),
-        #     dict(label='Nav2', url='#', active=False),
-        # ]
+        # right_menu=dict(
+        #     menu_title='Menu',
+        #     menu_items=[
+        #         dict(label='Admin Site', url='admin/')
+        #     ]
+        # ),
+        main_nav=[
+            dict(label='Admin Site', url='admin/', active=False),
+            # dict(label='Nav2', url='#', active=False),
+        ]
     )
     return render(request, template, extra_context)
 
