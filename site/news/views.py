@@ -263,17 +263,33 @@ def image_text(request, urlid):
     num = len(imgurls)
     return render(request, template, {'imgurls':imgurls, 'article':article})
 
-#view all image
+#view top image and main text for all articles
 def allarticles(request):
     template = 'allarticles.html'
-    imgurls = Image.objects.all()
-    num = len(imgurls)
-    Message = str(num) +" image(s) was/were extracted."
-    #if no image
-    if num == 0:
-        Message += "\nThere is no image in all sites or there are errors during the population."
+    
+    image_text = Image.objects.all().distinct()
+    num = len(image_text)
+    article_main=[]
+    max_length=2000
+    for each in image_text:
+        article=Article.objects.filter(id=each.article_id)[0]
+        
+        if len(each.main_text)>max_length:
+            text=each.main_text[0:max_length-1]+"...(MORE)"
+        article_main.append({
+            "title":article.title.encode('utf-8'),
+            "url":article.url.encode('utf-8'),
+            "newspaper":article.newspaper.encode('utf-8'),
+            "category":article.category.encode('utf-8'),
+            "image":each.image_url,
+            "text":text,
+        })
+   
+    return render(request, template, {'article_main':article_main, 'num':num})
 
-    return render(request, template, {'imgurls':imgurls, 'Message':Message})
+
+
+
 
 def add_to_bookmark(request, article_id):
     user_id = request.user.id

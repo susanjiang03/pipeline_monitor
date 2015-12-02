@@ -14,21 +14,24 @@
     }
 
 .imgdiv{
-    margin-left: 5%;
+    
 }
 
    .maintext{
-       right: 50%;
+       left: 5%;
        overflow: scroll;
-       float:right;
        width:50%;
        height:30% ;
        display:inline
     }
 
+.col-md-6{
+    left:10%;
+    width:80%;
+}
 </style>
 
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<div class="col-md-12">
 			<div class="panel panel-primary" id="panels">
 				<div class="panel-heading">
@@ -40,17 +43,19 @@
                       <a href="{{article.url}}"> {{article.title}}</a>
                     </h4>
                 </div>
-                </div>
+            
 		</div>
        
         <div>
         {% for each in imgurls %}
+        <div>
 		<div class="imgdiv">
 			<img src="{{each.image_url}}">
 		</div>
         <div class='maintext'>
             <p> {{each.main_text}}</p>
         <div>
+        </div>
 		{% endfor %}
         </div>
 		

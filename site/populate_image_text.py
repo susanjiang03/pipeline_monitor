@@ -27,7 +27,7 @@ def populate_image_text():
     Articlelinks=Article.objects.distinct()
     
     #change start and end here, to extra images for articles in a range
-    for each in Articlelinks[start:end]:
+    for each in Articlelinks:
         
         create_count=0
         exist_count=0
@@ -102,11 +102,6 @@ if __name__ == '__main__':
     
     Articlelinks=Article.objects.distinct()
     num=len(Articlelinks)
-    #specify the range
-    print "Total number of articles is  %d." %num
-    start=int(raw_input("Please enter the start index (range(0,%d))of articles to populate top image and main text :" %(num-1)))
-    end=int(raw_input("Please enter the end index (range(%d,%d))of articles to populate top image and main text:"%(start,(num-1))))
-    
     #start
     date_format = "%Y-%m-%d %H:%M:%S.%f"
     print "Starting image and text population script..."

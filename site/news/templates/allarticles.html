@@ -6,36 +6,65 @@
 <style>
     
     img{
-        width:40%;
-        height:30%;
+        width:32%;
+        height:24%;
         float:left;
-        left:20%;
+        left:5%;
     }
 
-.imgdiv{
-    margin-left:5%;
+
+
+.article_main{
+    margin-top:10px;
+    display:block
+    height:24%;
+    overflow:scroll;
+    
 }
 
+.imgdiv{
+   }
+.maintext{
+    width: 65%;
+    height:20%;
+    margin-left:5%;
+    overflow:scroll;
+    padding-left:2%;
+    
+
+}
 
     </style>
 
 	<div class="col-md-12">
+        
 		<div class="col-md-12">
 			<div class="panel panel-primary" id="panels">
 				<div class="panel-heading">
-					<h1 style="text-align: center;">Top Image and Main Text For All Articles</h1>
-
+                    <h1 style="text-align: center;">Top Image and Main Text For &nbsp; {{num}} &nbsp; Articles</h1>
                 </div>
-                <div class="messagediv"> {{Message}}</div>
 			</div>
 		</div>
+        
+        <div class="panel-body">
+            <ul style="margin-left: -15px;">
+                {% for each in article_main %}
+                <div class="article_main">
+                    
+                    <li style="font-size:20px;">
+                        &nbsp;{{each.newspaper}}&nbsp;|&nbsp;{{each.category}}&nbsp;| <a class="blackblue" href="{{each.url}}">{{each.title}}</a> 
+                    </li>
+                    <div class="imgdiv">
+                        <img src="{{each.image}}">
+                    </div>
+                    <div class='maintext'>
+                        <p> {{each.text}}</p>
+                    </div>
+                </div>
+                
+                {% endfor %}
+            </ul>
+        </div>
 
-        {% for each in imgurls %}
-		<div class="imgdiv">
-			<img src="{{each.image_url}}">
-		</div>
-		{% endfor %}
-		
-	</div>
-
+</div>
 {% endblock %}
