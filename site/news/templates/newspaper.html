@@ -28,7 +28,9 @@
                 <ul style="margin-left: -15px;">
                     {% for each in category.title %}
                     <li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
-                     <a href="/news/images/{{each.id}}"> See Top Image and Main Text</a>
+                      {% if each.id in article_has_image %}
+                     <a href="/news/images/{{each.id}}"> View Top Image and Main Text</a>
+                     {% endif %}
                     {% endfor %}
                 </ul>
                 </p>

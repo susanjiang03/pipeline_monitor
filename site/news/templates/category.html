@@ -31,7 +31,8 @@
                 <p  style="margin-top: -20px;">
                 <ul style="margin-left: -15px;">
                     {% for each in category %}
-                    <li><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+                    <li><b><a class="blackblue" href="{{each.url}}">{{each.title}}</a></b></li>
+                    <p>--{{each.description}}</p>
                     {% endfor %}
                 </ul>
                 </p>
