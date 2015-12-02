@@ -22,4 +22,3 @@ def index(request):
         ]
     )
     return render(request, template, extra_context)
-

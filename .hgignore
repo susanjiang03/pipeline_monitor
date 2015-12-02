@@ -12,3 +12,4 @@ docs/build/
 .coverage
 
 .DS_Store
+*.bak
