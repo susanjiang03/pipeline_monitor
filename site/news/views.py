@@ -126,7 +126,7 @@ def index(request):
     n = 5 #Number of Titles to display on Category blocks
     for category in query:
         category = category[0].encode('utf-8')
-        feeds = Article.objects.filter(category=category)[:n]
+        feeds = Article.objects.filter(category=category).order_by('-publish_date')[:n]
 
         dictcategory.append({
             "category" : category,
@@ -142,9 +142,9 @@ def index(request):
         dictpaper.append({
             "newspaperlink": link,
             "newspaper" : newspaper,
-            "title" : Article.objects.filter(newspaper=newspaper)[:m]
+            "title" : Article.objects.filter(newspaper=newspaper).order_by('-publish_date')[:m]
             })
-
+        
     bookmarkfilter = Bookmark.objects.filter(user_id=request.user.id)
     bookmark = []
     for each in bookmarkfilter:
@@ -176,7 +176,7 @@ def userfeeds(request):
     n = 10
 
     for newspaper, category in zip(y[0::2], y[1::2]):
-        feeds = Article.objects.filter(newspaper=newspaper, category=category)[:n]
+        feeds = Article.objects.filter(newspaper=newspaper, category=category).order_by('-publish_date')[:n]
         for each in feeds:
             if len(each.title) > 60:
                 each.title = each.title[:60]+'...'.encode('utf-8')
@@ -223,7 +223,7 @@ def newspaper(request, newspaperlink):
         category = category[0].encode('utf-8')
         dictcategory.append({ "size": len( Article.objects.filter(newspaper=paper, category=category)),
                             "category" : category,
-                            "title" : Article.objects.filter(newspaper=paper, category=category)
+                            "title" : Article.objects.filter(newspaper=paper, category=category).order_by('-publish_date')
         })
 
     bookmarkfilter = Bookmark.objects.filter(user_id=request.user.id)

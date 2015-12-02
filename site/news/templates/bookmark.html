@@ -25,6 +25,11 @@
 					<ol style="overflow: hidden;margin-left: -15px">
 					{% for each in value %}
 						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+
+						<!--unbookmark-->
+						{% if user.is_authenticated %}
+                            <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+						{% endif %}									
 					{% endfor %}
 					</ol>
 				</p>
