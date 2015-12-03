@@ -7,3 +7,10 @@ document.getElementById("addInputField").onclick=function() {
 				div.appendChild(document.createElement("p"));
 				div.appendChild(input);
 			}
+
+
+document.getElementById("deleteInputField").onclick=function() {
+				var div = document.getElementById("UserRssInput");
+    var lastInput=div.lastElementChild;
+				div.removeChild(lastInput);
+}

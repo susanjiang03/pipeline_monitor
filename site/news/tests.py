@@ -125,6 +125,7 @@ class UserFeedsTest(TestCase):
         response = self.client.get('/news/userfeeds')
         self.assertTemplateUsed(response, 'userfeeds.html')
 
+
 class ArticleImagesTest(TestCase):
 
     def test_uses_images_template(self):
