@@ -41,8 +41,12 @@
 		<div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
 			<div class="col-md-12 nav_bar">
 				<ul class="nav nav-pills">
+					<!--Home | See pipeline | Create own feed | Bookmark | All Images | About-->
 					<li class="active">
 						<a href="{% url 'index' %}">Home</a>
+					</li>
+					<li>
+						<a href="/pipeline/">See pipeline</a>
 					</li>
 					<li>
 						<a href="{% url 'filterfeeds' %}">Create own Feed</a>
@@ -53,13 +57,10 @@
 					</li>
 					{% endif %}
 					<li>
-						<a href="{% url 'allimages' %}">All Images</a>
+						<a href="{% url 'allarticles' %}">All Articles</a>
 					</li>
 					<li>
 						<a href="#">About</a>
-					</li>
-					<li>
-						<a href="#">Team</a>
 					</li>
 				</ul>
 			</div>

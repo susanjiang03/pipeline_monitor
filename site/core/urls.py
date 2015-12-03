@@ -21,6 +21,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     #monitor app is going to be main page
     #news app on news/
-    url(r'^', include('pmonitor.urls')),
+    url(r'^pipeline/', include('pmonitor.urls')),
     url(r'^news/', include('news.urls')),
 ]

@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Need a title, yo!{% endblock %}</title>
+  <title>
+	  Pipeline Monitor | {% block title %}{% endblock %}
+  </title>
   {% block bootstrap-loads %}
   {# Load the tag library #}
   {% load bootstrap3 %}

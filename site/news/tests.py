@@ -2,6 +2,7 @@ from django.core.urlresolvers import resolve
 from django.test import TestCase
 from django.http import HttpRequest
 from django.template.loader import render_to_string
+from django.contrib.auth.models import AnonymousUser, User
 
 from news.views import index, filterfeeds, userfeeds, newspaper
 from news.models import Article
@@ -17,6 +18,7 @@ class NewsPageTest(TestCase):
     #checks that index view has the index html template
     def test_news_page_returns_correct_html(self):
         request = HttpRequest()
+        request.user = AnonymousUser()
         response = index(request)
         expected_html = render_to_string('index.html')
         self.assertEqual(response.content.decode(), expected_html)
@@ -29,6 +31,10 @@ class NewsPageTest(TestCase):
         response = self.client.get('/news/')
         self.assertContains(response, 'Technology')
         self.assertContains(response, 'New York Times')
+
+    def test_Can_redirect_to_pipeline(self):
+        response = self.client.get('/news/')
+        self.assertContains(response, 'See pipeline')
 
 #article model
 class AritcleModeltest(TestCase):
@@ -126,7 +132,7 @@ class ArticleImagesTest(TestCase):
         an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Technology")
 
         response = self.client.get('/news/images/' + str(an_article.id))
-        self.assertTemplateUsed(response, 'images.html')
+        self.assertTemplateUsed(response, 'image_text.html')
 
     def test_has_article_attributes(self):
 

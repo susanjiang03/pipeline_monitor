@@ -123,10 +123,17 @@ def index(request):
     template = 'index.html'
     query = Article.objects.values_list('category').distinct()
     dictcategory = []
+    article_has_image=[]
     n = 5 #Number of Titles to display on Category blocks
     for category in query:
         category = category[0].encode('utf-8')
-        feeds = Article.objects.filter(category=category)[:n]
+        feeds = Article.objects.filter(category=category).order_by('-publish_date')[:n]
+
+        #find out if each article in feed has image and text in Image table
+        for each in feeds:
+            article=Image.objects.filter(article_id=each.id)
+            if(len(article)>0):
+                article_has_image.append(each.id)
 
         dictcategory.append({
             "category" : category,
@@ -139,18 +146,26 @@ def index(request):
     for newspaper in query:
         newspaper = newspaper[0].encode('utf-8')
         link = [key for key, value in newspapers.iteritems() if value ==newspaper][0]
+        titles=Article.objects.filter(newspaper=newspaper)[:m]
+        
+        #find out if each article in feed has image and text in Image table
+        for each in titles:
+            article=Image.objects.filter(article_id=each.id)
+            if(len(article)>0):
+                article_has_image.append(each.id)
+
         dictpaper.append({
             "newspaperlink": link,
             "newspaper" : newspaper,
-            "title" : Article.objects.filter(newspaper=newspaper)[:m]
+            "title" : Article.objects.filter(newspaper=newspaper).order_by('-publish_date')[:m]
             })
-
+        
     bookmarkfilter = Bookmark.objects.filter(user_id=request.user.id)
     bookmark = []
     for each in bookmarkfilter:
         bookmark.append(each.article_id)
 
-    return render(request, template, {'dictcategory' : dictcategory, 'dictpaper' : dictpaper, 'bookmark': bookmark})
+    return render(request, template, {'dictcategory' : dictcategory, 'dictpaper' : dictpaper, 'bookmark': bookmark,'article_has_image':article_has_image,'n':n})
 
 def filterfeeds(request):
     template = 'filterfeeds.html'
@@ -176,7 +191,7 @@ def userfeeds(request):
     n = 10
 
     for newspaper, category in zip(y[0::2], y[1::2]):
-        feeds = Article.objects.filter(newspaper=newspaper, category=category)[:n]
+        feeds = Article.objects.filter(newspaper=newspaper, category=category).order_by('-publish_date')[:n]
         for each in feeds:
             if len(each.title) > 60:
                 each.title = each.title[:60]+'...'.encode('utf-8')
@@ -218,45 +233,62 @@ def newspaper(request, newspaperlink):
     query = Article.objects.filter(newspaper=paper).values_list('category').distinct()
  
     dictcategory = []
-
+    article_has_image=[]
     for category in query:
         category = category[0].encode('utf-8')
+        titles=Article.objects.filter(newspaper=paper, category=category)
         dictcategory.append({ "size": len( Article.objects.filter(newspaper=paper, category=category)),
                             "category" : category,
-                            "title" : Article.objects.filter(newspaper=paper, category=category)
+                            "title" : Article.objects.filter(newspaper=paper, category=category).order_by('-publish_date')
         })
+        for each in titles:
+            article=Image.objects.filter(article_id=each.id)
+            if(len(article)>0):
+                article_has_image.append(each.id)
 
     bookmarkfilter = Bookmark.objects.filter(user_id=request.user.id)
     bookmark = []
     for each in bookmarkfilter:
         bookmark.append(each.article_id)
 
-    return render(request, template, {'dictcategory' : dictcategory, 'paper':paper, 'bookmark': bookmark})
+    return render(request, template, {'dictcategory' : dictcategory, 'paper':paper, 'bookmark': bookmark,'newspaperlink':newspaperlink,'article_has_image':article_has_image})
 
 
 #view image
-def images(request, urlid):
-    template = 'images.html'
+def image_text(request, urlid):
+    template = 'image_text.html'
     article = Article.objects.filter(id=int(urlid))[0]
     imgurls = Image.objects.filter(article_id=int(urlid))
     num = len(imgurls)
-    Message = str(num) + " image(s) was/were extracted."
-    if num == 0:
-       Message = "\nThere is no image in this site or there is an error during the population."
- 
-    return render(request, template, {'imgurls':imgurls, 'article':article, 'Message':Message})
+    return render(request, template, {'imgurls':imgurls, 'article':article})
 
-#view all image
-def allimages(request):
-    template = 'allimages.html'
-    imgurls = Image.objects.all()
-    num = len(imgurls)
-    Message = str(num) +" image(s) was/were extracted."
-    #if no image
-    if num == 0:
-        Message += "\nThere is no image in all sites or there are errors during the population."
+#view top image and main text for all articles
+def allarticles(request):
+    template = 'allarticles.html'
+    
+    image_text = Image.objects.all().distinct()
+    num = len(image_text)
+    article_main=[]
+    max_length=2000
+    for each in image_text:
+        article=Article.objects.filter(id=each.article_id)[0]
+        
+        if len(each.main_text)>max_length:
+            text=each.main_text[0:max_length-1]+"...(MORE)"
+        article_main.append({
+            "title":article.title.encode('utf-8'),
+            "url":article.url.encode('utf-8'),
+            "newspaper":article.newspaper.encode('utf-8'),
+            "category":article.category.encode('utf-8'),
+            "image":each.image_url,
+            "text":text,
+        })
+   
+    return render(request, template, {'article_main':article_main, 'num':num})
 
-    return render(request, template, {'imgurls':imgurls, 'Message':Message})
+
+
+
 
 def add_to_bookmark(request, article_id):
     user_id = request.user.id
@@ -293,3 +325,42 @@ def bookmark(request):
         bookmarkdict[key] = list(bookmarkdict[key])
 
     return render(request, template, {'bookmarkdict': bookmarkdict})
+
+
+#category
+def category(request,thiscategory):
+    template='category.html'
+    dictcate=Article.objects.filter(category=thiscategory)
+    return render(request,template,{'category':dictcate,'catename':thiscategory,'size':len(dictcate)})
+
+#for each category in newspaper, display top image and main text
+def newspaper_category(request,newspaperlink,thiscategory):
+    template='newspaper_category.html'
+    paper = newspapers[newspaperlink]
+    #get a array of articles in this category of this newspaper
+    articles=Article.objects.filter(category=thiscategory,newspaper=paper)
+    article_main=[]
+    max_length=3000
+    for each in articles:
+        article=Image.objects.filter(article_id=each.id)
+        #if no image or text populated in image table
+        if len(article)==0:
+           top_image=""
+           main_text=""
+        else:
+           thisarticle=article[0]
+           top_image=thisarticle.image_url.encode('utf-8')
+           main_text=thisarticle.main_text.encode('utf-8')
+           if len(main_text)>max_length:
+               main_text=main_text[0:max_length-1]+"...MORE"
+
+        article_main.append({
+            "title":each.title.encode('utf-8'),
+            "url":each.url.encode('utf-8'),
+            "image":top_image,
+            "text":main_text,
+            })
+    return render(request,template,{'paper':paper,'catename':thiscategory,'size':len(articles),'article_main':article_main})
+
+
+
