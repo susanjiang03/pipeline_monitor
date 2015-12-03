@@ -1,0 +1,15 @@
+# use glob syntax.
+syntax: glob
+
+*.pyc
+.git*
+*.sqlite3
+.idea/
+migration*/
+htmlcov/*
+docs/source/
+docs/build/
+.coverage
+
+.DS_Store
+*.bak
