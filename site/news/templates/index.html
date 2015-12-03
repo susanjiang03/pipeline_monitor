@@ -16,7 +16,7 @@
 		<div class="col-md-12">
 			<div class="panel panel-primary" id="panels">
 				<div class="panel-heading" style="height:40px; text-align: center; font-size: 20px;">
-					<a href="">{{category.category}}</a>
+					<a href="/news/category/{{category.category}}">{{category.category}}</a>
 				</div>
 
 				<p class="panel-body" style="margin-top: -20px;">
@@ -27,11 +27,14 @@
 						<!--title with description below-->
 						<li style="font-size:15px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
 
-						-- {{each.description}} </br> 
+						-- {{each.description}} </br>
 
-						<a href="/news/images/{{each.id}}"> See Images </a>
+                        {% if each.id in article_has_image %}
+                        <a href="/news/images/{{each.id}}"> View Top Image and Main Text</a> | 
+                        {% endif %}
+
+                         <!--Bookmark-->
 						{% if user.is_authenticated %}
-							|
 							{% if each.id in bookmark %}
                                 <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
 							{% else %}
@@ -41,7 +44,7 @@
 					{% endfor %}
 				</ol>
 				</p>
-				<div class="panel-footer">This is a footer</div>
+                <div class="panel-footer">Number of Feeds: {{n}} </div>
 			</div>
 		</div>
 		{% endfor %}
@@ -57,9 +60,12 @@
 			<a class="blackblue" href="/news/newspaper/{{paper.newspaperlink}}" style="text-decoration: underline"><h3>{{paper.newspaper}}</h3></a>
 			{% for each in paper.title %}
 			<li><a class="blackblue" href="{{each.url}}">{{each}}</a></li>
-			<a href="/news/images/{{each.id}}"> See Images </a>
+            {% if each.id in article_has_image %}
+			<a href="/news/images/{{each.id}}"> View Top Image and Main Text</a> | 
+            {% endif %}
+            
+                <!--Bookmark-->
 				{% if user.is_authenticated %}
-					|
 					{% if each.id in bookmark %}
                         <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
 					{% else %}

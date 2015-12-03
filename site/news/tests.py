@@ -132,7 +132,7 @@ class ArticleImagesTest(TestCase):
         an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Technology")
 
         response = self.client.get('/news/images/' + str(an_article.id))
-        self.assertTemplateUsed(response, 'images.html')
+        self.assertTemplateUsed(response, 'image_text.html')
 
     def test_has_article_attributes(self):
 
