@@ -232,62 +232,6 @@ def userfeeds(request):
 
 
 
-def newuserfeeds(request):
-    template = 'userfeeds.html'
-    y = []
-    for item in request.POST.getlist('newspapercategory[]'):
-        y += [x.strip() for x in item.split(',')]
-    dictuserfeeds = []
-    n = 10
-    
-    for newspaper, category in zip(y[0::2], y[1::2]):
-        feeds = Article.objects.filter(newspaper=newspaper, category=category).order_by('-publish_date')[:n]
-        for each in feeds:
-            if len(each.title) > 60:
-                each.title = each.title[:60]+'...'.encode('utf-8')
-            else:
-                each.title = each.title.encode('utf-8')
-    
-        dictuserfeeds.append({
-                             "newspaper" : newspaper,
-                             "category" : category,
-                             "feeds" : feeds
-                             })
-
-    updateinput=[]
-    for item in request.POST.getlist('userInput[]'):
-        if request.POST[item]!="":
-            updateinput.append(request.POST[item])
-        else:
-            updateinput.append(item)
-
-    dictuserinput = []
-    for url in updateinput:
-    
-        rss = feedparser.parse(url)
-        titlelink = []
-            
-        size=len(rss.entries)
-        for post in rss.entries[:n]:
-            if len(post.title.encode('utf-8')) > 60:
-                title = post.title[:60]+'...'.encode('utf-8')
-            else:
-                title = post.title.encode('utf-8')
-            
-            link = post.link
-            titlelink.append({
-                    "title" : title,
-                    "url" : link
-                     })
-        dictuserinput.append({
-                "rssurl" : url,
-                "titlelink" : titlelink,
-                "size":size
-            })
-
-    return render(request, template,  {'dictuserfeeds': dictuserfeeds,'dictuserinput': dictuserinput})
-
-
 
 def newspaper(request, newspaperlink):
     template = 'newspaper.html'
