@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %} {{catename}} {% endblock %}
+
+{% block body_block %}
+	
+	<!--if you need to adjust css, do it through the style tag here-->
+	<style>
+        .col-md-6{
+             display: inline-block;
+            width: 60%;
+            left: 20%;
+            
+        }
+	</style>
+    
+	<!--populates categories based on selected newspaper-->
+    <div class="col-md-12">
+
+        <div class="col-md-12">
+            <div class="panel panel-primary" id="panels">
+                <div class="panel-heading"><h1 style="text-align: center;">Newspaper Category</h1></div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="panel panel-primary" id="panels" >
+                <div class="panel-heading">
+                    <h3 style="text-align: center;">{{catename}}</h3>
+                </div>
+            
+            <div class="panel-body" style="height: 600px; overflow: scroll;">
+                <p  style="margin-top: -20px;">
+                <ul style="margin-left: -15px;">
+                    {% for each in category %}
+                    <li><b><a class="blackblue" href="{{each.url}}">{{each.title}}</a></b></li>
+                    <p>--{{each.description}}</p>
+                    {% endfor %}
+                </ul>
+                </p>
+            
+            </div>
+        <div class="panel-footer">Number of feeds: {{size}}</div>
+        </div>
+        
+   </div>
+
+
+{% endblock %}
