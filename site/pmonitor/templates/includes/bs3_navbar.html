@@ -1,0 +1,46 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">{{ site_title }}</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    {% if main_nav %}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        {% for nav_item in main_nav %}
+        {% if nav_item.active %}
+        <li class="active"><a href="{{ nav_item.url }}">{{ nav_item.label }} <span class="sr-only">(current)</span></a></li>
+        {% else %}
+        <li><a href="{{ nav_item.url }}">{{ nav_item.label }}</a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if right_menu %}
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ right_menu.menu_title }} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          {% for menu_item in right_menu.menu_items %}
+          {% if menu_item.label == 'separator' %}
+            <li role="separator" class="divider"></li>
+          {% else %}
+            <li><a href="{{ menu_item.url }}">{{ menu_item.label }}</a></li>
+          {% endif %}
+          {% endfor %}
+          </ul>
+        </li>
+      </ul>
+      {% endif %}
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

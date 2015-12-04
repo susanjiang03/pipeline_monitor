@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %} Article Summary {% endblock %}
+
+{% block body_block %}
+<!--if you need to adjust css, do it through the style tag here-->
+<style>
+
+    img{
+        width:40%;
+        height:30%;
+        float:left;
+        left:20%;
+    }
+
+.imgdiv{
+    
+}
+
+   .maintext{
+       left: 5%;
+       overflow: scroll;
+       width:50%;
+       height:30% ;
+       display:inline
+    }
+
+.col-md-6{
+    left:10%;
+    width:80%;
+}
+</style>
+
+	<div class="col-md-6">
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading">
+					<h1 style="text-align: center;">Top Image and Main Text For this article</h1>
+				</div>
+
+                <div class="articleinfo">
+                    <h4>&nbsp;&nbsp;{{article.newspaper}}&nbsp;&nbsp; | &nbsp;&nbsp;{{article.category}}&nbsp;&nbsp; |&nbsp;&nbsp;
+                      <a href="{{article.url}}"> {{article.title}}</a>
+                    </h4>
+                </div>
+            
+		</div>
+       
+        <div>
+        {% for each in imgurls %}
+        <div>
+		<div class="imgdiv">
+			<img src="{{each.image_url}}">
+		</div>
+        <div class='maintext'>
+            <p> {{each.main_text}}</p>
+        <div>
+        </div>
+		{% endfor %}
+        </div>
+		
+	</div>
+
+{% endblock %}
