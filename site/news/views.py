@@ -233,7 +233,7 @@ def userfeeds(request):
 
 
 def newuserfeeds(request):
-    template = 'newuserfeeds.html'
+    template = 'userfeeds.html'
     y = []
     for item in request.POST.getlist('newspapercategory[]'):
         y += [x.strip() for x in item.split(',')]
@@ -284,8 +284,6 @@ def newuserfeeds(request):
                 "titlelink" : titlelink,
                 "size":size
             })
-
-
 
     return render(request, template,  {'dictuserfeeds': dictuserfeeds,'dictuserinput': dictuserinput})
 

@@ -8,7 +8,7 @@
 
 		<!--header-->
     <form  action="newuserfeeds" method="post">
-        {% csrf_token %}  
+        {% csrf_token %}
 		<div class="col-md-12">
 			<div class="panel panel-primary" id="panels">
 				<div class="panel-heading"><h1 style="text-align: center;">Filter Feeds</h1></div>
@@ -45,10 +45,11 @@
           {% if url.size %}
 		 <div class="col-md-4" name="inputRSS[]" >
 			<div class="panel panel-primary" id="panels">
-
+              
 				<div class="panel-heading" style="height:40px">
 					<a class="blackblue" href="#">{{url.rssurl}}</a>
 				</div>
+                <input type="hidden" id="userRSS" name="{{url.rssurl}}">
 				<p class="panel-body" style="margin-top: -20px;">
 					<ol style="overflow: hidden;margin-left: -15px">
 					{% for each in url.titlelink %}
@@ -72,7 +73,7 @@
                 <p class="panel-body" style="margin-top:-30px;margin-left: 100px;">
                 
                 <div id="UserRssInput" style="margin-left: 10px;">
-                    <input type="text" id="userRSS" name="{{url.rssurl}}">
+                    <input type="text" id="userRSS" name="{{url.rssurl}}" value="{{url.rssurl}}">
                 </div>
                 </p>
                 <div class="panel-footer">

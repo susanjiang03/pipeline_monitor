@@ -65,6 +65,6 @@ application = tornado.web.Application([
 if __name__ == "__main__":
     application.listen(8081)
     main = tornado.ioloop.IOLoop.instance()
-    periodic = tornado.ioloop.PeriodicCallback(iter_line, 10000, io_loop=main)
+    periodic = tornado.ioloop.PeriodicCallback(iter_line, 5000, io_loop=main)
     periodic.start()
     main.start()
