@@ -7,6 +7,7 @@ os.environ.setdefault(
 )
 
 import django
+
 django.setup()
 
 import tornado.ioloop
@@ -14,6 +15,7 @@ import tornado.web
 from tornado import websocket
 from pmonitor.models import Task, Status
 from json import dumps
+from datetime import datetime, date
 
 __author__ = 'jhohman'
 
@@ -35,9 +37,13 @@ class Pipeline(object):
 
     def add_task(self, task):
         self.status['nodes'].append(dict(
-            name=task.name,
             group=self.GROUP,
-            status=Status.TRANS[task.status]
+            name=task.name,
+            description=task.description,
+            status=Status.TRANS[task.status],
+            message=task.message,
+            url=task.url,
+            last_run=task.last_run
         ))
 
         self.num_tasks += 1
@@ -49,7 +55,11 @@ class Pipeline(object):
             ))
 
     def json_response(self):
-        return dumps(self.status)
+        dt_handler = (
+            lambda obj: obj.strftime('%m/%d/%Y %I:%M:%S %P')
+            if isinstance(obj, datetime) else None
+        )
+        return dumps(self.status, default=dt_handler)
 
 
 CACHED_PIPELINE = Pipeline()
@@ -114,6 +124,7 @@ class Announcer(tornado.web.RequestHandler):
 
         print 'Posted data: %s' % data
         self.write('Posted data: %s' % data)
+
 
 application = tornado.web.Application([
     (r"/socket", ClientSocket),
