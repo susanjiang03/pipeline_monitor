@@ -67,11 +67,17 @@ def get_task_status():
             yield task
 
 
-def iter_line():
-    global CACHED_PIPELINE
+def build_pipeline():
     pipeline = Pipeline()
     for task in get_task_status():
         pipeline.add_task(task)
+
+    return pipeline
+
+
+def iter_line():
+    global CACHED_PIPELINE
+    pipeline = build_pipeline()
 
     json_status = pipeline.json_response()
     old_json_status = CACHED_PIPELINE.json_response()
@@ -90,6 +96,10 @@ class ClientSocket(websocket.WebSocketHandler):
     def open(self):
         GLOBALS['sockets'].append(self)
         print "WebSocket opened"
+        pipeline = build_pipeline()
+        json_status = pipeline.json_response()
+        print "push pipeline"
+        self.write_message(json_status)
 
     def on_close(self):
         print "WebSocket closed"
