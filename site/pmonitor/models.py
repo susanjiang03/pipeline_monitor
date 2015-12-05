@@ -32,6 +32,14 @@ class Status(object):
         (ERROR, 'error')
     )
 
+    TRANS = {
+        SUCCESS: 'success',
+        IN_PROGRESS: 'in progress',
+        NOT_RUN: 'not run',
+        WARNING: 'warning',
+        ERROR: 'error'
+    }
+
 
 class Task(models.Model):
     """

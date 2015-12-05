@@ -37,9 +37,10 @@ $(document).ready(function() {
 
     var colors = {
       success: {bc: "lightgreen", bdc: "darkgreen"},
+      "in progress": {bc: "ghostwhite", bdc: "lightblue"},
+      "not run": {bc: "white", bdc: "lightgrey"},
       warning: {bc: "#FFFB9F", bdc: "rgb(176, 156, 47)"},
-      error: {bc: "pink", bdc: "firebrick"},
-      inprog: {bc: "ghostwhite", bdc: "lightblue"}
+      error: {bc: "pink", bdc: "firebrick"}
     };
 
     if ($.isEmptyObject(graph)) {
