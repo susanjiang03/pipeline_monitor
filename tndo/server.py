@@ -38,11 +38,12 @@ class Pipeline(object):
     def add_task(self, task):
         self.status['nodes'].append(dict(
             group=self.GROUP,
+            task_id=task.task_id,
             name=task.name,
             description=task.description,
             status=Status.TRANS[task.status],
             message=task.message,
-            url=task.url,
+            url=task.url if task.url else "#",
             last_run=task.last_run
         ))
 

@@ -19,6 +19,9 @@ $(document).ready(function() {
 
 (function (d3_fl_chart, $, undefined) {
   d3_fl_chart.cached_data = {};
+  d3_fl_chart.status_properties = [
+    "task_id", "name", "status", "last_run", "message", "url"
+  ];
 
   d3_fl_chart.render = function(data) {
     d3_fl_chart.graph = data === undefined ? d3_fl_chart.cached_data : JSON.parse(data);
@@ -61,9 +64,7 @@ $(document).ready(function() {
       return;
     }
 
-    var num_nodes = d3_fl_chart.graph.nodes.length;
-    var node_dims = { width: 160, height: 120 };
-
+    var node_dims = { width: 180, height: 84 };
 
     force
         .nodes(graph.nodes)
@@ -100,21 +101,56 @@ $(document).ready(function() {
         })
         .call(force.drag);
 
-    var label = gnode.append("text")
-        .attr("class", "label")
-        .text(function (d) {
-          return d.name;
-        })
-        .attr("x", -44)
-        .attr("y", -10);
+    var glabel = gnode.append("g")
+      .each(function (d) {
+        var glabel = d3.select(this);
 
-    var status = gnode.append("text")
-        .attr("class", "status")
-        .text(function (d) {
-          return d.status;
-        })
-        .attr("x", -28)
-        .attr("y", 14);
+        if (d.status === "not run") {
+          var text = glabel.append("text")
+            .attr("class", "status");
+          $.each(["task_id", "name", "status"], function (i, sp) {
+            var text = glabel.append("text")
+                .attr("class", "status");
+            text.append("tspan")
+                .attr("class", sp + " slabel")
+                .attr("x", -(node_dims.width / 2) + node_dims.width * 0.2)
+                .attr("y", -(node_dims.height / 2) + node_dims.height * 0.2 + 12 * i)
+                .text(sp.replace("_", " ") + ": ");
+
+            if (sp === "url") {
+                text.append("a")
+                    .attr("class", "slink")
+                    .attr("xlink:href", "http://news.yahoo.com")
+                    .text("yahoo news");
+            } else {
+                text.append("tspan")
+                    .attr("class", "stext")
+                    .text(d[sp]);
+            }
+          });
+        } else {
+          $.each(d3_fl_chart.status_properties, function (i, sp) {
+            var text = glabel.append("text")
+                .attr("class", "status");
+            text.append("tspan")
+                .attr("class", sp + " slabel")
+                .attr("x", -(node_dims.width / 2) + node_dims.width * 0.2)
+                .attr("y", -(node_dims.height / 2) + node_dims.height * 0.2 + 12 * i)
+                .text(sp.replace("_", " ") + ": ");
+
+            if (sp === "url") {
+                text.append("a")
+                    .attr("class", "slink")
+                    .attr("xlink:href", d[sp])
+                    .text("Task details...");
+            } else {
+                text.append("tspan")
+                    .attr("class", "stext")
+                    .text(d[sp]);
+            }
+          });
+        }
+      });
 
     force.on("tick", function () {
       link.attr("x1", function (d) {
