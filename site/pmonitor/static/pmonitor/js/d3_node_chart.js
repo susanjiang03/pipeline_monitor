@@ -16,9 +16,14 @@ $(document).ready(function() {
   d3.select(window).on('resize', d3_fl_chart.render);
 });
 
+
 (function (d3_fl_chart, $, undefined) {
+  d3_fl_chart.cached_data = {};
+
   d3_fl_chart.render = function(data) {
-    var graph = data === undefined ? {} : JSON.parse(data);
+    d3_fl_chart.graph = data === undefined ? d3_fl_chart.cached_data : JSON.parse(data);
+    d3_fl_chart.cached_data = d3_fl_chart.graph;
+
     $('#chart').empty();
     var ar = 0.5;
     var width = parseInt(d3.select('#chart').style('width'), 10);
@@ -37,11 +42,13 @@ $(document).ready(function() {
 
     var colors = {
       success: {bc: "lightgreen", bdc: "darkgreen"},
-      "in progress": {bc: "ghostwhite", bdc: "lightblue"},
-      "not run": {bc: "white", bdc: "lightgrey"},
+      "in progress": {bc: "lightblue", bdc: "royalblue"},
+      "not run": {bc: "ghostwhite", bdc: "lightblue"},
       warning: {bc: "#FFFB9F", bdc: "rgb(176, 156, 47)"},
       error: {bc: "pink", bdc: "firebrick"}
     };
+
+    var graph = d3_fl_chart.graph;
 
     if ($.isEmptyObject(graph)) {
       window.svg = svg;
@@ -53,6 +60,10 @@ $(document).ready(function() {
         .attr("y", height/2);
       return;
     }
+
+    var num_nodes = d3_fl_chart.graph.nodes.length;
+    var node_dims = { width: 160, height: 120 };
+
 
     force
         .nodes(graph.nodes)
@@ -75,8 +86,8 @@ $(document).ready(function() {
 
     var node = gnode.append("rect")
         .attr("class", "node")
-        .attr("width", 120)
-        .attr("height", 80)
+        .attr("width", node_dims.width)
+        .attr("height", node_dims.height)
         .attr("rx", 12)
         .attr("ry", 12)
         .attr("x", -60)
