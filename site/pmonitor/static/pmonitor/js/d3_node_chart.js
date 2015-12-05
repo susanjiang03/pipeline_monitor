@@ -137,16 +137,9 @@ $(document).ready(function() {
               .attr("y", -(node_dims.height / 2) + node_dims.height * node_dims.t_b_factor + 12 * i)
               .text(sp.replace("_", " ") + ": ");
 
-            if (sp === "url") {
-              text.append("a")
-                .attr("class", "slink")
-                .attr("xlink:href", "http://news.yahoo.com")
-                .text("yahoo news");
-            } else {
-              text.append("tspan")
-                .attr("class", "stext")
-                .text(d[sp]);
-            }
+            text.append("tspan")
+              .attr("class", "stext")
+              .text(d[sp]);
           });
         } else {
           $.each(d3_fl_chart.status_properties, function (i, sp) {
@@ -163,6 +156,13 @@ $(document).ready(function() {
                 .attr("class", "slink")
                 .attr("xlink:href", d[sp])
                 .text("Task details...");
+            } else if (sp === "status") {
+              var inner_text = text.append("tspan")
+                .attr("class", "stext status-msg")
+                .text(d[sp]);
+              inner_text.attr("class", function(d) {
+                return "stext status-msg " + d[sp]
+              });
             } else {
               text.append("tspan")
                 .attr("class", "stext")

@@ -40,8 +40,24 @@ text.status {
   font-size: x-small;
 }
 
-text.status > .stext {
+text.status > .status-msg {
+  font-weight: bold;
+}
 
+text.status > .success {
+  fill: darkgreen;
+}
+
+text.status > .error {
+  fill: darkred;
+}
+
+text.status > .warning {
+  fill: darkorange;
+}
+
+text.status > .in.progress {
+  fill: darkblue;
 }
 
 text.status > .slabel {
