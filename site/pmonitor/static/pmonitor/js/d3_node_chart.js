@@ -163,6 +163,16 @@ $(document).ready(function() {
               inner_text.attr("class", function(d) {
                 return "stext status-msg " + d[sp]
               });
+            } else if (sp === "name") {
+              text.append("tspan")
+                .attr("class", "stext " + sp)
+                .text(d[sp])
+                .attr("title", "Task description: " + d["description"]);
+            } else if (sp === "message") {
+              text.append("tspan")
+                .attr("class", "stext " + sp)
+                .text(d[sp])
+                .attr("title", "Task output: " + d["message"]);
             } else {
               text.append("tspan")
                 .attr("class", "stext")

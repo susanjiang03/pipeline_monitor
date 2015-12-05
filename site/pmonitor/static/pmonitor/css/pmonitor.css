@@ -40,6 +40,14 @@ text.status {
   font-size: x-small;
 }
 
+text.status > .name {
+  cursor: help;
+}
+
+text.status > .message {
+  cursor: help;
+}
+
 text.status > .status-msg {
   font-weight: bold;
 }
