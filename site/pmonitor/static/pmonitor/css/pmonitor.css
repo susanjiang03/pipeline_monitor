@@ -36,6 +36,10 @@ body {
   border: 2px dashed white;
 }
 
+.g-nodes:hover {
+  opacity: 1;
+}
+
 text.status {
   font-size: x-small;
 }

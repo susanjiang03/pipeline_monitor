@@ -88,7 +88,12 @@ $(document).ready(function() {
       .data(graph.nodes)
       .enter()
       .append("g")
-      .attr("class", "g-nodes");
+        .attr("class", "g-nodes")
+        .attr("opacity", function(d) {
+          if (d.status === "not run") {
+            return 0.6;
+          }
+        });
 
     var clip_path = gnode.append("clipPath")
       .attr("id", function(d, i) {
