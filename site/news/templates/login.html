@@ -9,7 +9,7 @@
 			<div class="col-md-12">
 				<h1>Login</h1>
 
-				<form action="{% url 'process_login' %}?next={{request.GET.next}}" method="post">
+				<form action="{% url 'news:process_login' %}?next={{request.GET.next}}" method="post">
 				{% csrf_token %}
 					<div class="form-group">						
 						<label>Email</label>
@@ -20,9 +20,9 @@
 						<input type="password" name="password" class="form-control" placeholder="Password">
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
-					<a class="btn btn-default" href="{% url 'register' %}" role="button">Register</a>
+					<a class="btn btn-default" href="{% url 'news:register' %}" role="button">Register</a>
 				</form>
-                <a href="{% url 'reset_password' %}">Reset Password</a>
+                <a href="{% url 'news:reset_password' %}">Reset Password</a>
 			</div>
 		</div>
 	</div>

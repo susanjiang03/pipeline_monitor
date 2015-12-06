@@ -36,9 +36,9 @@
                          <!--Bookmark-->
 						{% if user.is_authenticated %}
 							{% if each.id in bookmark %}
-                                <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+                                <a href="{% url 'news:remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
 							{% else %}
-								<a href="{% url 'add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
+								<a href="{% url 'news:add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
 							{% endif %}
 						{% endif %}			
 					{% endfor %}
@@ -67,9 +67,9 @@
                 <!--Bookmark-->
 				{% if user.is_authenticated %}
 					{% if each.id in bookmark %}
-                        <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+                        <a href="{% url 'news:remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
 					{% else %}
-						<a href="{% url 'add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
+						<a href="{% url 'news:add_to_bookmark' each.id %}?next={{request.path}}"> Bookmark </a>
 					{% endif %}
 				{% endif %}			
 			{% endfor %}

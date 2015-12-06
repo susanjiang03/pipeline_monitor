@@ -28,7 +28,7 @@
 
 						<!--unbookmark-->
 						{% if user.is_authenticated %}
-                            <a href="{% url 'remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+                            <a href="{% url 'news:remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
 						{% endif %}									
 					{% endfor %}
 					</ol>

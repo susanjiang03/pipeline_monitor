@@ -18,7 +18,7 @@
 			<div class="col-md-12">
 				<h1>Register</h1>
 
-				<form action="{% url 'process_register' %}" method="post">
+				<form action="{% url 'news:process_register' %}" method="post">
 				{% csrf_token %}
                     <div class="form-group">
 						<label>First Name</label>

@@ -28,10 +28,10 @@
 			<!--Login & Registration-->
 			<div class="col-md-4">
 				{% if user.is_authenticated %}
-				<a href="{% url 'user_logout' %}?next={{request.path}}"><button type="button" class="btn btn-lg btn-info" style="float: right; padding:0px; height: 25px; width: 100px">Logout</button></a>
+				<a href="{% url 'news:user_logout' %}?next={{request.path}}"><button type="button" class="btn btn-lg btn-info" style="float: right; padding:0px; height: 25px; width: 100px">Logout</button></a>
 				{% else %}				
-				<a href="{% url 'register' %}"><button type="button" class="btn btn-lg btn-info" style="float: right; padding:0px; height: 25px; width: 100px">Register</button></a>
-				<a href="{% url 'user_login' %}?next={{request.path}}"><button type="button" class="btn btn-lg btn-info" style="float: right; margin-right: 5px; padding:0px; height: 25px; width: 100px">Login</button></a>
+				<a href="{% url 'news:register' %}"><button type="button" class="btn btn-lg btn-info" style="float: right; padding:0px; height: 25px; width: 100px">Register</button></a>
+				<a href="{% url 'news:user_login' %}?next={{request.path}}"><button type="button" class="btn btn-lg btn-info" style="float: right; margin-right: 5px; padding:0px; height: 25px; width: 100px">Login</button></a>
 				{% endif %}
 			</div>
 
@@ -43,21 +43,21 @@
 				<ul class="nav nav-pills">
 					<!--Home | See pipeline | Create own feed | Bookmark | All Images | About-->
 					<li class="active">
-						<a href="{% url 'index' %}">Home</a>
+						<a href="{% url 'news:index' %}">Home</a>
 					</li>
 					<li>
-						<a href="/pipeline/">See pipeline</a>
+						<a href="{% url 'pmonitor:index' %}">See pipeline</a>
 					</li>
 					<li>
-						<a href="{% url 'filterfeeds' %}">Create own Feed</a>
+						<a href="{% url 'news:filterfeeds' %}">Create own Feed</a>
 					</li>
 					{% if user.is_authenticated %}
 					<li>
-						<a href="{% url 'bookmark' %}">Bookmarked Feeds</a>
+						<a href="{% url 'news:bookmark' %}">Bookmarked Feeds</a>
 					</li>
 					{% endif %}
 					<li>
-						<a href="{% url 'allarticles' %}">All Articles</a>
+						<a href="{% url 'news:allarticles' %}">All Articles</a>
 					</li>
 					<li>
 						<a href="#">About</a>

@@ -92,6 +92,8 @@ $(document).ready(function() {
         .attr("opacity", function(d) {
           if (d.status === "not run") {
             return 0.6;
+          } else {
+            return 0.9;
           }
         });
 
