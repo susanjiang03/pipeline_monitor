@@ -335,7 +335,7 @@ def add_to_bookmark(request, article_id):
     """Empty Docstring"""
     user_id = request.user.id
     bookmark = Bookmark(user_id=user_id, article_id=article_id)
-    bookmark.objects.save()
+    bookmark.save()
 
     return redirect(request.GET['next'])
 
