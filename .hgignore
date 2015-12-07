@@ -11,5 +11,7 @@ docs/source/
 docs/build/
 .coverage
 
+site/docs/_build/
+
 .DS_Store
 *.bak
