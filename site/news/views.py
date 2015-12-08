@@ -291,7 +291,13 @@ def newspaper(request, newspaperlink):
     for each in bookmarkfilter:
         bookmark.append(each.article_id)
 
-    return render(request, template, {'dictcategory' : dictcategory, 'paper':paper, 'bookmark': bookmark,'newspaperlink':newspaperlink,'article_has_image':article_has_image,'category_has_image':category_has_image})
+    return render(request, template,
+                  {'dictcategory' : dictcategory,
+                   'paper':paper,
+                   'bookmark': bookmark,
+                   'newspaperlink':newspaperlink,
+                   'article_has_image':article_has_image,
+                   'category_has_image':category_has_image})
 
 
 #view image
@@ -309,8 +315,8 @@ def allarticles(request):
 
     image_text = Image.objects.all().distinct()
     num = len(image_text)
-    article_main=[]
-    max_length=2000
+    article_main = []
+    max_length = 2000
     for each in image_text:
         article = Article.objects.filter(id=each.article_id)[0]
 

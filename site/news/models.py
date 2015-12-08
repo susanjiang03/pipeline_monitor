@@ -24,14 +24,14 @@ class Image(models.Model):
     will store image source and main article text
     """
     # article_id | images_url
-    article_id=models.IntegerField()
-    image_url=models.URLField()
-    main_text=models.TextField(null=True, blank=True)
+    article_id = models.IntegerField()
+    image_url = models.URLField()
+    main_text = models.TextField(null=True, blank=True)
 
 class Bookmark(models.Model):
     """
     Bookmark model to store saved articles based on user id
     """
     # user_id | article_id
-    user_id=models.IntegerField()
-    article_id=models.IntegerField()
+    user_id = models.IntegerField()
+    article_id = models.IntegerField()
