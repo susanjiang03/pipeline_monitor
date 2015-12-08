@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from django.contrib.auth.models import AnonymousUser, User
 
 from news.views import index, filterfeeds, userfeeds, newspaper
-from news.models import Article
+from news.models import Article,Image
 
 #news page
 class NewsPageTest(TestCase):
@@ -145,6 +145,30 @@ class ArticleImagesTest(TestCase):
         self.assertContains(response, an_article.newspaper)
         self.assertContains(response, an_article.category)
         self.assertContains(response, an_article.title)
+
+
+
+'''Verify the main and test show on news/images/(article_id) page  if there is an image and main text extraced '''
+class MainImageTest(TestCase):
+
+    def test_image_text_tempalte(self):
+        #create an article
+        an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Fashion")
+
+        image_text = Image.objects.create(article_id=an_article.id, image_url="http://helloworld.jpg", main_text="hello world")
+
+        response = self.client.get('/news/images/'+str(an_article.id))
+
+        '''test thte page'''
+        self.assertContains(response, an_article.newspaper)
+        self.assertContains(response, an_article.category)
+        self.assertContains(response, an_article.title)
+        
+        image_url = Image.objects.filter(article_id=an_article.id)[0].image_url
+        main_text = Image.objects.filter(article_id=an_article.id)[0].main_text
+        self.assertContains(response, image_url)
+        self.assertContains(response, main_text)
+
 
 
 
