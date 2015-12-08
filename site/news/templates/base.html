@@ -8,6 +8,7 @@
 	<head>
 
 		<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
+		<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
 		<title>
 			News Aggregator | {% block title %} {% endblock %}
 		</title>	
@@ -42,7 +43,7 @@
 			<div class="col-md-12 nav_bar">
 				<ul class="nav nav-pills">
 					<!--Home | See pipeline | Create own feed | Bookmark | All Images | About-->
-					<li class="active">
+					<li>
 						<a href="{% url 'news:index' %}">Home</a>
 					</li>
 					<li>

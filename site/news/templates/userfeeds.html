@@ -17,7 +17,7 @@
     
 		<!--categories that are already in the database-->
 		{% for newspaper in dictuserfeeds %}
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="panel panel-primary" id="panels">
 
 				<div class="panel-heading" style="height:40px">
@@ -29,7 +29,7 @@
 				<p class="panel-body" style="margin-top: -20px;">
 					<ol style="overflow: hidden;margin-left: -15px">
 					{% for each in newspaper.feeds %}
-						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>							
+						<li style="font-size:12px;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>							
 					{% endfor %}
 					</ol>
 				</p>
@@ -42,19 +42,19 @@
 		{% for url in dictuserinput %}
         
           {% if url.size %}
-		 <div class="col-md-4" name="inputRSS[]" >
+		 <div class="col-md-6" name="inputRSS[]" >
 			<div class="panel panel-primary" id="panels">
               
 				<div class="panel-heading" style="height:40px">
-					<a class="blackblue" href="#">{{url.rssurl}}</a>
+					Selected RSS - <a href={{url.rssurl}}>{{url.rssurl}}</a>
 				</div>
                 <input type="hidden" id="userRSS" name="userRSS[]" value="{{url.rssurl}}">
 				<p class="panel-body" style="margin-top: -20px;">
-					<ol style="overflow: hidden;margin-left: -15px">
+					<ul style="overflow: hidden;margin-left: -15px">
 					{% for each in url.titlelink %}
-						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+						<li style="font-size:12px; height: 20px; white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
 					{% endfor %}
-					</ol>
+					</ul>
 				</p>
             </div>
          </div>

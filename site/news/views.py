@@ -223,11 +223,6 @@ def userfeeds(request):
 
     for news, cat in zip(postlist[0::2], postlist[1::2]):
         feeds = Article.objects.filter(newspaper=news, category=cat).order_by('-publish_date')[:num]
-        for each in feeds:
-            if len(each.title) > 60:
-                each.title = each.title[:60]+'...'.encode('utf-8')
-            else:
-                each.title = each.title.encode('utf-8')
 
         dictuserfeeds.append({
             "newspaper" : news,
@@ -242,11 +237,7 @@ def userfeeds(request):
             titlelink = []
             size = len(rss.entries)
             for post in rss.entries[:num]:
-                if len(post.title.encode('utf-8')) > 60:
-                    title = post.title[:60]+'...'.encode('utf-8')
-                else:
-                    title = post.title.encode('utf-8')
-
+                title = post.title.encode('utf-8')
                 link = post.link
                 titlelink.append({
                     "title" : title,
