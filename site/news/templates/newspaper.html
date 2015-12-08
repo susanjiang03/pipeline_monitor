@@ -22,7 +22,13 @@
         <div class="col-md-6">
             <div class="panel panel-primary" id="panels" >
                 <div class="panel-heading">
-                   <a href="/news/newspaper/{{newspaperlink}}/category/{{category.category}}">{{category.category}}</a>
+                     {% if category.category in category_has_image %}
+                      <a href="/news/newspaper/{{newspaperlink}}/category/{{category.category}}">{{category.category}}</a>
+                     {% endif %}
+                     
+                     {% if category.category not in category_has_image %}
+                               {{category.category}}
+                     {% endif %}
                 </div>
                 <div class="panel-body" style="height: 300px; overflow: scroll;">
                 <p  style="margin-top: -20px;">
