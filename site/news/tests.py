@@ -163,9 +163,6 @@ class CategoryTemplateTest(TestCase):
         self.assertNotContains(response, "Sports")
         self.assertTemplateUsed(response, 'category.html')
 
-#def test_newspaper_category_tempalte(self):
-
-
 
 class MainImageTest(TestCase):
 

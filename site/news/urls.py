@@ -38,4 +38,8 @@ urlpatterns = patterns('',
                            views.reset_password, name='reset_password'),
                        url(r'^change_password$',
                            views.change_password, name='change_password'),
+                       url(r'^search_keyword$',
+                           views.search_keyword, name='search_keyword'),
+                       url(r'^article_by_keyword$',
+                           views.article_by_keyword, name='article_by_keyword'),
                       )
