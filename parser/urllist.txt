@@ -1,0 +1,44 @@
+list of urls
+
+total of 29 links, 6x4 + 5
+World 4 
+Local 5
+Business 5
+Technology 5
+Fashion 5
+Sports 5
+
+
+http://rss.nytimes.com/services/xml/rss/nyt/World.xml
+http://rss.nytimes.com/services/xml/rss/nyt/NYRegion.xml
+http://rss.nytimes.com/services/xml/rss/nyt/Business.xml
+http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml
+http://rss.nytimes.com/services/xml/rss/nyt/FashionandStyle.xml
+http://rss.nytimes.com/services/xml/rss/nyt/Sports.xml
+
+http://www.latimes.com/world/rss2.0.xml
+http://www.latimes.com/local/rss2.0.xml
+http://www.latimes.com/business/rss2.0.xml
+http://www.latimes.com/business/technology/rss2.0.xml
+http://www.latimes.com/fashion/rss2.0.xml
+http://www.latimes.com/sports/rss2.0.xml
+
+http://www.miamiherald.com/news/nation-world/world/?widgetName=rssfeed&widgetContentId=712015&getXmlFeed=true
+http://www.miamiherald.com/news/state/florida/?widgetName=rssfeed&widgetContentId=712015&getXmlFeed=true
+http://www.miamiherald.com/news/business/?widgetName=rssfeed&widgetContentId=712015&getXmlFeed=true
+http://www.miamiherald.com/news/business/technology/?widgetName=rssfeed&widgetContentId=712015&getXmlFeed=true
+http://www.miamiherald.com/living/fashion/?widgetName=rssfeed&widgetContentId=712015&getXmlFeed=true
+http://www.miamiherald.com/sports/?widgetName=rssfeed&widgetContentId=712015&getXmlFeed=true
+
+http://www.seattletimes.com/world/feed/
+http://www.seattletimes.com/seattle-news/feed/
+http://www.seattletimes.com/business/feed/
+http://www.seattletimes.com/technology/feed/
+http://www.seattletimes.com/fashion/feed/
+http://www.seattletimes.com/sports/feed/
+
+http://feeds.denverpost.com/dp-news-topstories?format=xml
+http://feeds.denverpost.com/dp-business?format=xml
+http://feeds.denverpost.com/dp-business-technology?format=xml
+http://feeds.denverpost.com/dp-lifestyles-fashion?format=xml
+http://feeds.denverpost.com/dp-sports?format=xml

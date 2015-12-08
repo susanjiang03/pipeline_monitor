@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %} About {% endblock %}
+
+{% block body_block %}
+
+	<!--if you need to adjust css, do it through the style tag here-->
+	<style>
+
+	</style>
+
+	<!--populates categories based on selected newspaper-->
+    <div class="col-md-12">
+
+        <div class="col-md-12">
+            <div class="panel panel-primary" id="panels">
+                <div class="panel-heading"><h1 style="text-align: center; height: 50px;">About News Aggregator</h1></div>
+            </div>
+        </div>
+		
+        <div class="col-md-6">
+            <div class="panel panel-primary" id="panels" >
+
+                <div class="panel-body" style="height: 300px;">
+					<p>					
+						What is this News Aggregator?</br>
+						This news aggregator gathers articles from RSS links and displays them for you to view.
+					</p>					
+
+					<p>					
+						Why and what for?</br>
+						This News Aggregator is one of two parts of our Pipeline Monitor project. It is the process that we chose to monitor.	
+					</p>
+
+					<p>					
+						How do I use it?</br>
+						On the main page, you can see a plethora of articles. The articles come from either a category or a newspaper. If the title and description of the article are of interest to you, you can click on the title and it will lead you to the source of the article.
+					</p>
+
+					<p>					
+						What else?</br>
+						Additionally, you can also go to the 'Create you own feed' page and pick only categories or newspapers that you're interested in. You can also provido a RSS URL and it will get the articles for you.
+					</p>
+
+
+                </div>
+                
+            </div>
+            
+        </div>
+
+
+
+    </div>
+
+{% endblock %}
