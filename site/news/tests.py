@@ -151,7 +151,7 @@ class ArticleImagesTest(TestCase):
 class CategoryTemplateTest(TestCase):
 
 #verify the news/category/{category}/ page will only show the articles for this category for this newspaper
-    def test_news_category_template(self):
+    def test_category_template(self):
         #create an article
         an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Fashion")
 
@@ -162,6 +162,9 @@ class CategoryTemplateTest(TestCase):
         self.assertNotContains(response, "Denver Post")
         self.assertNotContains(response, "Sports")
         self.assertTemplateUsed(response, 'category.html')
+
+#def test_newspaper_category_tempalte(self):
+
 
 
 class MainImageTest(TestCase):
@@ -200,6 +203,26 @@ class MainImageTest(TestCase):
         self.assertNotContains(response, "View Top Image and Main Text")
 
 
+class  AllArticlesTest(TestCase):
+
+#verify the allarticles will only show the article that has iamge and text
+    def test_all_article_template(self):
+        #create two article, one has image, the other don't
+        one_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.nytimes.com", description="I don't know", category="Fashion")
+        one_image_text = Image.objects.create(article_id=one_article.id, image_url="http://helloworld.jpg", main_text="hello world")
+
+        second_article = Article.objects.create(newspaper="Denver Post", title="Barnes & Noble to close in downtown Denver", url="www.flask.org", description="I don't know", category="Fashion")
+
+         #test thte page
+        response = self.client.get('/news/allimages')
+    
+        self.assertContains(response, one_article.title)
+        self.assertContains(response, one_image_text.image_url)
+        self.assertContains(response, one_image_text.main_text)
+        self.assertContains(response, one_article.newspaper)
+        self.assertNotContains(response, second_article.title)
+        self.assertNotContains(response, second_article.url)
+        self.assertTemplateUsed(response, 'allarticles.html')
 
 
 

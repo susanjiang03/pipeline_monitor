@@ -319,16 +319,16 @@ def allarticles(request):
     max_length = 2000
     for each in image_text:
         article = Article.objects.filter(id=each.article_id)[0]
-
+        main_text = each.main_text
         if len(each.main_text) > max_length:
-            text = each.main_text[0:max_length-1]+"...(MORE)"
+            main_text = main_text[0:max_length-1]+"...(MORE)"
         article_main.append({
             "title":article.title.encode('utf-8'),
             "url":article.url.encode('utf-8'),
             "newspaper":article.newspaper.encode('utf-8'),
             "category":article.category.encode('utf-8'),
             "image":each.image_url,
-            "text":text,
+            "text":main_text
         })
 
     return render(request, template, {'article_main':article_main, 'num':num})
