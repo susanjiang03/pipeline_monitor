@@ -4,6 +4,8 @@ from news import views
 urlpatterns = patterns('',
                        url(r'^$',
                            views.index, name='index'),
+                       url(r'^about$',
+                           views.about, name='about'),
                        url(r'^category/(?P<thiscategory>\w{0,50})/$',
                            views.category, name='category'),
                        url(r'^newspaper/(?P<newspaperlink>\w{0,50})/$',

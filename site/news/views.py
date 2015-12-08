@@ -196,6 +196,10 @@ def index(request):
         'article_has_image':article_has_image,
         'n':num})
 
+def about(request):
+    '''About page'''
+    return render(request, 'about.html')
+
 def filterfeeds(request):
     """Empty Docstring"""
     template = 'filterfeeds.html'
