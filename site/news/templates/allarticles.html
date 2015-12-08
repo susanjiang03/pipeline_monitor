@@ -40,9 +40,17 @@
         
 		<div class="col-md-12">
 			<div class="panel panel-primary" id="panels">
+                {% if by_keyword %}
+                <div class="col-md-12">
+                    <div class="panel panel-primary" id="panels">
+                        <div class="panel-heading"><h1 style="text-align: center;">{{num}} Articles found by your keywords: {{keyword}}</h1></div>
+                    </div>
+                </div>
+                {% else %}
 				<div class="panel-heading">
                     <h1 style="text-align: center;">Top Image and Main Text For &nbsp; {{num}} &nbsp; Articles</h1>
                 </div>
+                {% endif %}
 			</div>
 		</div>
         

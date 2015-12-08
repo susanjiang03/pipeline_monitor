@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from django.contrib.auth.models import AnonymousUser, User
 
 from news.views import index, filterfeeds, userfeeds, newspaper
-from news.models import Article
+from news.models import Article, Image
 
 #news page
 class NewsPageTest(TestCase):
@@ -93,8 +93,8 @@ class NewspaperViewTest(TestCase):
 
         response = self.client.get('/news/newspaper/nytimes/')
         
-        self.assertContains(response, "New York Times")
-        self.assertContains(response, "Technology")
+        self.assertContains(response, correct_article.newspaper)
+        self.assertContains(response, correct_article.category)
         self.assertNotContains(response, "Los Angeles Times")
         self.assertNotContains(response, "Westside gang")
 
@@ -109,13 +109,13 @@ class FilterFeedsTest(TestCase):
         an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Technology")
         response = self.client.get('/news/filterfeeds')
         
-        self.assertContains(response, "New York Times")
+        self.assertContains(response, an_article.newspaper)
 
     def test_displays_a_category(self):
         an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Technology")
         response = self.client.get('/news/filterfeeds')
         
-        self.assertContains(response, "Technology")
+        self.assertContains(response, an_article.category)
 
 #can't test for content
 #that's an integration as it requires click selection of content
@@ -145,6 +145,78 @@ class ArticleImagesTest(TestCase):
         self.assertContains(response, an_article.newspaper)
         self.assertContains(response, an_article.category)
         self.assertContains(response, an_article.title)
+
+class CategoryTemplateTest(TestCase):
+
+    #verify the news/category/{category}/ page will only show the articles for this category for this newspaper
+    def test_category_template(self):
+        #create an article
+        an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Fashion")
+
+        response = self.client.get('/news/category/' + an_article.category + '/')
+        self.assertContains(response, an_article.category)
+        self.assertContains(response, an_article.title)
+        self.assertContains(response, an_article.url)
+        self.assertNotContains(response, "Denver Post")
+        self.assertNotContains(response, "Sports")
+        self.assertTemplateUsed(response, 'category.html')
+
+class MainImageTest(TestCase):
+
+    #Verify the main and test show on news/images/(article_id) page  if there is an image and main text extraced
+    def test_image_text_tempalte(self):
+        #create an article
+        an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Fashion")
+
+        image_text = Image.objects.create(article_id=an_article.id, image_url="http://helloworld.jpg", main_text="hello world")
+
+        response = self.client.get('/news/images/' + str(an_article.id))
+
+        #test thte page
+        self.assertContains(response, an_article.newspaper)
+        self.assertContains(response, an_article.category)
+        self.assertContains(response, an_article.title)
+        
+        image_url = Image.objects.filter(article_id=an_article.id)[0].image_url
+        main_text = Image.objects.filter(article_id=an_article.id)[0].main_text
+        
+        self.assertContains(response, image_url)
+        self.assertContains(response, main_text)
+
+    #verify if the article don't have image and text, don't show the link for view image and text
+    def test_no_image_text(self):
+        #create an article
+        an_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.flask.org", description="I don't know", category="Fashion")
+
+        response = self.client.get('/news/')
+        
+        #test thte page
+        self.assertContains(response, an_article.newspaper)
+        self.assertNotContains(response, an_article.description)
+        self.assertContains(response, an_article.url)
+        self.assertNotContains(response, "View Top Image and Main Text")
+
+
+class AllArticlesTest(TestCase):
+
+    #verify the allarticles will only show the article that has iamge and text
+    def test_all_article_template(self):
+        #create two article, one has image, the other don't
+        one_article = Article.objects.create(newspaper="New York Times", title="Adele is back", url="www.nytimes.com", description="I don't know", category="Fashion")
+        one_image_text = Image.objects.create(article_id=one_article.id, image_url="http://helloworld.jpg", main_text="hello world")
+
+        second_article = Article.objects.create(newspaper="Denver Post", title="Barnes & Noble to close in downtown Denver", url="www.flask.org", description="I don't know", category="Fashion")
+
+         #test thte page
+        response = self.client.get('/news/allimages')
+    
+        self.assertContains(response, one_article.title)
+        self.assertContains(response, one_image_text.image_url)
+        self.assertContains(response, one_image_text.main_text)
+        self.assertContains(response, one_article.newspaper)
+        self.assertNotContains(response, second_article.title)
+        self.assertNotContains(response, second_article.url)
+        self.assertTemplateUsed(response, 'allarticles.html')
 
 
 

@@ -34,7 +34,7 @@ class PipelinePageTest(TestCase):
         request = HttpRequest()
         response = index(request)
         expected_html = render_to_string('pmonitor/index.html')
-        self.assertEqual(response.content.decode(), expected_html)
+        self.assertContains(response.content.decode(), expected_html)
 
     #check that there is a link there
     def test_link_to_news_app(self):

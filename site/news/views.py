@@ -291,7 +291,13 @@ def newspaper(request, newspaperlink):
     for each in bookmarkfilter:
         bookmark.append(each.article_id)
 
-    return render(request, template, {'dictcategory' : dictcategory, 'paper':paper, 'bookmark': bookmark,'newspaperlink':newspaperlink,'article_has_image':article_has_image,'category_has_image':category_has_image})
+    return render(request, template,
+                  {'dictcategory' : dictcategory,
+                   'paper':paper,
+                   'bookmark': bookmark,
+                   'newspaperlink':newspaperlink,
+                   'article_has_image':article_has_image,
+                   'category_has_image':category_has_image})
 
 
 #view image
@@ -309,20 +315,20 @@ def allarticles(request):
 
     image_text = Image.objects.all().distinct()
     num = len(image_text)
-    article_main=[]
-    max_length=2000
+    article_main = []
+    max_length = 2000
     for each in image_text:
         article = Article.objects.filter(id=each.article_id)[0]
-
+        main_text = each.main_text
         if len(each.main_text) > max_length:
-            text = each.main_text[0:max_length-1]+"...(MORE)"
+            main_text = main_text[0:max_length-1]+"...(MORE)"
         article_main.append({
             "title":article.title.encode('utf-8'),
             "url":article.url.encode('utf-8'),
             "newspaper":article.newspaper.encode('utf-8'),
             "category":article.category.encode('utf-8'),
             "image":each.image_url,
-            "text":text,
+            "text":main_text
         })
 
     return render(request, template, {'article_main':article_main, 'num':num})
@@ -415,3 +421,37 @@ def newspaper_category(request, newspaperlink, thiscategory):
         'catename':thiscategory,
         'size':len(articles),
         'article_main':article_main})
+
+
+#search keyword
+def search_keyword(request):
+    """Empty Docstring"""
+    template = 'search_keyword.html'
+    
+    return render(request, template)
+
+#return the articles text contains user's keywords
+def article_by_keyword(request):
+    """Empty Docstring"""
+    template = 'allarticles.html'
+    keyword = request.POST['userkeyword']
+    query = Image.objects.filter(main_text__contains=keyword).distinct()
+    num = len(query)
+    by_keyword = 'True'
+    articles = []
+    for each in query:
+        text = each.main_text
+        image = each.image_url
+        article = Article.objects.filter(id=each.article_id)[0]
+        
+        articles.append({
+                            "newspaper": article.newspaper,
+                            "category": article.category,
+                            "title" : article.title,
+                            "url" :   article.url,
+                            "image": image,
+                            "text": text,
+                        })
+    
+    return render(request, template,
+                  {'keyword':keyword,'article_main':articles,'num':num,'by_keyword':by_keyword})

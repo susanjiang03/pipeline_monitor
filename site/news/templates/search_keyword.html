@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Feed {% endblock %}
+
+{% block body_block %}
+
+	<div class="col-md-12">
+
+		<!--header-->
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">Search Articles by keyword</h1></div>
+			</div>
+		</div>
+
+		<!--checkboxes for each paper-->
+		<form name="myForm" action="article_by_keyword" method="post">
+
+		{% csrf_token %}
+
+		<!--last box has user input-->
+		<div class="col-md-4">
+			<div class="panel panel-primary" id="panels">
+				
+				<div class="panel-heading">
+					Input your keyword
+				</div>
+
+				<p class="panel-body" style="margin-top:-30px;margin-left: 100px;">
+					<div id="UserRssInput" style="margin-left: 10px;">
+						<input type="text" name="userkeyword">
+					</div>						
+				</p>
+
+				<div class="panel-footer">
+					<input type="submit" value="Filter" class="btn btn-primary">
+				</div>
+			</div>
+		</form>				
+		
+	<!--closes last div-->
+	</div> 
+
+{% endblock %}
+
