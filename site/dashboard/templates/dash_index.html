@@ -1,0 +1,135 @@
+{% extends 'dash_base.html' %}
+
+{% block title %} Dashboard{% endblock %}
+
+{% block body_block %}
+<style>
+    
+.col-md-6{
+    left:10%;
+    width:80%;
+}
+
+.tablerow{
+    height: 20%;
+}
+
+.rss{
+
+    width: 35%;
+    text-align:center;
+}
+
+.valid{
+    width:5%;
+    text-align:center;
+}
+
+#valid_true{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background: green;
+     margin: auto;
+    
+}
+
+#valid_false{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: red;
+    margin: auto;
+}
+
+.feeds{
+    width:10%;
+    text-align:center;
+}
+
+
+.image{
+    width:10%;
+     text-align:center;
+}
+
+.pct{
+    width: 15%;
+    text-align:center;
+}
+
+.maintext{
+    width:10%;
+     text-align:center;
+}
+
+.tablehead{
+    text-align:center;
+}
+
+.tablerow{
+    text-align:center;
+}
+</style>
+
+	<div class="col-md-12">
+
+		<!--header-->
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">Data Analysis of Population</h1></div>
+			</div>
+		</div>
+        <div  class="col-md-6">
+
+		<!--table for each rssurl -->
+		<form name="myForm" action="" method="post">
+
+		{% csrf_token %}
+        <table border="5">
+          <tr class="tablehead">
+             <th class="rss" > RSS url </th>
+              <th class="valid"> Valid </th>
+              <th class="feeds"> Number of Articles</th>
+              <th class="image"> Number of Images</th><th class="pct"> Percetage </th>
+              <th class="maintext"> Number of Main Text</th><th class="pct"> Percetage </th>
+          </tr>
+            	{% for each in feedurls %}
+		  <div class="tablerow">
+          <tr>
+			  <td > <a>{{each.url}} </a> </td>
+              {% if each.valid %}
+              <td class="valid">
+                  <div id="valid_true"> </div>
+              </td >
+                  {% else %}
+             <td class="valid">
+                  <div id="valid_false"> </div>
+             </td>
+              {% endif %}
+              <td class="feeds">{{each.number_of_articles}}</td>
+              <td class="image">{{each.number_of_images}}</td><td class="pct">{{each.pct_of_images}}% </td>
+              <td class="maintext">{{each.number_of_text}}</td><td class="pct">{{each.pct_of_text}}%</td>
+               
+           </tr>
+          </div>
+		{% endfor %}
+          <div>
+          <tr class="tablerow">
+              <td><p>Total RSS url: {{summary.size}}; Valid RSS url: {{summary.valid_urls}}; Invalid RSS url: {{summary.invalid_urls}}</p></td>
+              <td> {{summary.pct_valid}}% </td>
+              <td> {{summary.total_articles}}</td>
+              <td> {{summary.total_images}}</td>
+              <td> {{summary.pct_total_images}} %</td>
+              <td> {{summary.total_text}} </td>
+              <td> {{summary.pct_total_text}} % </td>
+          </tr>
+          </div>
+        </table>
+        </div>
+		
+	<!--closes last div-->
+	</div> 
+
+{% endblock %}
+

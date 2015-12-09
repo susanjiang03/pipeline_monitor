@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
 		<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
 		<title>
-			News Aggregator | {% block title %} {% endblock %}
+			Dashboard | {% block title %} {% endblock %}
 		</title>	
 	</head>
 
@@ -23,7 +23,7 @@
 
 			<!--main header-->
 			<div class="col-md-8">
-				<h1>RSS FEEDS</h1>
+				<h1>RSS FEEDS Dashboard </h1>
 			</div>
 
 			<!--Login & Registration-->
@@ -49,25 +49,21 @@
 					<li>
 						<a href="{% url 'pmonitor:index' %}">See pipeline</a>
 					</li>
-                    <li>
-                    <a href="{% url 'dashboard:index' %}">Dashboard </a>
-                    </li>
+					
 					<li>
-						<a href="{% url 'news:filterfeeds' %}">Create own Feed</a>
-					</li>
-					{% if user.is_authenticated %}
-					<li>
-						<a href="{% url 'news:bookmark' %}">Bookmarked Feeds</a>
-					</li>
-					{% endif %}
-					<li>
-						<a href="{% url 'news:allarticles' %}">All Articles</a>
+						<a href="">RSS </a>
 					</li>
                     <li>
-                        <a href="{% url 'news:search_keyword' %}">Search By Keyword</a>
+                       <a href=""> Articles </a>
+                    </li>
+                    <li>
+                       <a href=""> Main Text </a>
+                    </li>
+                    <li>
+                       <a href=""> Images </a>
                     </li>
 					<li>
-						<a href={% url 'news:about' %}>About</a>
+						<a href="">About</a>
 					</li>
 				</ul>
 			</div>

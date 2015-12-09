@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'news',
     'bootstrap3',
     'django_extensions',
+    'dashboard',
 )
 
 MIDDLEWARE_CLASSES = (

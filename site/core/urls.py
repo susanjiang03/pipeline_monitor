@@ -23,4 +23,5 @@ urlpatterns = [
     #news app on news/
     url(r'^pipeline/', include('pmonitor.urls', namespace='pmonitor')),
     url(r'^news/', include('news.urls', namespace='news')),
+    url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
 ]
