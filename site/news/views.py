@@ -14,12 +14,12 @@ newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times',
 
 #User Management Views
 def user_login(request):
-    """Empty Docstring"""
+    """Renders The Login page"""
     template = 'login.html'
     return render(request, template)
 
 def process_login(request):
-    """Empty Docstring"""
+    """Process the Login Form to login the user"""
     email = request.POST['email']
     password = request.POST['password']
 
@@ -48,17 +48,17 @@ def process_login(request):
     return render(request, 'index.html')
 
 def user_logout(request):
-    """Empty Docstring"""
+    """Logout the user"""
     logout(request)
     return redirect(request.GET['next'])
 
 def register(request):
-    """Empty Docstring"""
+    """Renders the Register page"""
     template = 'register.html'
     return render(request, template)
 
 def process_register(request):
-    """Empty Docstring"""
+    """Process the Register Form to create a user"""
     first_name = request.POST['first_name']
     last_name = request.POST['last_name']
     email = request.POST['email']
@@ -99,12 +99,12 @@ def process_register(request):
     return redirect('news:user_login')
 
 def reset_password(request):
-    """Empty Docstring"""
+    """Renders the Reset Password page"""
     template = 'reset_password.html'
     return render(request, template)
 
 def change_password(request):
-    """Empty Docstring"""
+    """Process the reset_password Form to reset the user's password"""
     email = request.POST['email']
     old_password = request.POST['old_password']
     new_password = request.POST['new_password']
@@ -145,7 +145,7 @@ def change_password(request):
             'message': 'Incorrect Password to Email or Email does not exist'})
 
 def index(request):
-    """Empty Docstring"""
+    """Renders the Index Page (Main Page)"""
     template = 'index.html'
     query = Article.objects.values_list('category').distinct()
     dictcategory = []
@@ -201,7 +201,7 @@ def about(request):
     return render(request, 'about.html')
 
 def filterfeeds(request):
-    """Empty Docstring"""
+    """Renders the FilterFeeds Page"""
     template = 'filterfeeds.html'
     query = Article.objects.values_list('newspaper').distinct()
     dictcheckbox = []
@@ -217,7 +217,7 @@ def filterfeeds(request):
     return render(request, template, {'dictcheckbox': dictcheckbox})
 
 def userfeeds(request):
-    """Empty Docstring"""
+    """Process the FilterFeeds Form to renders the Userfeeds Page"""
     template = 'userfeeds.html'
     postlist = []
     for item in request.POST.getlist('newspapercategory[]'):
@@ -258,7 +258,7 @@ def userfeeds(request):
         'dictuserinput': dictuserinput})
 
 def newspaper(request, newspaperlink):
-    """Empty Docstring"""
+    """Renders the Newspaper Page for each Newspaper which display all the categories with a set amount of article titles"""
     template = 'newspaper.html'
     paper = newspapers[newspaperlink]
     query = Article.objects.filter(newspaper=paper).values_list('category').distinct()
@@ -297,7 +297,7 @@ def newspaper(request, newspaperlink):
 
 #view image
 def image_text(request, urlid):
-    """Empty Docstring"""
+    """Renders the Image Page of an Article"""
     template = 'image_text.html'
     article = Article.objects.filter(id=int(urlid))[0]
     imgurls = Image.objects.filter(article_id=int(urlid))
@@ -305,7 +305,7 @@ def image_text(request, urlid):
 
 #view top image and main text for all articles
 def allarticles(request):
-    """Empty Docstring"""
+    """Renders the All Articles Page which displays One Image and The main text of all articles"""
     template = 'allarticles.html'
 
     image_text = Image.objects.all().distinct()
@@ -328,12 +328,8 @@ def allarticles(request):
 
     return render(request, template, {'article_main':article_main, 'num':num})
 
-
-
-
-
 def add_to_bookmark(request, article_id):
-    """Empty Docstring"""
+    """Add an article linking to the current user to the bookmark database"""
     user_id = request.user.id
     bookmark = Bookmark(user_id=user_id, article_id=article_id)
     bookmark.save()
@@ -341,14 +337,14 @@ def add_to_bookmark(request, article_id):
     return redirect(request.GET['next'])
 
 def remove_from_bookmark(request, article_id):
-    """Empty Docstring"""
+    """Remove the link between the current user and the article from the bookmark database"""
     user_id = request.user.id
     Bookmark.objects.filter(user_id=user_id, article_id=article_id).delete()
 
     return redirect(request.GET['next'])
 
 def bookmark(request):
-    """Empty Docstring"""
+    """Renders the Bookmark page which displays all the bookmarked article's title"""
     template = 'bookmark.html'
 
     bookmarkdict = {}
@@ -374,7 +370,7 @@ def bookmark(request):
 
 #category
 def category(request, thiscategory):
-    """Empty Docstring"""
+    """Renders the category page which displays all the articles in that category"""
     template = 'category.html'
     dictcate = Article.objects.filter(category=thiscategory)
     return render(request, template, {
@@ -384,7 +380,7 @@ def category(request, thiscategory):
 
 #for each category in newspaper, display top image and main text
 def newspaper_category(request, newspaperlink, thiscategory):
-    """Empty Docstring"""
+    """Renders the newspaper_category which displays the top image and main text for each category in each newspaper"""
     template = 'newspaper_category.html'
     paper = newspapers[newspaperlink]
     #get a array of articles in this category of this newspaper
@@ -420,14 +416,14 @@ def newspaper_category(request, newspaperlink, thiscategory):
 
 #search keyword
 def search_keyword(request):
-    """Empty Docstring"""
+    """Renders the search_keyword page which allows the user to search for a keyword in the main text of an article"""
     template = 'search_keyword.html'
     
     return render(request, template)
 
 #return the articles text contains user's keywords
 def article_by_keyword(request):
-    """Empty Docstring"""
+    """Processes the search_keyword and renders the allarticles page which displays the relevant searches"""
     template = 'allarticles.html'
     keyword = request.POST['userkeyword']
     query = Image.objects.filter(main_text__contains=keyword).distinct()
