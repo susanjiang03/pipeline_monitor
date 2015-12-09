@@ -1,0 +1,5 @@
+{"nodes":[{"name":"Task 001","group":1,"status":"inprog"}],"links":[]}
+{"nodes":[{"name":"Task 001","group":1,"status":"success"},{"name":"Task 002","group":1,"status":"inprog"}],"links":[{"source":0,"target":1,"value":40}]}
+{"nodes":[{"name":"Task 001","group":1,"status":"success"},{"name":"Task 002","group":1,"status":"success"},{"name":"Task 003","group":1,"status":"inprog"}],"links":[{"source":0,"target":1,"value":40},{"source":1,"target":2,"value":40}]}
+{"nodes":[{"name":"Task 001","group":1,"status":"success"},{"name":"Task 002","group":1,"status":"success"},{"name":"Task 003","group":1,"status":"warning"},{"name":"Task 004","group":1,"status":"inprog"}],"links":[{"source":0,"target":1,"value":40},{"source":1,"target":2,"value":40},{"source":2,"target":3,"value":40}]}
+{"nodes":[{"name":"Task 001","group":1,"status":"success"},{"name":"Task 002","group":1,"status":"success"},{"name":"Task 003","group":1,"status":"warning"},{"name":"Task 004","group":1,"status":"error"}],"links":[{"source":0,"target":1,"value":40},{"source":1,"target":2,"value":40},{"source":2,"target":3,"value":40}]}

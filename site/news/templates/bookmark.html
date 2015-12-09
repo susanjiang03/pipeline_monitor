@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Bookmark {% endblock %}
+
+{% block body_block %}
+
+	<div class="col-md-12">
+
+		<!--header-->
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">Bookmarked Feeds</h1></div>
+			</div>
+		</div>
+
+		{% for key,value in bookmarkdict.items %}
+		<div class="col-md-4">
+			<div class="panel panel-primary" id="panels">
+
+				<div class="panel-heading" style="height:40px">
+					<a class="blackblue" href="#">{{key}}</a>
+				</div>
+
+				<p class="panel-body" style="margin-top: -20px;">
+					<ol style="overflow: hidden;margin-left: -15px">
+					{% for each in value %}
+						<li style="font-size:12px;font-weight: bold;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+
+						<!--unbookmark-->
+						{% if user.is_authenticated %}
+                            <a href="{% url 'news:remove_from_bookmark' each.id %}?next={{request.path}}"> UnBookmark </a>
+						{% endif %}									
+					{% endfor %}
+					</ol>
+				</p>
+
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}
+

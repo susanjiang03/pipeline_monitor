@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% load staticfiles %}
+
+<html>
+	<head>
+
+		<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
+		<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+		<title>
+			News Aggregator | {% block title %} {% endblock %}
+		</title>	
+	</head>
+
+	<body>
+
+	<div class="row" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+
+		<!--headers	-->
+		<div class="col-md-12">
+
+			<!--main header-->
+			<div class="col-md-8">
+				<h1>RSS FEEDS</h1>
+			</div>
+
+			<!--Login & Registration-->
+			<div class="col-md-4">
+				{% if user.is_authenticated %}
+				<a href="{% url 'news:user_logout' %}?next={{request.path}}"><button type="button" class="btn btn-lg btn-info" style="float: right; padding:0px; height: 25px; width: 100px">Logout</button></a>
+				{% else %}				
+				<a href="{% url 'news:register' %}"><button type="button" class="btn btn-lg btn-info" style="float: right; padding:0px; height: 25px; width: 100px">Register</button></a>
+				<a href="{% url 'news:user_login' %}?next={{request.path}}"><button type="button" class="btn btn-lg btn-info" style="float: right; margin-right: 5px; padding:0px; height: 25px; width: 100px">Login</button></a>
+				{% endif %}
+			</div>
+
+		</div>
+		
+		<!--nav bar-->
+		<div class="col-md-12" style="margin-bottom: 20px;border-bottom: solid 1px lightgray;">
+			<div class="col-md-12 nav_bar">
+				<ul class="nav nav-pills">
+					<!--Home | See pipeline | Create own feed | Bookmark | All Images | About-->
+					<li>
+						<a href="{% url 'news:index' %}">Home</a>
+					</li>
+					<li>
+						<a href="{% url 'pmonitor:index' %}">See pipeline</a>
+					</li>
+					<li>
+						<a href="{% url 'news:filterfeeds' %}">Create own Feed</a>
+					</li>
+					{% if user.is_authenticated %}
+					<li>
+						<a href="{% url 'news:bookmark' %}">Bookmarked Feeds</a>
+					</li>
+					{% endif %}
+					<li>
+						<a href="{% url 'news:allarticles' %}">All Articles</a>
+					</li>
+                    <li>
+                        <a href="{% url 'news:search_keyword' %}">Search By Keyword</a>
+                    </li>
+					<li>
+						<a href={% url 'news:about' %}>About</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+
+		<!--enter content here-->
+		{% block body_block %}
+
+		{% endblock %}	
+
+	
+	<!--close first div-->
+	</div>
+
+	</body>
+
+	<!--JS here-->
+	<script type="text/javascript" src="{% static 'javascript/script.js' %}"></script>
+{% if message %}
+	<script type="text/javascript">
+    	alert('{{ message }}');
+	</script>
+{% endif %}
+
+</html>
+
+{% bootstrap_javascript %}

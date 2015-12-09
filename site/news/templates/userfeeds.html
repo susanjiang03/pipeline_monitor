@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %} User Created Feed {% endblock %}
+
+{% block body_block %}
+
+	<div class="col-md-12">
+
+		<!--header-->
+    <form  action="userfeeds" method="post">
+        {% csrf_token %}
+		<div class="col-md-12">
+			<div class="panel panel-primary" id="panels">
+				<div class="panel-heading"><h1 style="text-align: center;">Filter Feeds</h1></div>
+			</div>
+		</div>
+    
+		<!--categories that are already in the database-->
+		{% for newspaper in dictuserfeeds %}
+		<div class="col-md-6">
+			<div class="panel panel-primary" id="panels">
+
+				<div class="panel-heading" style="height:40px">
+					<a class="blackblue" href="#">{{newspaper.newspaper}} - {{newspaper.category}}</a>
+				</div>
+                
+                <input type=hidden name="newspapercategory[]" value="{{newspaper.newspaper}},{{newspaper.category}}">
+                    
+				<p class="panel-body" style="margin-top: -20px;">
+					<ol style="overflow: hidden;margin-left: -15px">
+					{% for each in newspaper.feeds %}
+						<li style="font-size:12px;height: 20px;white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>							
+					{% endfor %}
+					</ol>
+				</p>
+
+			</div>
+		</div>
+		{% endfor %}
+
+		<!--from userinput-->
+		{% for url in dictuserinput %}
+        
+          {% if url.size %}
+		 <div class="col-md-6" name="inputRSS[]" >
+			<div class="panel panel-primary" id="panels">
+              
+				<div class="panel-heading" style="height:40px">
+					Selected RSS - <a href={{url.rssurl}}>{{url.rssurl}}</a>
+				</div>
+                <input type="hidden" id="userRSS" name="userRSS[]" value="{{url.rssurl}}">
+				<p class="panel-body" style="margin-top: -20px;">
+					<ul style="overflow: hidden;margin-left: -15px">
+					{% for each in url.titlelink %}
+						<li style="font-size:12px; height: 20px; white-space: nowrap;"><a class="blackblue" href="{{each.url}}">{{each.title}}</a></li>
+					{% endfor %}
+					</ul>
+				</p>
+            </div>
+         </div>
+                {% else %}
+            <div class="col-md-4" >
+              <div class="panel panel-primary" id="panels">
+                        
+                        <div class="panel-heading" style="height:40px">
+                            <a class="blackblue" href="#">{{url.rssurl}}</a>
+                        </div>
+                        <p class="panel-body" style="margin-top: -20px;">
+                        <ol style="overflow: hidden;margin-left: -15px">
+                <p> <b> &nbsp;&nbsp;Invalid rss url !</b> </p>
+                
+                <p class="panel-body" style="margin-top:-30px;margin-left: 100px;">
+                
+                <div id="UserRssInput" style="margin-left: 10px;">
+                    <input type="text" id="userRSS" name="userRSS[]" value="{{url.rssurl}}">
+                </div>
+                </p>
+                <div class="panel-footer">
+                    <input type="submit" id="UpdateInvalidRSS"   class="btn btn-primary" value="Update RSS">
+                </div>
+               
+			</div>
+		</div>
+        {%endif%}
+       
+		{% endfor %}
+        </form>
+
+	</div>
+
+{% endblock %}
+

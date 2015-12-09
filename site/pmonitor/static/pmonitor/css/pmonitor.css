@@ -1,0 +1,81 @@
+body {
+  background: transparent url("/static/pmonitor/img/Autumn-leaves-autumn-on-tree.jpg") repeat scroll 0% 0%;
+}
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+  border-radius: 8px;
+}
+
+.link {
+  stroke: white;
+  stroke-opacity: 1;
+}
+
+.main {
+  background-color: rgba(255, 99, 71, 0.92);
+  border-radius: 24px;
+}
+
+.header {
+  background-color: rgba(70, 130, 180, 0.94);
+  color: white;
+  margin-bottom: 40px;
+  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+.header hr {
+  border-color: tomato;
+}
+
+#chart {
+  margin: 15px 0px;
+  border-radius: 12px;
+  border: 2px dashed white;
+}
+
+.g-nodes:hover {
+  opacity: 1;
+}
+
+text.status {
+  font-size: x-small;
+}
+
+text.status > .name {
+  cursor: help;
+}
+
+text.status > .message {
+  cursor: help;
+}
+
+text.status > .status-msg {
+  font-weight: bold;
+}
+
+text.status > .success {
+  fill: darkgreen;
+}
+
+text.status > .error {
+  fill: darkred;
+}
+
+text.status > .warning {
+  fill: darkorange;
+}
+
+text.status > .in.progress {
+  fill: darkblue;
+}
+
+text.status > .slabel {
+  font-weight: bold;
+}
+
+text.status > .slink {
+  fill: darkblue;
+}
