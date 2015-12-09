@@ -22,6 +22,7 @@ Contents:
    :maxdepth: 2
 
    requirements
+   design-choices
    modules/models
    modules/views
 
