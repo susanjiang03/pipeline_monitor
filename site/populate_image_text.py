@@ -83,7 +83,7 @@ def populate_image_text():
                 
                 
                 #stat in total
-    if (total_count==0):
+    if  total_count==0:
         sys.stdout.write('\nTotal Images: 0 | 0 (0.00 %) Created | 0 (0.00 %) Existed \n')
     else:
         total_create_pct = total_create * 100.0 / total_count

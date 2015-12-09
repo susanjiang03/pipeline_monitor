@@ -15,9 +15,7 @@
 }
 
 .rss{
-
-    width: 35%;
-    text-align:center;
+    width: 25%;
 }
 
 .valid{
@@ -42,25 +40,19 @@
     margin: auto;
 }
 
-.feeds{
-    width:10%;
-    text-align:center;
-}
-
-
-.image{
-    width:10%;
-     text-align:center;
-}
-
-.pct{
+.name{
     width: 15%;
     text-align:center;
 }
 
-.maintext{
-    width:10%;
-     text-align:center;
+.num{
+    width:5%;
+    text-align:center;
+}
+
+.pct{
+    width: 20%;
+    text-align:center;
 }
 
 .tablehead{
@@ -68,7 +60,7 @@
 }
 
 .tablerow{
-    text-align:center;
+    height: 10%;
 }
 </style>
 
@@ -87,44 +79,66 @@
 
 		{% csrf_token %}
         <table border="5">
+            
           <tr class="tablehead">
-             <th class="rss" > RSS url </th>
+              <th class="num"> No. </td>
+              <th class="rss" style="text-align:center"> RSS url </th>
               <th class="valid"> Valid </th>
-              <th class="feeds"> Number of Articles</th>
-              <th class="image"> Number of Images</th><th class="pct"> Percetage </th>
-              <th class="maintext"> Number of Main Text</th><th class="pct"> Percetage </th>
+              <th class="name"> Newspaper </td>
+              <th class="name"> Category </td>
+              <th class="num"> Number of Articles</th>
+              <th class="num"> Number of Images</th>
+              <th class="pct"> Percetage </th>
+              <th class="num"> Number of Main Text</th>
+              <th class="pct"> Percetage </th>
           </tr>
             	{% for each in feedurls %}
-		  <div class="tablerow">
-          <tr>
-			  <td > <a>{{each.url}} </a> </td>
-              {% if each.valid %}
-              <td class="valid">
-                  <div id="valid_true"> </div>
-              </td >
-                  {% else %}
-             <td class="valid">
-                  <div id="valid_false"> </div>
-             </td>
-              {% endif %}
-              <td class="feeds">{{each.number_of_articles}}</td>
-              <td class="image">{{each.number_of_images}}</td><td class="pct">{{each.pct_of_images}}% </td>
-              <td class="maintext">{{each.number_of_text}}</td><td class="pct">{{each.pct_of_text}}%</td>
-               
-           </tr>
-          </div>
-		{% endfor %}
-          <div>
           <tr class="tablerow">
-              <td><p>Total RSS url: {{summary.size}}; Valid RSS url: {{summary.valid_urls}}; Invalid RSS url: {{summary.invalid_urls}}</p></td>
-              <td> {{summary.pct_valid}}% </td>
-              <td> {{summary.total_articles}}</td>
-              <td> {{summary.total_images}}</td>
-              <td> {{summary.pct_total_images}} %</td>
-              <td> {{summary.total_text}} </td>
-              <td> {{summary.pct_total_text}} % </td>
+            <div class="tablerow">
+              <td class="num"> {{each.rssurl_id}} </td>
+			  <td class="rss"> <a>{{each.url}} </a> </td>
+              {% if each.valid %}
+              <td class="valid"><div id="valid_true"></div></td>
+              <td class="name"> {{each.newspaper}}</td>
+              <td class="name"> {{each.category}}</td>
+              <td class="num">{{each.number_of_articles}}</td>
+              <td class="num">{{each.number_of_images}}</td>
+              <td class="pct">{{each.pct_of_images}}% </td>
+              <td class="num">{{each.number_of_text}}</td>
+              <td class="pct">{{each.pct_of_text}}%</td>
+              {% else %}
+              <td class="valid"><div id="valid_false"> </div></td>
+              <td >
+                  <input type="button" id="delete_rssurl" class="btn btn-primary" value="Delete RSS">
+              </td>
+              <td>
+                  <input type="button" id="edit_rssurl" class="btn btn-primary" value="Fix RSS">
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            
+              {% endif %}
+            </div>
+           </tr>
+		{% endfor %}
+        
+          <tr class="tablerow">
+            <div>
+              <td> Total</td>
+              <td><p>Total RSS url: {{summary.num_urls}}; &nbsp;Valid RSS url: {{summary.valid_urls}}; Invalid RSS url: {{summary.invalid_urls}}</p></td>
+              <td> {{summary.pct_valid}}% &nbsp; Valid</td>
+              <td> </td>
+              <td> </td>
+              <td class="num"> {{summary.total_articles}}</td>
+              <td class="num"> {{summary.total_images}}</td>
+              <td class="pct"> {{summary.pct_total_images}} %</td>
+              <td class="num"> {{summary.total_text}} </td>
+              <td class="pct"> {{summary.pct_total_text}} % </td>
+             </div>
           </tr>
-          </div>
         </table>
         </div>
 		
