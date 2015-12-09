@@ -3,16 +3,105 @@
 {% block title %} Dashboard{% endblock %}
 
 {% block body_block %}
+<style>
+    
+.col-md-6{
+    left:5%;
+    width:90%;
+}
+
+.tablehead{
+     text-align:center;
+}
+.num{
+    width:5%;
+   text-align:center;
+}
+
+a{
+ word-wrap:break-word;
+}
+
+.title_th{
+    width: 20%;
+    word-wrap:break-word;
+    text-align:center;
+}
+
+.desc_th{
+    width:20%;
+    text-align:center;
+}
+
+.image{
+    text-align:center;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+.maintext{
+    width:30%;
+    text-align:center;
+}
+</style>
 
 <div class="col-md-12">
     
     <!--header-->
     <div class="col-md-12">
         <div class="panel panel-primary" id="panels">
-            <div class="panel-heading"><h1 style="text-align: center;">Data of Population</h1></div>
+            <div class="panel-heading"><h1 style="text-align: center;">RSS feeds Population Result</h1></div>
+            <div class="panel-heading"><h4 style="text-align: center;">{{rssurl}}: &nbsp; {{newspaper}} &nbsp;| &nbsp;&nbsp; {{category}}</h4></div>
         </div>
     </div>
+    
+    <!--table for each rssurl -->
+    <div  class="col-md-6">
+        <form name="myForm" action="" method="post">
+            {% csrf_token %}
+            <table border="5">
+                <tr class="tablehead">
+                    <th class="num"> No. </th>
+                    <th class="title_th"> Articles</th>
+                    <th class="desc_th"> Description </th>
+                    <th class="image"> Image</th>
+                    <th class="maintext">Main Text</th>
+                </tr>
+                {% for each in articles %}
+                <tr class="tablerow">
+                    <div class="tablerow">
+                        <td class="num"> {{each.article_id}} </td>
+                        <td><a href="{{each.url}}">{{each.title}}</a></td>
+                        <td>{{each.description}}</td>
+                        {% if each.image %}
+                        <td class="image"><img src="{{each.image}}"></td>
+                        {% else %}
+                        <td class="image">None</td>
+                        {%endif%}
+                        {% if each.image %}
+                        <td class="maintext">{{each.text}}</td>
+                        {% else %}
+                        <td class="maintext">None</td>
+                        {%endif%}
+                    </div>
+                </tr>
+              {% endfor %}
+            
+            </table>
+        </form>
+    </div>
+
+    
 </div>
+
+
+
+
+
+
 
 
 {% endblock %}

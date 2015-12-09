@@ -100,6 +100,51 @@ def index(request):
 
 
 
+'''dispaly the table for the stats of the artciles populated from this rssurl, to view if every data is valid or not '''
+def rssurl(request,rssurl_id):
+
+    template = 'rssfeed.html'
+    articles = []
+    rssurl = RSSurl.objects.filter(id=rssurl_id)[0].rss_url.encode('UTF-8')
+    newspaper = ""
+    category = ""
+    #ge the array of articles from the rss url in Article
+    rssquery = Article.objects.filter(rssurl_id=rssurl_id)
+    
+    for each in rssquery:
+        newspaper = each.newspaper.encode('UTF-8')
+        category = each.category.encode('UTF-8')
+        title = each.title
+        url = each.url
+        publish_date = each.publish_date
+        description = each.description
+
+         #initialize
+        image = ""
+        text = ""
+        # get the image or text for this article from Image
+        image_text = Image.objects.filter(article_id=each.id)
+        if image_text:
+           image = image_text[0].image_url.encode('UTF-8')
+           text = image_text[0].main_text.encode('UTF-8')
+           if len(text) > 500:
+               text = text[0:500]+"..."
+        #append info to articles
+        articles.append({
+            "article_id": each.id,
+            "title": title,
+            "url": url,
+            "publish_date": publish_date,
+            "description": description,
+            "image": image,
+            "text": text,
+         })
+
+    return render(request,template,{'articles':articles,'rssurl':rssurl,'newspaper':newspaper,'category':category})
+
+
+
+
 
 
 

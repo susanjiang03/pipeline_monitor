@@ -41,7 +41,7 @@
 }
 
 .name{
-    width: 15%;
+    width: 10%;
     text-align:center;
 }
 
@@ -55,6 +55,13 @@
     text-align:center;
 }
 
+.pct-bar-horizontal{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    width: 100%;
+}
 .tablehead{
     text-align:center;
 }
@@ -69,12 +76,12 @@
 		<!--header-->
 		<div class="col-md-12">
 			<div class="panel panel-primary" id="panels">
-				<div class="panel-heading"><h1 style="text-align: center;">Data Analysis of Population</h1></div>
+				<div class="panel-heading"><h1 style="text-align: center;">Data of Population</h1></div>
 			</div>
 		</div>
+        
+        <!--table for each rssurl -->
         <div  class="col-md-6">
-
-		<!--table for each rssurl -->
 		<form name="myForm" action="" method="post">
 
 		{% csrf_token %}
@@ -96,17 +103,18 @@
           <tr class="tablerow">
             <div class="tablerow">
               <td class="num"> {{each.rssurl_id}} </td>
-			  <td class="rss"> <a>{{each.url}} </a> </td>
               {% if each.valid %}
+			  <td class="rss"> <a href="/dashboard/rssurl/{{each.rssurl_id}}">{{each.url}} </a> </td>
               <td class="valid"><div id="valid_true"></div></td>
               <td class="name"> {{each.newspaper}}</td>
               <td class="name"> {{each.category}}</td>
               <td class="num">{{each.number_of_articles}}</td>
               <td class="num">{{each.number_of_images}}</td>
-              <td class="pct">{{each.pct_of_images}}% </td>
+              <td class="pct"><div class="pct-bar-horizontal">{{each.pct_of_images}}% <div></td>
               <td class="num">{{each.number_of_text}}</td>
-              <td class="pct">{{each.pct_of_text}}%</td>
+              <td class="pct"><div class="pct-bar-horizontal">{{each.pct_of_text}}%</div></td>
               {% else %}
+              <td class="rss"> {{each.url}} </td>
               <td class="valid"><div id="valid_false"> </div></td>
               <td >
                   <input type="button" id="delete_rssurl" class="btn btn-primary" value="Delete RSS">
@@ -140,6 +148,7 @@
              </div>
           </tr>
         </table>
+        </form>
         </div>
 		
 	<!--closes last div-->
