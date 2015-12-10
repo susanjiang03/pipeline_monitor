@@ -7,14 +7,16 @@
             
             <!-- end of 4 box  -->
         <!-- table head  -->
-       <div class="row" style="width:85%;" >
+       <div class="row" style="width:90%;" >
            <div class="col-lg-8" style="width:100%;">
                <div class="panel panel-default" style="width:100%;">
                    <!-- /.panel -->
                    <div class="panel panel-default" style="width:100%;">
                        <div class="panel-heading" style="width:100%;">
                            <i class="fa fa-link fa-2x"></i>
-                           <b>&nbsp;&nbsp;All  RSS URL  <b>
+                           <b>&nbsp;&nbsp;All  RSS URL  &nbsp;&nbsp; <b>
+                            <i class="fa fa-download fa-lg" style="color:#ff0066;"></i><a href="/dashboard/downloadrssCSV"> Download RSS url As CSV File </a> &nbsp;&nbsp;
+                            <i class="fa fa-download fa-lg" style="color:#ff0066;"></i><a href="/dashboard/downloadrssTXT"> Download RSS url As Text File </a>
                        </div>
                        
                        
@@ -36,8 +38,8 @@
                     <th style="width:5%;text-align:center"> No. </th>
                     <th style="width:40%;text-align:center"> RSS </th>
                     <th style="width:5%;text-align:center"> Validation </th>
-                    <th style="width:15%;text-align:center"> Newspaper </th>
-                    <th style="width:15%;text-align:center"> Category</th>
+                    <th style="width:25%;text-align:center"> Newspaper </th>
+                    <th style="width:20%;text-align:center"> Category</th>
                 </tr>
                 {% for each in rss %}
                 <tr class="tablerow">

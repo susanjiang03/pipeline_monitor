@@ -9,4 +9,6 @@ urlpatterns = patterns('',
                         url(r'^articles$',views.articles,name='articles'),
                        url(r'^images$',views.images,name='images'),
                        url(r'^downloadall$',views.downloadall,name='downloadall'),
+                       url(r'^downloadrssCSV$',views.downloadrssCSV,name='downloadrssCSV'),
+                       url(r'^downloadrssTXT$',views.downloadrssTXT,name='downloadrssTXT'),
                       )

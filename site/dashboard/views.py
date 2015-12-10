@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: UTF-8  -*-
 from django.shortcuts import render
 from django.contrib import admin
 from django.db import models
@@ -5,6 +7,7 @@ from news.models import Article, Image, RSSurl
 import csv
 from django.utils.encoding import smart_str, smart_unicode
 from django.http import HttpResponse
+
 # Create your views here.
 
 '''index page of dashboard app, this page will show  the statistic of data populated to database,
@@ -252,6 +255,37 @@ def downloadall(request):
     
     return response
 
+''' down the rss url in dababase as csv file'''
+def downloadrssCSV(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="rssurl.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Number', 'RSS url'])
+    rssurl = RSSurl.objects.all().distinct()
+    number = 0
+    for rss in rssurl:
+        number += 1
+        writer.writerow([number,rss.rss_url.encode('UTF-8')])
+    
+    return response
+    
+''' down the rss url in dababase as text file'''
+def downloadrssTXT(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename="rssurl.txt"'
+  
+    writer = csv.writer(response)
+    rssurl = RSSurl.objects.all().distinct()
+    number = 0
+    for rss in rssurl:
+        number += 1
+        writer.writerow([rss.rss_url])
+    
+    return response
+    
 
 '''view all images in database'''
 def images(request):
