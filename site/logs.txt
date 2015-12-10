@@ -1,0 +1,8 @@
+Task1: 1 Message: Checking if testurls.txt can be accessed on 2015-12-10 12:42:51.181717
+Task1: 0 Message: File opened on 2015-12-10 12:42:51.193853
+Task2: 1 Message: Checking validity of Feeds in testurls.txt on 2015-12-10 12:42:51.206742
+Task2: 3 Message: Feeds on linenumbers [6] are invalid on 2015-12-10 12:42:52.612583
+Task1: 1 Message: Checking if testurls.txt can be accessed on 2015-12-10 12:44:46.269065
+Task1: 0 Message: File opened on 2015-12-10 12:44:46.306658
+Task2: 1 Message: Checking validity of Feeds in testurls.txt on 2015-12-10 12:44:46.335813
+Task2: 3 Message: Feeds on linenumbers [6] are invalid on 2015-12-10 12:44:47.398450

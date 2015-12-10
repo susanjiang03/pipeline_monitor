@@ -111,10 +111,17 @@ def index(request):
            "pct_total_text": round(pct_total_text,2),
            }
     request.session['summary'] = summary
+    request.session['rss'] = feedurls
 
     return render(request,template,{'feedurls':feedurls,'summary':summary})
 
 
+'''show all the rss urls in rss.html page'''
+def rss(request):
+    template = 'rss.html'
+    rss = request.session['rss']
+    summary = request.session['summary']
+    return render(request,template,{'rss':rss,'summary':summary})
 
 '''dispaly the table for the stats of the artciles populated from this rssurl, to view if every data is valid or not '''
 def rssurl(request,rssurl_id):
