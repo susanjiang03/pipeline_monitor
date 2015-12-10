@@ -21,15 +21,14 @@ def populate_rssurls():
     #open file containing rss links
     #prompt whether you want to open all urls or only test ones
     #prompt with 0 or 1
-    urls_to_open = raw_input("Choose 0 for 5 urls, 1 for all urls\n")
+    # urls_to_open = raw_input("Choose 0 for 5 urls, 1 for all urls\n")
+    urls_to_open = '0'
 
     #check here
     if urls_to_open == '0':
         file_to_open = 'testurls.txt'
     else:
         file_to_open = 'rssurls.txt'
-
-    print file_to_open
 
     #set urls to small or large batch
     with open(file_to_open) as f:

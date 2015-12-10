@@ -30,6 +30,10 @@ def index(request):
                 active=False
             ),
             dict(
+                label='Dashboard', url=reverse('dashboard:index'),
+                active=False
+            ),
+            dict(
                 label='Admin Site', url=reverse('admin:index'), active=False
             ),
         ]

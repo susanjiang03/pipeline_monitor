@@ -31,6 +31,12 @@ def initialize_tasks():
             name='URL Retrieval',
             description='Retrieves urls.',
             status=Status.NOT_RUN
+        ),
+        dict(
+            task_id='03',
+            name='Goose content extraction',
+            description='Retrive a summary and image from each article',
+            status=Status.NOT_RUN
         )
     ]
     

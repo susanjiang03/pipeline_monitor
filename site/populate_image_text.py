@@ -8,6 +8,7 @@ django.setup()
 
 from news.models import Article
 from news.models import Image
+from pmonitor.models import Task, Status
 import re
 import sys
 from datetime import datetime
@@ -24,7 +25,13 @@ def populate_image_text():
     total_count = 0
     #get the array of article
     Articlelinks = Article.objects.distinct()
-    
+
+    #run task3
+    task3 = Task.objects.get(task_id='03')
+    task3.status = Status.IN_PROGRESS
+    task3.message = "Retrieving article data"
+    task3.save()
+   
     #change start and end here, to extra images for articles in a range
     for each in Articlelinks:
         
@@ -81,8 +88,11 @@ def populate_image_text():
                              % (images_count, create_count, create_pct, exist_count, exist_pct))
             sys.stdout.flush()
                 
-                
-                #stat in total
+    task3.status = Status.SUCCESS
+    task3.message = "Article data retrieved"
+    task3.save()
+        
+    #stat in total
     if  total_count==0:
         sys.stdout.write('\nTotal Images: 0 | 0 (0.00 %) Created | 0 (0.00 %) Existed \n')
     else:
