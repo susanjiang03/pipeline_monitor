@@ -22,6 +22,7 @@ Contents:
    :maxdepth: 2
 
    requirements
+   quick-start
    design-choices
    modules/models
    modules/views
