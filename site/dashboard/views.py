@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.contrib import admin
 from django.db import models
 from news.models import Article, Image, RSSurl
-
+import csv
+from django.utils.encoding import smart_str, smart_unicode
+from django.http import HttpResponse
 # Create your views here.
 
 '''index page of dashboard app, this page will show  the statistic of data populated to database,
@@ -193,6 +195,43 @@ def articles(request):
                                     })
 
     return render(request,template,{'articles':articles})
+
+
+'''download save all data to csv file'''
+    
+def downloadall(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="DataPopulationResults.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(['Number', 'RSS url', 'Valid','Newspaper', 'Category','Title','Article URL','Publish Date', 'Description','Image URL','Main Text'])
+    rssurl = RSSurl.objects.all().distinct()
+    number = 0
+    for rss in rssurl:
+        
+        feeds = Article.objects.filter(rssurl_id=rss.id)
+        
+        for each in feeds:
+            number += 1
+            # get data from artilces: newspapaer | category | title |url| publish_date |despcriton
+            newspaper = smart_str(each.newspaper)
+            category = smart_str(each.category)
+            title = smart_str(each.title)
+            articleurl = smart_str(each.url)
+            publish_date = smart_str(each.publish_date)
+            description = smart_str(each.description)
+            # get data from Image:  Image | Text
+            image_url = ""
+            clean_text = ""
+            image_text = Image.objects.filter(article_id=each.id)
+            if image_text:
+                image_url = image_text[0].image_url
+                clean_text = smart_str(image_text[0].main_text)
+
+        writer.writerow([number, rss.rss_url,rss.valid,newspaper,category,title,articleurl,publish_date,description,image_url,clean_text])
+    
+    return response
 
 
 
