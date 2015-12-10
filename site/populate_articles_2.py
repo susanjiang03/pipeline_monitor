@@ -50,6 +50,8 @@ def populate():
     #prompt with 0 or 1
     
     file_to_open = "testurls.txt"
+
+    #create task 1, checking for a file
     task1 = Task.objects.get(task_id='01')
     task1.status = Status.IN_PROGRESS
     task1.message = "Checking if {} can be accessed".format(file_to_open)
@@ -58,16 +60,23 @@ def populate():
         text_file.write("Task1: {} Message: {} on {}\n".format(task1.status, task1.message, task1.last_run))
     try:
         with open(file_to_open) as f:
+
+            #after file has been opened change status
             task1.status = Status.SUCCESS
             task1.message = "File opened"
             task1.save()
+
+            #write to log
             with open("logs.txt", "a") as text_file:
                 text_file.write("Task1: {} Message: {} on {}\n".format(task1.status, task1.message, task1.last_run))
 
+            #create task2, checking url validity through the bozo exception 
             task2 = Task.objects.get(task_id='02')
             task2.status = Status.IN_PROGRESS
             task2.message = "Checking validity of Feeds in {}".format(file_to_open)
             task2.save()
+
+            #log it
             with open("logs.txt", "a") as text_file:
                 text_file.write("Task2: {} Message: {} on {}\n".format(task2.status, task2.message, task2.last_run))
 
@@ -85,6 +94,7 @@ def populate():
                     else:
                         lineerror.append(linenumber)
 
+            #update task2 status
             if not lineerror:
                 task2.message = "All Feeds are valid"
                 task2.status = Status.SUCCESS
@@ -92,6 +102,8 @@ def populate():
                 task2.message = "Feeds on linenumbers {} are invalid".format(lineerror)
                 task2.status = Status.WARNING
             task2.save()
+
+            #log it again
             with open("logs.txt", "a") as text_file:
                 text_file.write("Task2: {} Message: {} on {}\n".format(task2.status, task2.message, task2.last_run))
 
@@ -99,12 +111,10 @@ def populate():
         task1.status = Status.ERROR
         task1.message = e
         task1.save()
+
         with open("logs.txt", "a") as text_file:
             text_file.write("Task1: {} Message: {} on {}\n".format(task1.status, task1.message, task1.last_run))
         return 0
-
-    #find a way to differentiate the newspaper and category
-    #two if checks
 
     #create dictionary here to match the patterns
     newspapers = {'nytimes': 'New York Times', 'latimes': 'Los Angeles Times', 'miamiherald': 'Miami Herald', 'seattletimes':'Seattle Times', 'denverpost':'Denver Post'}

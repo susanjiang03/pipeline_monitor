@@ -29,7 +29,12 @@ def index(request):
     num_urls = len(query)
     valid_query = RSSurl.objects.filter(valid=True)
     valid_urls = len(valid_query)
-    pct_valid = valid_urls/float(num_urls) *100
+    
+    if num_urls == 0:
+        pct_valid = 0
+    else:
+        pct_valid = valid_urls/float(num_urls) *100
+
     invalid_urls = num_urls - valid_urls
     
     #loop through the arrary
