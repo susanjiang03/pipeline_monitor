@@ -10,24 +10,7 @@
       word-wrap:break-word;
   }
 
-  
-  #valid_true{
-      width: 20px;
-      height: 20px;
-      border-radius: 100%;
-      background: green;
-      margin: auto;
-      
-  }
-  
-  #valid_false{
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: red;
-      margin: auto;
-  }
-  
+
   
   .num{
       width:5%;
@@ -98,7 +81,7 @@
                                                     <td class="num"> {{each.rssurl_id}} </td>
                                                     {% if each.valid %}
                                                     <td style="text-align:left"> <a href="/dashboard/rssurl/{{each.rssurl_id}}">{{each.url}} </a> </td>
-                                                    <td><div id="valid_true"></div></td>
+                                                    <td><i class="fa fa-check-circle fa-2x" style="color:green"></i></td>
                                                     <td> {{each.newspaper}}</td>
                                                     <td> {{each.category}}</td>
                                                     
@@ -125,14 +108,14 @@
                                                     
                                                     {% else %}
                                                     <td class="rss"> {{each.url}} </td>
-                                                    <td class="valid"><div id="valid_false"> </div></td>
-                                                    <td ></td>
-                                                    <td></td>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                    <td> </td>
-                                                    <td></td>
+                                                    <td class="valid"><i class="fa fa-times-circle fa-2x" style="color:red"></i></td>
+                                                    <td ><i class="fa fa-minus fa-2x" style="color:red"></i></td>
+                                                    <td><i class="fa fa-minus fa-2x" style="color:red"></i></td>
+                                                    <td> <i class="fa fa-minus fa-2x" style="color:red"></i></td>
+                                                    <td> <i class="fa fa-minus fa-2x" style="color:red"></i></td>
+                                                    <td> <i class="fa fa-minus fa-2x" style="color:red"></i></td>
+                                                    <td> <i class="fa fa-minus fa-2x" style="color:red"></i></td>
+                                                    <td><i class="fa fa-minus fa-2x" style="color:red"></i></td>
                                                     
                                                     {% endif %}
                                                 </div>
