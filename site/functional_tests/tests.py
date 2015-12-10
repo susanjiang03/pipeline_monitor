@@ -66,9 +66,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertIn("nytimes", self.browser.current_url.encode('utf-8'))
         self.assertIn(an_article.category.lower(), self.browser.current_url)
 
-    
-    '''
-
     #user story #2 - user clicks the 'see images' link and goes to a page with article relevant images
 
 
@@ -103,10 +100,35 @@ class NewVisitorTest(StaticLiveServerTestCase):
         invalid_msg = self.browser.find_element_by_tag_name('ol')
 
         self.assertIn("Invalid rss url", invalid_msg.text.encode('utf-8'))
-        # self.assertContains(self.browser.page_source.encode('utf-8'), "Invalid rss url")
 
         time.sleep(3)
 
+    '''
 
+    def test_good_user_provided_url(self):
+        #go to that tab
+        filter_url = self.live_server_url + '/news/filterfeeds'
+        self.browser.get(filter_url)
+
+        #find input box, throw a url at it, follow one of the links and check that the response has the newspaper title
+        inputbox = self.browser.find_element_by_id('userRSS')
+        latimes_url = 'http://www.latimes.com/entertainment/tv/rss2.0.xml'
+        inputbox.send_keys(latimes_url)
+
+        # time.sleep(3)
+
+        filterbutton = self.browser.find_element_by_id('filter_button') 
+        filterbutton.send_keys(Keys.RETURN)
+
+        #test url
+        filtered_url = self.live_server_url + '/news/userfeeds'
+        self.assertEqual(filtered_url, self.browser.current_url)
+
+        article_header = self.browser.find_element_by_partial_link_text('latimes')
+
+        #check that the link is in that element
+        self.assertIn(latimes_url, article_header.text.encode('utf-8'))
+
+        time.sleep(3)
 
 
