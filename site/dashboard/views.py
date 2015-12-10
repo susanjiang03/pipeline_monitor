@@ -234,7 +234,11 @@ def downloadall(request):
     return response
 
 
-
+'''view all images in database'''
+def images(request):
+    template = 'images.html'
+    imagequery = Image.objects.all().distinct()
+    return render(request,template,{'images':imagequery})
 
 
 

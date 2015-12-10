@@ -5,10 +5,6 @@
 {% block body_block %}
 <style>
     
-.col-md-6{
-    left:5%;
-    width:90%;
-}
 
 a{
  word-wrap:break-word;
@@ -26,14 +22,114 @@ img{
     <!--table for each rssurl -->
 <div id="wrapper">
      <!-- head -->
-    <div id="page-wrapper">
-        <div class="row">
-            <div class="col-lg-12">
+    <div id="page-wrapper" >
+        <div class="row" >
+            <div class="col-lg-12" style="background-color: lightgrey">
                 <h1 class="page-header">RSS Feeds Data Population Analysis</h1>
             </div>
             <!--  -->
         </div>
-        
+        <br>
+  
+  
+  <!-- 4 data boxes -->
+  <div class="row">
+      <div class="col-lg-3 col-md-6">
+          <div class="panel panel-primary">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-comments fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div class="huge"> {{summary.num_urls}}</div>
+                          <div class="huge"> {{summary.pct_valid}}%</div>
+                          <div>Number of RSS URL </div>
+                      </div>
+                  </div>
+              </div>
+              <a href="#">
+                  <div class="panel-footer">
+                      <span class="pull-left"><a href="/dashboard">View Details</a></span>
+                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                  </div>
+              </a>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <div class="panel panel-green">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-tasks fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div class="huge">{{summary.total_articles}}</div>
+                          <div class="huge"> {{summary.pct_articles}}</div>
+                          <div class="huge"> </div>
+                          <div>Number of Feeds</div>
+                      </div>
+                  </div>
+              </div>
+              <a href="#">
+                  <div class="panel-footer">
+                      <span class="pull-left">View Details</span>
+                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                  </div>
+              </a>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <div class="panel panel-yellow">
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-shopping-cart fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div class="huge">{{summary.total_images}}</div>
+                          <div class="huge">{{summary.pct_total_images}}%</div>
+                          <div>Number of Images </div>
+                      </div>
+                  </div>
+              </div>
+              <a href="#">
+                  <div class="panel-footer">
+                      <span class="pull-left">View Details</span>
+                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                  </div>
+              </a>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <div class="panel panel-red" >
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-3">
+                          <i class="fa fa-support fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9 text-right">
+                          <div class="huge">{{summary.total_text}}</div>
+                          <div class="huge">{{summary.pct_total_text}}%</div>
+                          <div>Number of Texts</div>
+                      </div>
+                  </div>
+              </div>
+              <a href="#">
+                  <div class="panel-footer">
+                      <span class="pull-left">View Details</span>
+                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                  </div>
+              </a>
+          </div>
+      </div>
+      
+      <!-- end of 4 box  -->
+  
         
         <!-- table head  -->
        <div class="row" style="width:100%;" >
@@ -42,7 +138,7 @@ img{
                    <!-- /.panel -->
                    <div class="panel panel-default" style="width:100%;">
                        <div class="panel-heading" style="width:100%;">
-                           <i class="fa fa-bar-chart-o fa-fw"></i> Ariticles
+                           <i class="fa fa-bar-chart-o fa-fw"></i>  <strong>All Articles</strong>
                        </div>
                        
                        
@@ -51,7 +147,8 @@ img{
                            <div class="row" style="width:100%;">
                                <div class="col-lg-4" style="width:100%;">
                                    <div class="table-responsive" style="width:100%;">
-      
+   
+   
       
       <!-- table -->
       <div class="tablediv" style="overflow:scroll;height: 2000px;">
