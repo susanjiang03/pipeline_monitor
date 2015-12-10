@@ -8,7 +8,7 @@
 	<head>
 
 		<link rel="stylesheet" type="text/css" href="{% static 'stylesheet/style.css' %}" />
-		<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Lobster+Two ' rel='stylesheet' type='text/css'>
 		<title>
 			News Aggregator | {% block title %} {% endblock %}
 		</title>	
@@ -49,6 +49,9 @@
 					<li>
 						<a href="{% url 'pmonitor:index' %}">See pipeline</a>
 					</li>
+                    <li>
+                    <a href="{% url 'dashboard:index' %}">Dashboard </a>
+                    </li>
 					<li>
 						<a href="{% url 'news:filterfeeds' %}">Create own Feed</a>
 					</li>

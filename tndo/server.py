@@ -126,7 +126,7 @@ class ClientSocket(websocket.WebSocketHandler):
 
     def on_message(self, message):
         if message == u'0':
-            executable = 'populate_articles.py'
+            executable = 'populate_articles_2.py'
             print 'run %s' % executable
             run_executable(executable)
         else:

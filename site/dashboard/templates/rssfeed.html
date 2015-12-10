@@ -1,0 +1,110 @@
+{% extends 'dash_base.html' %}
+
+{% block title %} Dashboard{% endblock %}
+
+{% block body_block %}
+<style>
+    
+
+.tablehead{
+     text-align:center;
+}
+.num{
+    width:5%;
+   text-align:center;
+}
+
+a{
+ word-wrap:break-word;
+}
+
+.title_th{
+    width: 20%;
+    word-wrap:break-word;
+    text-align:center;
+}
+
+.desc_th{
+    width:20%;
+    text-align:center;
+}
+
+.image{
+    text-align:center;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+.maintext{
+    width:30%;
+    text-align:center;
+}
+</style>
+
+            
+            <!-- end of 4 box  -->
+        <!-- table head  -->
+       <div class="row" style="width:100%;" >
+           <div class="col-lg-8" style="width:100%;">
+               <div class="panel panel-default" style="width:100%;">
+                   <!-- /.panel -->
+                   <div class="panel panel-default" style="width:100%;">
+                       <div class="panel-heading" style="width:100%;">
+                           <i class="fa fa-bar-chart-o fa-fw"></i>
+                           <b>&nbsp;&nbsp;Articles From  RSS URL : {{rssurl.rss_url}}  -- {{newspaper}} &nbsp;| &nbsp; {{category}} <b>
+                       </div>
+                       
+                       
+                       <!-- /.panel-heading -->
+                       <div class="panel-body" style="width:100%;">
+                           <div class="row" style="width:100%;">
+                               <div class="col-lg-4" style="width:100%;">
+                                   <div class="table-responsive" style="width:100%;">
+      
+      
+      <!-- table -->
+            <table border="5" style="text-align:center;">
+                <tr class="tablehead">
+                    <th class="num"> No. </th>
+                    <th class="title_th"> Articles</th>
+                    <th class="desc_th"> Description </th>
+                    <th class="image"> Image</th>
+                    <th class="maintext">Main Text</th>
+                </tr>
+                {% for each in articles %}
+                <tr class="tablerow">
+                    <div class="tablerow">
+                        <td class="num"> {{each.article_id}} </td>
+                        <td><a href="{{each.url}}">{{each.title}}</a></td>
+                        <td>{{each.description}}</td>
+                        {% if each.image %}
+                        <td class="image"><a href="{{each.image}}"><img src="{{each.image}}"></a></td>
+                        {% else %}
+                        <td class="image">None</td>
+                        {%endif%}
+                        {% if each.image %}
+                        <td class="maintext">{{each.text}}</td>
+                        {% else %}
+                        <td class="maintext">None</td>
+                        {%endif%}
+                    </div>
+                </tr>
+              {% endfor %}
+            
+            </table>
+   
+    </div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

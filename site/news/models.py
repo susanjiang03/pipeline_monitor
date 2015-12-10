@@ -1,13 +1,21 @@
 from django.db import models
 from datetime import datetime
 
+
+class  RSSurl(models.Model):
+    #rss
+    rss_url = models.URLField()
+    valid = models.BooleanField()
+
+
 #in order to create urls, newspaper and categories can be slugified
 class Article(models.Model):
     """
     Model to store all the article data coming from the RSS feeds
     obtained through feedparser
     """
-    #Newspaper | Category | Title | Link | Description
+    # rssurl_id | Newspaper | Category | Title | Link | Description
+    rssurl_id = models.IntegerField()
     newspaper = models.CharField(max_length=20) 
     category = models.CharField(max_length=15)
     title = models.TextField(default='')

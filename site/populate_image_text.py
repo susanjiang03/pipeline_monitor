@@ -19,19 +19,19 @@ from goose import Goose
 
 def populate_image_text():
     
-    total_create=0
-    total_exist=0
-    total_count=0
+    total_create = 0
+    total_exist = 0
+    total_count = 0
     #get the array of article
-    Articlelinks=Article.objects.distinct()
+    Articlelinks = Article.objects.distinct()
     
     #change start and end here, to extra images for articles in a range
     for each in Articlelinks:
         
-        create_count=0
-        exist_count=0
-        total_create=0
-        images_count=0
+        create_count = 0
+        exist_count = 0
+        total_create = 0
+        images_count = 0
         
         #parse page using goose
         g = Goose()
@@ -41,15 +41,15 @@ def populate_image_text():
             continue
         
         if article.top_image is not None:
-            top_image_url= article.top_image.src
-            images_count=1
-            cleaned_text=article.cleaned_text
+            top_image_url = article.top_image.src
+            images_count = 1
+            cleaned_text = article.cleaned_text
      
                 #save in db     |article_id  | image_url |
             obj, created = Image.objects.get_or_create(
-                    article_id=each.id,
-                    image_url=top_image_url,
-                    main_text=cleaned_text
+                    article_id = each.id,
+                    image_url = top_image_url,
+                    main_text = cleaned_text
             )
                         
             if created:
@@ -63,12 +63,12 @@ def populate_image_text():
 
         sys.stdout.flush()
         
-        total_create+=create_count
-        total_exist+=exist_count
+        total_create += create_count
+        total_exist += exist_count
         total_count += images_count
         sys.stdout.write('\n+++++++++++++++++++++++++Populating Top Image and Main Text for Article %d :+++++++++++++++++++++++++\n' %each.id)
         #stat for each article
-        if (images_count==0):
+        if images_count==0:
             sys.stdout.write('============Article Link:  %s\n' % each.url)
             sys.stdout.write('0 Images for this link | 0 (0.00 %) Created | 0 (0.00 %) Existed\n')
             sys.stdout.write('%s characters of main text for this link | 0 (0.00 %) Created | 0 (0.00 %) Existed\n' % len(cleaned_text))
@@ -83,7 +83,7 @@ def populate_image_text():
                 
                 
                 #stat in total
-    if (total_count==0):
+    if  total_count==0:
         sys.stdout.write('\nTotal Images: 0 | 0 (0.00 %) Created | 0 (0.00 %) Existed \n')
     else:
         total_create_pct = total_create * 100.0 / total_count
