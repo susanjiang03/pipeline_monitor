@@ -8,6 +8,7 @@ import django
 django.setup()
 
 from news.models import RSSurl
+from pmonitor.models import Task, Status
 import feedparser
 import re
 import sys
@@ -16,8 +17,43 @@ from datetime import datetime
 import warnings
 warnings.filterwarnings("ignore")
 
+#initialize tasks
+def initialize_tasks():
+    Task.objects.all().delete()
+    tasks = [
+        dict(
+            task_id='01',
+            name='File Check',
+            description='Loads the file containing urls.',
+            status=Status.NOT_RUN
+        ),
+        dict(
+            task_id='02',
+            name='URL Retrieval',
+            description='Retrieves urls.',
+            status=Status.NOT_RUN
+        ),
+        dict(
+            task_id='03',
+            name='Goose content extraction',
+            description='Retrive a summary and image from each article',
+            status=Status.NOT_RUN
+        )
+    ]
+    
+    prev_task = None
+    for task_meta in tasks:
+        task = Task.objects.create(**task_meta)
+        if tasks.index(task_meta) > 0:
+            task.parent = prev_task
+            task.save()
+        prev_task = task
+
+
 def populate_rssurls():
    
+    initialize_tasks()
+
     #open file containing rss links
     #prompt whether you want to open all urls or only test ones
     #prompt with 0 or 1
