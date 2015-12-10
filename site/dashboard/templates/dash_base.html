@@ -27,7 +27,7 @@
                                         
                                         <!-- Custom CSS -->
          <link href="{% static 'dashboard/dist/css/sb-admin-2.css' %}" rel="stylesheet">
-                                            
+             
                                             <!-- Morris Charts CSS -->
          <link href="{% static 'dashboard/bower_components/morrisjs/morris.css' %}" rel="stylesheet">
                                                 
@@ -54,7 +54,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'news:index'%}"> &nbsp; Home </a>
+            <a class="navbar-brand" href="{% url 'news:index'%}"> &nbsp; News </a>
         </div>
         <div class="navbar-header">
             <a class="navbar-brand" href="{% url 'pmonitor:index' %}"> See Pipeline</a>
@@ -62,32 +62,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href={% url 'news:about' %}>About </a>
         </div>
-        <!-- /.navbar-header -->
-        
-        <ul class="nav navbar-top-links navbar-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                </a>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-                </ul>
-        <!-- /.navbar-top-links -->
+               <!-- /.navbar-top-links -->
         
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
@@ -107,15 +82,7 @@
                         <a href="{% url 'dashboard:index' %}"><i class="fa fa-dashboard fa-fw"></i> RSS Feed Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> RSS Feeds<span class="fa arrow"></span></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Articles <span class="fa arrow"></span></a>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Images <span class="fa arrow"></span></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Main Texts <span class="fa arrow"></span></a>
+                        <a href="/dashboard/articles"><i class="fa fa-sitemap fa-fw"></i> All Articles <span class="fa arrow"></span></a>
                         </li>
                         </ul>
             </div>
@@ -123,111 +90,8 @@
         </div>
         <!-- /.navbar-static-side -->
     </nav>
-    <div id="wrapper">
-        
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">RSS Feeds Data Population Analysis</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"> {{summary.num_urls}}</div>
-                                    <div class="huge"> {{summary.pct_valid}}%</div>
-                                    <div>Number of RSS URL </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">{{summary.total_articles}}</div>
-                                    <div class="huge"> 100 % </div>
-                                    <div>Number of Feeds</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">{{summary.total_images}}</div>
-                                    <div class="huge">{{summary.pct_total_images}}%</div>
-                                    <div>Number of Images </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red" >
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">{{summary.total_text}}</div>
-                                    <div class="huge">{{summary.pct_total_text}}%</div>
-                                    <div>Number of Texts</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+</div>
+    
 	</body>
     
     <!--enter content here-->

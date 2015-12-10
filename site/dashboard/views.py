@@ -81,15 +81,21 @@ def index(request):
             "pct_of_text": round(pct_of_images,2)
             })
     #calculate the total pct
-    pct_total_images = total_images/float(total_articles) *100
-    pct_total_text   = total_text/float(total_articles) *100
-
+    if total_articles==0:
+       pct_total_images = 0
+       pct_total_text = 0
+       pct_articles = 0
+    else:
+       pct_total_images = total_images/float(total_articles) *100
+       pct_total_text   = total_text/float(total_articles) *100
+       pct_articles = total_articles/float(len(query)*10) * 100
     summary={
            "num_urls": num_urls,
            "valid_urls": valid_urls,
            "invalid_urls": invalid_urls,
            "pct_valid": round(pct_valid,2),
            "total_articles": total_articles,
+           "pct_articles": round(pct_articles,2),
            "total_images": total_images,
            "pct_total_images": round(pct_total_images,2),
            "total_text": total_text,
@@ -143,11 +149,50 @@ def rssurl(request,rssurl_id):
     return render(request,template,{'articles':articles,'rssurl':rssurl,'newspaper':newspaper,'category':category})
 
 
+'''this will read info for all aritlces'''
+def articles(request):
+    
+    template = 'articles.html'
+    articles = []
+    validrssurl = RSSurl.objects.filter(valid=True)
+  
+    for rss in validrssurl:
+        
+        feeds = Article.objects.filter(rssurl_id=rss.id)
+        
+        for each in feeds:
+            # get data from artilces: newspapaer | category | title |url| publish_date |despcriton
+            newspaper = each.newspaper.encode('UTF-8')
+            category = each.category.encode('UTF-8')
+            title = each.title
+            articleurl = each.url
+            publish_date = each.publish_date
+            description = each.description
+            if description > 100:
+               description = description[0:100]+"..."
+            # get data from Image:  Image | Text
+            image = ""
+            text = ""
+            image_text = Image.objects.filter(article_id=each.id)
+            if image_text:
+               image = image_text[0].image_url.encode('UTF-8')
+               text = image_text[0].main_text.encode('UTF-8')
+               if len(text) > 300:
+                   text = text[0:300]+"..."
+        
+             #append info to articles
+            articles.append({
+                         "newspaper": newspaper,
+                         "category": category,
+                         "title": title,
+                         "article_url": articleurl,
+                         "publish_date": publish_date,
+                         "description": description,
+                         "image": image,
+                         "text": text,
+                                    })
 
-
-
-
-
+    return render(request,template,{'articles':articles})
 
 
 

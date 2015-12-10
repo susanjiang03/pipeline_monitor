@@ -4,15 +4,11 @@
 {% block body_block %}
   <style>
   
-  .rss{
+  .long{
       width: 10%;
       word-wrap:break-word;
   }
-  
-  .valid{
-      width:5%;
-      text-align:center;
-  }
+
   
   #valid_true{
       width: 20px;
@@ -31,10 +27,6 @@
       margin: auto;
   }
   
-  .name{
-      width: 10%;
-      text-align:center;
-  }
   
   .num{
       width:5%;
@@ -46,108 +38,214 @@
       text-align:center;
   }
   </style>
-      
-      
 
-                <!-- /.row -->
-                <div class="row" style="width:100%;" >
-                    <div class="col-lg-8" style="width:100%;">
-                        <div class="panel panel-default" style="width:100%;">
-                            <!-- /.panel -->
-                            <div class="panel panel-default" style="width:100%;">
-                                <div class="panel-heading" style="width:100%;">
-                                    <i class="fa fa-bar-chart-o fa-fw"></i> Data Population Results of RSS feeds
+<div id="wrapper">
+    
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">RSS Feeds Data Population Analysis</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+         </div>
+
+      <!-- 4 data boxes -->
+
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge"> {{summary.num_urls}}</div>
+                        <div class="huge"> {{summary.pct_valid}}%</div>
+                        <div>Number of RSS URL </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{summary.total_articles}}</div>
+                        <div class="huge"> {{summary.pct_articles}}</div>
+                        <div class="huge"> </div>
+                        <div>Number of Feeds</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-shopping-cart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{summary.total_images}}</div>
+                        <div class="huge">{{summary.pct_total_images}}%</div>
+                        <div>Number of Images </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red" >
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-support fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{summary.total_text}}</div>
+                        <div class="huge">{{summary.pct_total_text}}%</div>
+                        <div>Number of Texts</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+</div>
+    
+    <!-- end of 4 box  -->
+    
+    <!-- /.row -->
+    <div class="row" style="width:100%;" >
+        <div class="col-lg-8" style="width:100%;">
+            <div class="panel panel-default" style="width:100%;">
+                <!-- /.panel -->
+                <div class="panel panel-default" style="width:100%;">
+                    <div class="panel-heading" style="width:100%;">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Data Population Results of RSS feeds
+                    </div>
+                    
+                    <!-- 4 data boxes -->
+                    
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" style="width:100%;">
+                        <div class="row" style="width:100%;">
+                            <div class="col-lg-4" style="width:100%;">
+                                <div class="table-responsive" style="width:100%;">
+                                    <table class="table table-bordered table-hover table-striped" style="width:auto%;">
+                                        <thead>
+                                            <tr>
+                                                <th class="num">#</th>
+                                                <th style="width:10%">RSS URL</th>
+                                                <th class="valid"  style="width:5%;text-align:center;"> Valid </th>
+                                                <th class="long"> Newspaper </td>
+                                                <th class="long"> Category </td>
+                                                <th class="num"> Number of Articles</th>
+                                                <th class="num"> Number of Images</th>
+                                                <th class="pct"> Percetage </th>
+                                                <th class="num"> Number of Main Text</th>
+                                                <th class="pct"> Percetage </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for each in feedurls %}
+                                            <tr class="tablerow" style="text-align:center">
+                                                <div class="tablerow">
+                                                    <td class="num"> {{each.rssurl_id}} </td>
+                                                    {% if each.valid %}
+                                                    <td> <a href="/dashboard/rssurl/{{each.rssurl_id}}">{{each.url}} </a> </td>
+                                                    <td><div id="valid_true"></div></td>
+                                                    <td> {{each.newspaper}}</td>
+                                                    <td> {{each.category}}</td>
+                                                    <td>{{each.number_of_articles}}</td>
+                                                    <td>{{each.number_of_images}}</td>
+                                                    <td><div class="pct-bar-horizontal">{{each.pct_of_images}}% <div></td>
+                                                    <td>{{each.number_of_text}}</td>
+                                                    <td><div class="pct-bar-horizontal">{{each.pct_of_text}}%</div></td>
+                                                    {% else %}
+                                                    <td class="rss"> {{each.url}} </td>
+                                                    <td class="valid"><div id="valid_false"> </div></td>
+                                                    <td ></td>
+                                                    <td></td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    
+                                                    {% endif %}
+                                                </div>
+                                            </tr>
+                                            {% endfor %}
+                                            
+                                            <tr class="tablerow">
+                                                <div>
+                                                    <td> Total</td>
+                                                    <td><p>Total RSS url: {{summary.num_urls}}; &nbsp;Valid RSS url: {{summary.valid_urls}}; Invalid RSS url: {{summary.invalid_urls}}</p></td>
+                                                    <td> {{summary.pct_valid}}% &nbsp; Valid</td>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td class="num"> {{summary.total_articles}}</td>
+                                                    <td class="num"> {{summary.total_images}}</td>
+                                                    <td class="pct"> {{summary.pct_total_images}} %</td>
+                                                    <td class="num"> {{summary.total_text}} </td>
+                                                    <td class="pct"> {{summary.pct_total_text}} % </td>
+                                                </div>
+                                            </tr>
+                                            </table>
+                                    </tbody>
+                                    </table>
                                 </div>
-                                <!-- /.panel-heading -->
-                                <div class="panel-body" style="width:100%;">
-                                    <div class="row" style="width:100%;">
-                                        <div class="col-lg-4" style="width:100%;">
-                                            <div class="table-responsive" style="width:100%;">
-                                                <table class="table table-bordered table-hover table-striped" style="width:auto%;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="num">#</th>
-                                                            <th class="rss">RSS URL</th>
-                                                            <th class="valid"> Valid </th>
-                                                            <th class="name"> Newspaper </td>
-                                                            <th class="name"> Category </td>
-                                                            <th class="num"> Number of Articles</th>
-                                                            <th class="num"> Number of Images</th>
-                                                            <th class="pct"> Percetage </th>
-                                                            <th class="num"> Number of Main Text</th>
-                                                            <th class="pct"> Percetage </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% for each in feedurls %}
-                                                        <tr class="tablerow">
-                                                            <div class="tablerow">
-                                                                <td class="num"> {{each.rssurl_id}} </td>
-                                                                {% if each.valid %}
-                                                                <td class="rss"> <a href="/dashboard/rssurl/{{each.rssurl_id}}">{{each.url}} </a> </td>
-                                                                <td class="valid"><div id="valid_true"></div></td>
-                                                                <td class="name"> {{each.newspaper}}</td>
-                                                                <td class="name"> {{each.category}}</td>
-                                                                <td class="num">{{each.number_of_articles}}</td>
-                                                                <td class="num">{{each.number_of_images}}</td>
-                                                                <td class="pct"><div class="pct-bar-horizontal">{{each.pct_of_images}}% <div></td>
-                                                                <td class="num">{{each.number_of_text}}</td>
-                                                                <td class="pct"><div class="pct-bar-horizontal">{{each.pct_of_text}}%</div></td>
-                                                                {% else %}
-                                                                <td class="rss"> {{each.url}} </td>
-                                                                <td class="valid"><div id="valid_false"> </div></td>
-                                                                <td >
-                                                                    <input type="button" id="delete_rssurl" class="btn btn-primary" value="Delete RSS">
-                                                                        </td>
-                                                                <td>
-                                                                    <input type="button" id="edit_rssurl" class="btn btn-primary" value="Fix RSS">
-                                                                        </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                
-                                                                {% endif %}
-                                                            </div>
-                                                        </tr>
-                                                        {% endfor %}
-                                                        
-                                                        <tr class="tablerow">
-                                                            <div>
-                                                                <td> Total</td>
-                                                                <td><p>Total RSS url: {{summary.num_urls}}; &nbsp;Valid RSS url: {{summary.valid_urls}}; Invalid RSS url: {{summary.invalid_urls}}</p></td>
-                                                                <td> {{summary.pct_valid}}% &nbsp; Valid</td>
-                                                                <td> </td>
-                                                                <td> </td>
-                                                                <td class="num"> {{summary.total_articles}}</td>
-                                                                <td class="num"> {{summary.total_images}}</td>
-                                                                <td class="pct"> {{summary.pct_total_images}} %</td>
-                                                                <td class="num"> {{summary.total_text}} </td>
-                                                                <td class="pct"> {{summary.pct_total_text}} % </td>
-                                                            </div>
-                                                        </tr>
-                                                        </table>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!-- /.table-responsive -->
-                                        </div>
-                                        <!-- /.col-lg-4 (nested) -->
-                                        <div class="col-lg-8">
-                                            <div id="morris-bar-chart"></div>
-                                        </div>
-                                        <!-- /.col-lg-8 (nested) -->
-                                    </div>
-                                    <!-- /.row -->
-                                </div>
-                                <!-- /.panel-body -->
+                                <!-- /.table-responsive -->
                             </div>
-                            <!-- /.panel -->
-                            
+                            <!-- /.col-lg-4 (nested) -->
+                            <div class="col-lg-8">
+                                <div id="morris-bar-chart"></div>
+                            </div>
+                            <!-- /.col-lg-8 (nested) -->
                         </div>
-                        <!-- /#wrapper -->
-                        
-                        
-                        
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+                
+            </div>
+            <!-- /#wrapper -->
+            
+            
 {% endblock %}
