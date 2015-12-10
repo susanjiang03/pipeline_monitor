@@ -38,10 +38,7 @@ img{
     height: auto;
     width: auto;
 }
-.maintext{
-    width:30%;
-    text-align:center;
-}
+
 </style>
 
             
@@ -72,7 +69,7 @@ img{
                     <th class="title_th"> Articles</th>
                     <th class="desc_th"> Description </th>
                     <th class="image"> Image</th>
-                    <th class="maintext">Main Text</th>
+                    <th class="maintext" style="width:30%;text-align:center;">Main Text</th>
                 </tr>
                 {% for each in articles %}
                 <tr class="tablerow">
@@ -83,12 +80,12 @@ img{
                         {% if each.image %}
                         <td class="image"><a href="{{each.image}}"><img src="{{each.image}}"></a></td>
                         {% else %}
-                        <td class="image">None</td>
+                        <td class="image"><i class="fa fa-frown-o fa-2x" style="color:#666699;"></td>
                         {%endif%}
                         {% if each.image %}
                         <td class="maintext">{{each.text}}</td>
                         {% else %}
-                        <td class="maintext">None</td>
+                        <td class="maintext"><i class="fa fa-minus-square-o  fa-2x" style="color:red;"></td>
                         {%endif%}
                     </div>
                 </tr>

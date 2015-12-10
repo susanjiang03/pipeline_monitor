@@ -15,7 +15,7 @@ class Article(models.Model):
     obtained through feedparser
     """
     # rssurl_id | Newspaper | Category | Title | Link | Description
-    rssurl_id = models.IntegerField()
+    rssurl_id = models.IntegerField(default=0)
     newspaper = models.CharField(max_length=20) 
     category = models.CharField(max_length=15)
     title = models.TextField(default='')

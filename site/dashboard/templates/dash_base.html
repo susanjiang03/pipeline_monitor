@@ -54,10 +54,10 @@
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'news:index'%}"> &nbsp; News </a>
+            <a class="navbar-brand" href="{% url 'news:index'%}"> &nbsp; News <i class="fa fa-newspaper-o"></i></a>
         </div>
         <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'pmonitor:index' %}"> See Pipeline</a>
+            <a class="navbar-brand" href="{% url 'pmonitor:index' %}"> See Pipeline <i class="fa fa-desktop"></i></a>
         </div>
         <div class="navbar-header">
             <a class="navbar-brand" href={% url 'news:about' %}>About </a>
@@ -79,13 +79,13 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a href="{% url 'dashboard:index' %}"><i class="fa fa-dashboard fa-fw"></i> RSS Feed Dashboard</a>
+                        <a href="{% url 'dashboard:index' %}"><i class="fa fa-dashboard fa-fw fa-2x"></i> RSS Feed Dashboard</a>
                     </li>
                     <li>
-                        <a href="/dashboard/articles"><i class="fa fa-files-o fa-fw fa-fw"></i> All Articles <span class="fa arrow"></span></a>
+                        <a href="/dashboard/articles"><i class="fa fa-files-o fa-fw fa-fw fa-2x"></i> All Articles <span class="fa arrow"></span></a>
                     </li>
                     <li>
-                        <a href="/dashboard/images"><i class="fa fa-picture-o fa-fw"></i> All Images <span class="fa arrow"></span></a>
+                        <a href="/dashboard/images"><i class="fa fa-picture-o fa-fw fa-2x"></i> All Images <span class="fa arrow"></span></a>
                     </li>
                         </ul>
             </div>
@@ -134,7 +134,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-tasks fa-5x"></i>
+                        <i class="fa fa-newspaper-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge">{{summary.total_articles}}</div>

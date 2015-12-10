@@ -195,6 +195,7 @@ def articles(request):
         
              #append info to articles
             articles.append({
+                         "article_id":each.id,
                          "newspaper": newspaper,
                          "category": category,
                          "title": title,
