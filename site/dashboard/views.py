@@ -294,6 +294,40 @@ def images(request):
     imagequery = Image.objects.all().distinct()
     return render(request,template,{'images':imagequery,'summary':summary})
 
+'''view all plain text etracted in database'''
+def texts(request):
+    
+    template = 'texts.html'
+    summary = request.session['summary']
+    textquery = Image.objects.filter(main_text__isnull=False)
+    maintext = []
+    #get article info from Image that has plain text extraced
+    for each in textquery:
+        #get main tet
+        text = each.main_text
+        article_id = each.article_id
+        article = Article.objects.filter(id=article_id)[0]
+        # get newspaper | category |title| publish_date| main_text
+        newspaper = article.newspaper
+        category = article.category
+        title = article.title
+        publish_date = article.publish_date
+        url = article.url
+
+        #save to maintext array
+        maintext.append({
+                        "article_id":article_id,
+                        "newspaper": newspaper,
+                        "category": category,
+                        "title": title,
+                        "article_url": url,
+                        "publish_date": publish_date,
+                        "text": text,
+                        "length":len(text)
+                        })
+    
+    return render(request,template,{'maintext':maintext,'summary':summary})
+
 
 
 

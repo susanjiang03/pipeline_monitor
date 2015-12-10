@@ -60,18 +60,18 @@
                                         </thead>
                                         <tbody>
                                             
-                                            <tr class="tablerow" style="font-weight:bold;text-align:center">
+                                            <tr class="tablerow" style="font-weight:bold;text-align:center;">
                                                 <div>
-                                                    <td> Total</td>
-                                                    <td><p>Total RSS url: {{summary.num_urls}}; &nbsp; <br>Valid RSS url: {{summary.valid_urls}}; Invalid RSS url: {{summary.invalid_urls}}</p></td>
-                                                    <td> {{summary.pct_valid}}% &nbsp; Valid</td>
+                                                    <td style="vertical-align: middle;"> Total</td>
+                                                    <td style="vertical-align: middle;"><p>Total RSS url: {{summary.num_urls}}; &nbsp; <br>Valid RSS url: {{summary.valid_urls}}; Invalid RSS url: {{summary.invalid_urls}}</p></td>
+                                                    <td style="vertical-align: middle;"> {{summary.pct_valid}}% &nbsp; Valid</td>
                                                     <td> </td>
                                                     <td> </td>
-                                                    <td class="num"> {{summary.total_articles}}</td>
-                                                    <td class="num"> {{summary.total_images}}</td>
-                                                    <td class="pct"> {{summary.pct_total_images}} %</td>
-                                                    <td class="num"> {{summary.total_text}} </td>
-                                                    <td class="pct"> {{summary.pct_total_text}} % </td>
+                                                    <td class="num" style="vertical-align: middle;"> {{summary.total_articles}}</td>
+                                                    <td class="num" style="vertical-align: middle;"> {{summary.total_images}}</td>
+                                                    <td class="pct" style="vertical-align: middle;"> {{summary.pct_total_images}} %</td>
+                                                    <td class="num" style="vertical-align: middle;"> {{summary.total_text}} </td>
+                                                    <td class="pct" style="vertical-align: middle;"> {{summary.pct_total_text}} % </td>
                                                 </div>
                                             </tr>
 
@@ -80,31 +80,32 @@
                                                 <div class="tablerow">
                                                     <td class="num"> {{each.rssurl_id}} </td>
                                                     {% if each.valid %}
-                                                    <td style="text-align:left"> <a href="/dashboard/rssurl/{{each.rssurl_id}}">{{each.url}} </a> </td>
-                                                    <td><i class="fa fa-check-circle fa-2x" style="color:green"></i></td>
-                                                    <td> {{each.newspaper}}</td>
-                                                    <td> {{each.category}}</td>
+                                                    <td style="text-align:left;vertical-align: middle;">
+                                                        <a href="/dashboard/rssurl/{{each.rssurl_id}}">{{each.url}} </a> </td>
+                                                    <td style="vertical-align: middle;"><i class="fa fa-check-circle fa-2x" style="color:green"></i></td>
+                                                    <td style="vertical-align: middle;"> {{each.newspaper}}</td>
+                                                    <td style="vertical-align: middle;"> {{each.category}}</td>
                                                     
                                                     {% if each.number_of_articles == 0 %}
-                                                    <td><i class="fa fa-frown-o  fa-2x" style="color:#666699;"></i></td>
+                                                    <td style="vertical-align: middle;"><i class="fa fa-frown-o  fa-2x" style="color:#666699;"></i></td>
                                                     
                                                     {% else %}
-                                                    <td>{{each.number_of_articles}}</td>
+                                                    <td style="vertical-align: middle;">{{each.number_of_articles}}</td>
                                                     {% endif %}
                                                     
                                                     {% if each.number_of_images == 0 %}
-                                                    <td><i class="fa fa-frown-o fa-2x" style="color:#666699;"></i></td>
+                                                    <td style="vertical-align: middle;"><i class="fa fa-frown-o fa-2x" style="color:#666699;"></i></td>
                                                     {% else %}
-                                                    <td>{{each.number_of_images}}</td>
+                                                    <td style="vertical-align: middle;">{{each.number_of_images}}</td>
                                                     {% endif %}
-                                                    <td><div class="pct-bar-horizontal">{{each.pct_of_images}}% <div></td>
+                                                    <td style="vertical-align: middle;"><div class="pct-bar-horizontal">{{each.pct_of_images}}% <div></td>
                                                     
                                                     {% if each.number_of_text == 0 %}
-                                                    <td><i class="fa fa fa-minus-square-o fa-2x" style="color:red;"></i></td>
+                                                    <td style="vertical-align: middle;"><i class="fa fa fa-minus-square-o fa-2x" style="color:red;"></i></td>
                                                     {% else %}
-                                                    <td>{{each.number_of_text}}</td>
+                                                    <td style="vertical-align: middle;">{{each.number_of_text}}</td>
                                                     {% endif %}
-                                                    <td><div class="pct-bar-horizontal">{{each.pct_of_text}}%</div></td>
+                                                    <td style="vertical-align: middle;"><div class="pct-bar-horizontal">{{each.pct_of_text}}%</div></td>
                                                     
                                                     {% else %}
                                                     <td class="rss"> {{each.url}} </td>

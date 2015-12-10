@@ -75,7 +75,7 @@ def populate_image_text():
         total_count += images_count
         sys.stdout.write('\n+++++++++++++++++++++++++Populating Top Image and Main Text for Article %d :+++++++++++++++++++++++++\n' %each.id)
         #stat for each article
-        if images_count==0:
+        if images_count == 0:
             sys.stdout.write('============Article Link:  %s\n' % each.url)
             sys.stdout.write('0 Images for this link | 0 (0.00 %) Created | 0 (0.00 %) Existed\n')
             sys.stdout.write('%s characters of main text for this link | 0 (0.00 %) Created | 0 (0.00 %) Existed\n' % len(cleaned_text))
@@ -93,7 +93,7 @@ def populate_image_text():
     task3.save()
         
     #stat in total
-    if  total_count==0:
+    if  total_count == 0:
         sys.stdout.write('\nTotal Images: 0 | 0 (0.00 %) Created | 0 (0.00 %) Existed \n')
     else:
         total_create_pct = total_create * 100.0 / total_count
@@ -107,12 +107,12 @@ def populate_image_text():
 #execute here
 if __name__ == '__main__':
     
-    Articlelinks=Article.objects.distinct()
-    num=len(Articlelinks)
+    Articlelinks = Article.objects.distinct()
+    num = len(Articlelinks)
     #start
     date_format = "%Y-%m-%d %H:%M:%S.%f"
     print "Starting image and text population script..."
-    begin=datetime.strptime(str(datetime.now()),date_format)
+    begin = datetime.strptime(str(datetime.now()),date_format)
     
     populate_image_text()
     

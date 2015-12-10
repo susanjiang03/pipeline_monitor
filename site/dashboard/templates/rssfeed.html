@@ -79,18 +79,18 @@ img{
                 {% for each in articles %}
                 <tr class="tablerow">
                     <div class="tablerow">
-                        <td class="num"> {{each.article_id}} </td>
-                        <td><a href="{{each.url}}">{{each.title}}</a></td>
+                        <td class="num" style="vertical-align: middle;"> {{each.article_id}} </td>
+                        <td style="vertical-align: middle;"><a href="{{each.url}}">{{each.title}}</a></td>
                         <td>{{each.description}}</td>
                         {% if each.image %}
-                        <td class="image"><a href="{{each.image}}"><img src="{{each.image}}"></a></td>
+                        <td class="image" style="vertical-align: middle;"><a href="{{each.image}}"><img src="{{each.image}}"></a></td>
                         {% else %}
-                        <td class="image"><i class="fa fa-frown-o fa-2x" style="color:#666699;"></td>
+                        <td class="image" style="vertical-align: middle;"><i class="fa fa-frown-o fa-2x" style="color:#666699;"></td>
                         {%endif%}
                         {% if each.image %}
-                        <td class="maintext">{{each.text}}</td>
+                        <td class="maintext" style="vertical-align: middle;">{{each.text}}</td>
                         {% else %}
-                        <td class="maintext"><i class="fa fa-minus-square-o  fa-2x" style="color:red;"></td>
+                        <td class="maintext" style="vertical-align: middle;"><i class="fa fa-minus-square-o  fa-2x" style="color:red;"></td>
                         {%endif%}
                     </div>
                 </tr>
