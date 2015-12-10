@@ -309,10 +309,12 @@ def allarticles(request):
     template = 'allarticles.html'
 
     image_text = Image.objects.all().distinct()
-    num = len(image_text)
     article_main = []
     max_length = 2000
-    for each in image_text:
+    num_article_display = 30
+    if len(image_text)< 30:
+        num_article_display = len(image_text)
+    for each in image_text[0: num_article_display]:
         article = Article.objects.filter(id=each.article_id)[0]
         main_text = each.main_text
         if len(each.main_text) > max_length:
@@ -326,7 +328,7 @@ def allarticles(request):
             "text":main_text
         })
 
-    return render(request, template, {'article_main':article_main, 'num':num})
+    return render(request, template, {'article_main':article_main, 'num':num_article_display})
 
 
 
