@@ -49,13 +49,15 @@ def populate():
     #open file containing rss links
     #prompt whether you want to open all urls or only test ones
     #prompt with 0 or 1
-    urls_to_open = raw_input("Choose 0 for 5 urls, 1 for all urls\n")
+    # urls_to_open = raw_input("Choose 0 for 5 urls, 1 for all urls\n")
 
+    urls_to_open = '0'
+    dir = os.path.dirname(__file__)
     #check here
     if urls_to_open == '0':
-        file_to_open = 'testurls.txt'
+        file_to_open = os.path.join(dir, 'testurls.txt')
     else:
-        file_to_open = 'rssurls.txt'
+        file_to_open = os.path.join(dir, 'rssurls.txt')
 
     task1 = Task.objects.get(task_id='01')
     task1.status = Status.IN_PROGRESS

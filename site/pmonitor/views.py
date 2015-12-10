@@ -14,7 +14,11 @@ def index(request):
         right_menu=dict(
             menu_title='Jobs',
             menu_items=[
-                dict(label='Run URL Fetch Job', url='#')
+                dict(
+                    label='Run Populate Articles Job',
+                    url='javascript:void(0);',
+                    onclick='javascript:populate_articles();'
+                )
             ]
         ),
         main_nav=[

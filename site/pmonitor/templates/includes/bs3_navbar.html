@@ -34,7 +34,7 @@
           {% if menu_item.label == 'separator' %}
             <li role="separator" class="divider"></li>
           {% else %}
-            <li><a href="{{ menu_item.url }}">{{ menu_item.label }}</a></li>
+            <li><a href="{{ menu_item.url }}" {% if menu_item.onclick %}onclick="{{ menu_item.onclick }}"{% endif %}>{{ menu_item.label }}</a></li>
           {% endif %}
           {% endfor %}
           </ul>

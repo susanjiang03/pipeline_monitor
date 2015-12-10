@@ -15,13 +15,21 @@ import tornado.web
 from tornado import websocket
 from pmonitor.models import Task, Status
 from json import dumps
-from datetime import datetime, date
+from datetime import datetime
+import subprocess
 
 __author__ = 'jhohman'
 
 GLOBALS = dict(
     sockets=[]
 )
+
+
+def run_executable(executable):
+    subprocess.Popen(
+        ['python', os.path.join('..', 'site', executable)],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    )
 
 
 class Pipeline(object):
@@ -116,20 +124,17 @@ class ClientSocket(websocket.WebSocketHandler):
         print "WebSocket closed"
         GLOBALS['sockets'].remove(self)
 
-
-class Announcer(tornado.web.RequestHandler):
-    def get(self, *args, **kwargs):
-        data = self.get_argument('data')
-        for socket in GLOBALS['sockets']:
-            socket.write_message(data)
-
-        print 'Posted data: %s' % data
-        self.write('Posted data: %s' % data)
+    def on_message(self, message):
+        if message == u'0':
+            executable = 'populate_articles.py'
+            print 'run %s' % executable
+            run_executable(executable)
+        else:
+            print 'Unknown message received: %s' % message
 
 
 application = tornado.web.Application([
     (r"/socket", ClientSocket),
-    (r"/push", Announcer),
 ])
 
 if __name__ == "__main__":
